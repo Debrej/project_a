@@ -1,0 +1,26 @@
+{
+  "name": "project_a_api",
+  "version": "0.1.0",
+  "description": "Project A is the new Assomaker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Debrej/project_a.git"
+  },
+  "keywords": [
+    "planning",
+    "event"
+  ],
+  "author": "Thibaut BELLANGER, Ludovic GIRY",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Debrej/project_a/issues"
+  },
+  "homepage": "https://github.com/Debrej/project_a#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

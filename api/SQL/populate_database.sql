@@ -1,3 +1,14 @@
+/*
+
+  DATABASE POPULATE SCRIPT FOR project_a
+  v0.1
+
+  Please refer to documentation at this address to know how to use it :
+  https://github.com/Debrej/project_a/tree/master/api/SQL
+
+*/
+
+
 /*Populating EVENT table*/
 INSERT INTO event (name, description, start_date, end_date) VALUES ('24h de l\'INSA', 'le festival le plus charismatique de france', '2019/05/17', '2019/05/19'),
 																   ('Open Air', 'Ca tourne mal', '2019/05/06','2019/05/09');

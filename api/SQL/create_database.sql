@@ -1,11 +1,12 @@
 /*
 
-  DATABASE CREATION SCRIPT FOR **project_a** v0.1
+  DATABASE CREATION SCRIPT FOR project_a
+  v0.1
 
   Please refer to documentation at this address to know how to use it :
-  TODO place the link of the documentation
+  https://github.com/Debrej/project_a/tree/master/api/SQL
 
- */
+*/
 
 /*region DATABASE CREATION*/
 
