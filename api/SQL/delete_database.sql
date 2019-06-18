@@ -1,11 +1,8 @@
 /*
-
   DATABASE DELETION SCRIPT FOR project_a
   v0.1
-
   Please refer to documentation at this address to know how to use it :
   https://github.com/Debrej/project_a/tree/master/api/SQL
-
 */
 
 DROP TABLE requirement;
