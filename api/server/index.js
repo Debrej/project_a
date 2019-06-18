@@ -1,8 +1,17 @@
+//region SET UP
+
 const express = require('express');
 const mysql = require('mysql');
+const dateFormat = require('date-format');
+
+const host = "localhost:2424";
 const pwd_bd = require('./assets/json/pwd.json').pwd_project_a;
 
 const app = express();
+
+//endregion
+
+//region DATABASE CONNECTION
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -19,6 +28,20 @@ connection.query('SELECT 1 + 1 AS status', function(err, rows, fields) {
         console.log('Connection to DB acquired\n');
     }
 });
+
+//endregion
+
+//region MIDDLEWARE
+
+app.use(function(req, res, next){
+    let log = "["+dateFormat(new Date(), "yyyy-mm-dd h:MM:ss")+"] : "+req.method+" "+host+req.originalUrl+" FROM "+req.ip+"\n";
+    console.log(log);
+    next();
+});
+
+//endregion
+
+//region SERVER START
 
 app.listen(2424, function(){
     console.log('Server running on port 2424\n\nLoading requests...');
@@ -46,3 +69,5 @@ app.listen(2424, function(){
 
     console.log('Loading requests complete\n');
 });
+
+//endregion
