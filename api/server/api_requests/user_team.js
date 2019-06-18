@@ -1,4 +1,4 @@
-module.exports = function(app){
+module.exports = function(app, connection){
 
     console.log('user_team requests loaded');
 
