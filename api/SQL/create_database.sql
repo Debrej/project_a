@@ -12,7 +12,7 @@
 
 CREATE DATABASE IF NOT EXISTS project_a;
 USE project_a;
-GRANT ALL PRIVILEGES ON project_a.* TO 'project_a'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON project_a.* TO 'project_a'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';
 
 /*endregion*/
 
