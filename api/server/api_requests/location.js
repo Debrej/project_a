@@ -1,4 +1,6 @@
-module.exports = function(app, connection){
+module.exports = function(app, sequelize, models){
+
+    let Location = models.Location;
 
     console.log('location requests loaded');
 

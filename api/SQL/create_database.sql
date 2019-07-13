@@ -27,6 +27,8 @@ CREATE TABLE specialty(
 
   name VARCHAR(255) NOT NULL,
   year INT(2) NOT NULL,
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_SPECIALTY PRIMARY KEY (id_specialty)
 );
@@ -63,6 +65,9 @@ CREATE TABLE user (
 
   validity_status BOOLEAN,
 
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
   CONSTRAINT PK_USER PRIMARY KEY (id_user),
   CONSTRAINT FK_USER_SPECIALTY FOREIGN KEY (id_specialty) REFERENCES specialty(id_specialty)
 );
@@ -76,6 +81,9 @@ CREATE TABLE team(
   name VARCHAR(255),
 
   id_supervisor INT(6),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_TEAM PRIMARY KEY (id_team),
   CONSTRAINT FK_TEAM_SUPERVISOR FOREIGN KEY (id_supervisor) REFERENCES user(id_user)
@@ -91,6 +99,9 @@ CREATE TABLE notification(
 
   id_user INT(6),
   id_team INT(6),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_NOTIFICATION PRIMARY KEY (id_notification),
   CONSTRAINT FK_NOTIFICATION_USER FOREIGN KEY (id_user) REFERENCES user(id_user),
@@ -112,6 +123,9 @@ CREATE TABLE location(
   gps_lat DECIMAL(9,6) NOT NULL,
   description MEDIUMTEXT,
 
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
   CONSTRAINT PK_LOCATION PRIMARY KEY (id_location)
 );
 
@@ -126,6 +140,9 @@ CREATE TABLE event(
 
   start_date DATETIME NOT NULL,
   end_date DATETIME NOT NULL,
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_EVENT PRIMARY KEY (id_event)
 );
@@ -145,6 +162,9 @@ CREATE TABLE activity(
   end_date DATETIME NOT NULL,
 
   id_supervisor INT(6),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_ACTIVITY PRIMARY KEY (id_activity),
   CONSTRAINT FK_ACTIVITY_EVENT FOREIGN KEY (id_event) REFERENCES event(id_event),
@@ -168,6 +188,9 @@ CREATE TABLE task(
   id_location INT(6),
   id_team INT(6),
 
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
   CONSTRAINT PK_TASK PRIMARY KEY (id_task),
   CONSTRAINT FK_TASK_ACTIVITY FOREIGN KEY (id_activity) REFERENCES activity(id_activity),
   CONSTRAINT FK_TASK_SUPERVISOR FOREIGN KEY (id_supervisor) REFERENCES user(id_user),
@@ -188,6 +211,9 @@ CREATE TABLE comment(
   content TINYTEXT NOT NULL,
   date DATETIME,
 
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
   CONSTRAINT PK_COMMENT PRIMARY KEY (id_comment),
   CONSTRAINT FK_COMMENT_USER FOREIGN KEY (id_user) REFERENCES user(id_user),
   CONSTRAINT FK_COMMENT_ACTIVITY FOREIGN KEY (id_activity) REFERENCES activity(id_activity),
@@ -206,6 +232,9 @@ CREATE TABLE equipment_type(
 
   name VARCHAR(255) NOT NULL,
 
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
   CONSTRAINT PK_EQUIPMENT_TYPE PRIMARY KEY (id_equipment_type)
 );
 
@@ -222,6 +251,9 @@ CREATE TABLE equipment(
   quantity INT(4) NOT NULL,
   id_pickup_location INT(6) NOT NULL,
   id_drop_location INT(6) NOT NULL,
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_EQUIPMENT PRIMARY KEY (id_equipment),
   CONSTRAINT FK_EQUIPEMENT_EQUIPMENT_TYPE FOREIGN KEY (id_equipment_type) REFERENCES equipment_type(id_equipment_type),
@@ -240,6 +272,9 @@ CREATE TABLE shift_category(
   id_shift_category INT(6) AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
 
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
   CONSTRAINT PK_SHIFT_CATEGORY PRIMARY KEY (id_shift_category)
 );
 
@@ -255,6 +290,9 @@ CREATE TABLE shift(
 
   charisma INT(3) NOT NULL,
 
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
   CONSTRAINT PK_SHIFT PRIMARY KEY (id_shift),
   CONSTRAINT FK_SHIFT_SHIFT_CATEGORY FOREIGN KEY (id_shift_category) REFERENCES shift_category(id_shift_category)
 );
@@ -268,31 +306,66 @@ CREATE TABLE shift(
 /*region ASSIGMENT*/
 
 /*
+  Availability is a mean to know when a user is available to be assigned
+ */
+CREATE TABLE availability(
+  id_availability INT(6),
+  id_shift INT(6),
+  id_user INT(6),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
+  CONSTRAINT PK_AVAILABILITY PRIMARY KEY (id_availability),
+  CONSTRAINT FK_AVAILABILITY_SHIFT FOREIGN KEY (id_shift) REFERENCES shift(id_shift),
+  CONSTRAINT FK_AVAILABILITY_USER FOREIGN KEY (id_user) REFERENCES user(id_user)
+);
+
+/*
   Assignment for user means that the user is assigned to a task, so it is on their planning
  */
 CREATE TABLE assignment_user(
   id_task INT(6),
-  id_shift INT(6),
-  id_user INT(6),
+  id_availability INT(6),
 
-  CONSTRAINT PK_ASSIGNMENT_USER PRIMARY KEY (id_task, id_user, id_shift),
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
+  CONSTRAINT PK_ASSIGNMENT_USER PRIMARY KEY (id_task, id_availability),
   CONSTRAINT FK_ASSIGNMENT_USER_TASK FOREIGN KEY (id_task) REFERENCES task(id_task),
-  CONSTRAINT FK_ASSIGNMENT_USER_SHIFT FOREIGN KEY (id_shift) REFERENCES shift(id_shift),
-  CONSTRAINT FK_ASSIGNMENT_USER_USER FOREIGN KEY (id_user) REFERENCES user(id_user)
+  CONSTRAINT FK_ASSIGNMENT_USER_AVAILABILITY FOREIGN KEY (id_availability) REFERENCES availability(id_availability)
+);
+
+/*
+  A task has multiple equipment with quantity attached
+ */
+CREATE TABLE task_equipment_requirement(
+  id_task_equipment_requirement INT(6),
+  id_task INT(6),
+  id_equipment INT(6),
+
+  quantity INT(3),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
+  CONSTRAINT PK_TASK_EQUIPMENT PRIMARY KEY (id_task_equipment_requirement),
+  CONSTRAINT FK_TASK_EQUIPMENT_TASK FOREIGN KEY (id_task) REFERENCES task(id_task),
+  CONSTRAINT FK_TASK_EQUIPMENT_EQUIPMENT FOREIGN KEY (id_equipment) REFERENCES equipment(id_equipment)
 );
 
 /*
   Assignment for equipment means that the equipment is assigned to a task, so it is on its planning
  */
 CREATE TABLE assignment_equipment(
-  id_task INT(6),
   id_shift INT(6),
-  id_equipment INT(6),
+  id_task_equipment_requirement INT(6),
 
-  CONSTRAINT PK_ASSIGNMENT_EQUIPMENT PRIMARY KEY (id_task, id_equipment, id_shift),
-  CONSTRAINT FK_ASSIGNMENT_EQUIPMENT_TASK FOREIGN KEY (id_task) REFERENCES task(id_task),
-  CONSTRAINT FK_ASSIGNMENT_EQUIPMENT_SHIFT FOREIGN KEY (id_shift) REFERENCES shift(id_shift),
-  CONSTRAINT FK_ASSIGNMENT_EQUIPMENT_EQUIPMENT FOREIGN KEY (id_equipment) REFERENCES equipment(id_equipment)
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
+  CONSTRAINT PK_ASSIGNMENT_EQUIPMENT PRIMARY KEY (id_task_equipment_requirement, id_shift),
+  CONSTRAINT FK_ASSIGNMENT_EQUIPMENT_TASK FOREIGN KEY (id_task_equipment_requirement) REFERENCES task_equipment_requirement(id_task_equipment_requirement)
 );
 
 /*endregion*/
@@ -304,12 +377,15 @@ CREATE TABLE assignment_equipment(
  */
 CREATE TABLE requirement(
   id_requirement INT(6) AUTO_INCREMENT,
-  id_task INT(6),
+  id_task INT(6) NOT NULL,
 
   id_user INT(6),
   id_team INT(6),
 
   quantity INT(3),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_REQUIREMENT PRIMARY KEY (id_requirement),
   CONSTRAINT FK_REQUIREMENT_TASK FOREIGN KEY (id_task) REFERENCES task(id_task),
@@ -322,23 +398,14 @@ CREATE TABLE requirement(
 /*region OTHER TABLES*/
 
 /*
-  Availability is a mean to know when a user is available to be assigned
- */
-CREATE TABLE availability(
-  id_shift INT(6),
-  id_user INT(6),
-
-  CONSTRAINT PK_AVAILABILITY PRIMARY KEY (id_shift, id_user),
-  CONSTRAINT FK_AVAILABILITY_SHIFT FOREIGN KEY (id_shift) REFERENCES shift(id_shift),
-  CONSTRAINT FK_AVAILABILITY_USER FOREIGN KEY (id_user) REFERENCES user(id_user)
-);
-
-/*
   A user can be in multiple team
  */
 CREATE TABLE user_team(
   id_user INT(6),
   id_team INT(6),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_USER_TEAM PRIMARY KEY (id_user, id_team),
   CONSTRAINT FK_USER_TEAM_USER FOREIGN KEY (id_user) REFERENCES user(id_user),
@@ -352,35 +419,28 @@ CREATE TABLE task_shift(
  id_task INT(6),
  id_shift INT(6),
 
+ createdAt DATETIME,
+ updatedAt DATETIME,
+
  CONSTRAINT PK_TASK_SHIFT PRIMARY KEY (id_task,id_shift),
  CONSTRAINT FK_TASK_SHIFT_TASK FOREIGN KEY (id_task) REFERENCES task(id_task),
  CONSTRAINT FK_TASK_SHIFT_SHIFT FOREIGN KEY (id_shift) REFERENCES shift(id_shift)
 );
 
 /*
-  A task has multiple equipment with quantity attached
- */
-CREATE TABLE task_equipment(
-  id_task INT(6),
-  id_equipment INT(6),
-
-  quantity INT(3),
-
-  CONSTRAINT PK_TASK_EQUIPMENT PRIMARY KEY (id_task, id_equipment),
-  CONSTRAINT FK_TASK_EQUIPMENT_TASK FOREIGN KEY (id_task) REFERENCES task(id_task),
-  CONSTRAINT FK_TASK_EQUIPMENT_EQUIPMENT FOREIGN KEY (id_equipment) REFERENCES equipment(id_equipment)
-);
-
-/*
   An activity has multiple equipment with quantity attached
  */
 CREATE TABLE activity_equipment(
+  id_activity_equipment_requirement INT(6),
   id_activity INT(6),
   id_equipment INT(6),
 
   quantity INT(3),
 
-  CONSTRAINT PK_ACTIVITY_EQUIPMENT PRIMARY KEY (id_activity, id_equipment),
+  createdAt DATETIME,
+  updatedAt DATETIME,
+
+  CONSTRAINT PK_ACTIVITY_EQUIPMENT PRIMARY KEY (id_activity_equipment_requirement),
   CONSTRAINT FK_ACTIVITY_EQUIPMENT_ACTIVITY FOREIGN KEY (id_activity) REFERENCES task(id_task),
   CONSTRAINT FK_ACTIVITY_EQUIPMENT_EQUIPMENT FOREIGN KEY (id_equipment) REFERENCES equipment(id_equipment)
 );
@@ -391,6 +451,9 @@ CREATE TABLE activity_equipment(
 CREATE TABLE activity_location(
   id_activity INT(6),
   id_location INT(6),
+
+  createdAt DATETIME,
+  updatedAt DATETIME,
 
   CONSTRAINT PK_ACTIVITY_LOCATION PRIMARY KEY (id_activity, id_location),
   CONSTRAINT FK_ACTIVITY_LOCATION_ACTIVITY FOREIGN KEY (id_activity) REFERENCES activity(id_activity),

@@ -1,4 +1,4 @@
-module.exports = function(app, connection){
+module.exports = function(app, sequelize){
 
     console.log('team requests loaded');
 
