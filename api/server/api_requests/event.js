@@ -20,7 +20,7 @@ module.exports = function(app, sequelize, models){
     /**
     *   This request gets an event according to its id.
     *   arguments :
-    *               id : the numeral id of the event
+    *               id : the id of the event
     *   returns :
     *               a json object containing the event
     */
@@ -59,7 +59,7 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
-    *   This request updates the event according to the id.
+    *   This request updates the event according to its id.
     *   arguments :
     *               id : the id of the event
     *               name : the new name of the event
@@ -72,7 +72,10 @@ module.exports = function(app, sequelize, models){
     app.put('/event/:id', function(req, res){
         Event.update(
             {
-                name: "24h de l\'INSA 2019"
+                name: req.body.name,
+                description: req.body.description,
+                start_date: new Date(req.body.start_date),
+                end_date: new Date(req.body.end_date)
             },
             {
                 where: {
@@ -89,7 +92,7 @@ module.exports = function(app, sequelize, models){
 
 
     /**
-    *   This request delete an event according to the id.
+    *   This request delete an event according to its id.
     *   arguments :
     *               id : the id of the event
     *   returns :
