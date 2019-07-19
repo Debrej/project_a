@@ -70,7 +70,8 @@ module.exports = function(sequelize, Sequelize, Specialty) {
 
         validity_status: {
             type: Sequelize.BOOLEAN,
-            allowNull: false
+            allowNull: false,
+            defaultValue: false
         }
     }, {
         // options
