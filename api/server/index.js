@@ -64,10 +64,11 @@ console.log('\nLoading requests complete\n');
 *   Syncing the database mean that if there was a table missing from the database that we could have added, it will add this table.
 *   Once its done, we launch the server as we are ready to fulfill requests.
 * */
-sequelize.sync({ force: false })
+sequelize.sync({ force: true })
     .then(() => {
         console.log("\nDatabase synced");
         app.listen(2424, function() {
+            require('./populate')(sequelize, models);
             console.log('\n\tPROJECT_A LOADING COMPLETE');
             console.log('\nServer running on port 2424');
         });

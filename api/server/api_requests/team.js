@@ -34,13 +34,15 @@ module.exports = function(app, sequelize, models){
      *  This requests creates a new team with its name.
      *  arguments :
      *              name: the name of the team
+     *              supervisor_id: the user id of the supervisor
      *
      *  returns :
      *              a json object containing the created team
      */
     app.post('/team', function(req, res){
         Team.create({
-            name: req.body.name
+            name: req.body.name,
+            supervisor: req.body.supervisor_id
         }).then(team => {
             res.send({'team': team});
         }).catch(err => {
@@ -53,6 +55,7 @@ module.exports = function(app, sequelize, models){
      *  arguments :
      *              id : the id of the team
      *              name: the name of the team
+     *              supervisor_id: the user id of the supervisor
      *
      *  returns :
      *              a result being 1 if succeeded, 0 else
@@ -60,7 +63,8 @@ module.exports = function(app, sequelize, models){
     app.put('/team/:id', function(req, res){
         Team.update(
             {
-                name: req.body.name
+                name: req.body.name,
+                supervisor: req.body.supervisor_id
             },{
                 where: {
                     id: req.params.id
