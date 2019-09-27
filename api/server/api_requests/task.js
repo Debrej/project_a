@@ -45,7 +45,7 @@ module.exports = function(app, sequelize, models){
      *              description: a description of the task
      *              start_date: the starting date and time of the task
      *              end_date: the ending date and time of the task
-     *              supervisor: the user id of the supervisor of the task
+     *              supervisor_id: the user id of the supervisor of the task
      *              team_id: the team id
      *              location_id: the location of the task
      *              activity_id: the activity id of the activity the task belongs to
@@ -60,7 +60,7 @@ module.exports = function(app, sequelize, models){
                 description: req.body.description,
                 start_date: req.body.start_date,
                 end_date: req.body.end_date,
-                supervisor: req.body.supervisor,
+                supervisor: req.body.supervisor_id,
                 teamId: req.body.team_id,
                 locationId: req.body.location_id,
                 activityId: req.body.activity_id
@@ -82,7 +82,7 @@ module.exports = function(app, sequelize, models){
      *              description: a description of the task
      *              start_date: the starting date and time of the task
      *              end_date: the ending date and time of the task
-     *              supervisor: the user id of the supervisor of the task
+     *              supervisor_id: the user id of the supervisor of the task
      *              team_id: the team id
      *              location_id: the location of the task
      *              activity_id: the activity id of the activity the task belongs to
@@ -97,7 +97,7 @@ module.exports = function(app, sequelize, models){
                 description: req.body.description,
                 start_date: req.body.start_date,
                 end_date: req.body.end_date,
-                supervisor: req.body.supervisor,
+                supervisor: req.body.supervisor_id,
                 teamId: req.body.team_id,
                 locationId: req.body.location_id,
                 activityId: req.body.activity_id

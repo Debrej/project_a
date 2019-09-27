@@ -45,7 +45,7 @@ module.exports = function(app, sequelize, models){
      *              description: a description of the activity
      *              start_date: the starting date and time of the activity
      *              end_date: the ending date and time of the activity
-     *              supervisor: the user id of the supervisor of the activity
+     *              supervisor_id: the user id of the supervisor of the activity
      *              event_id: the id of the event that the activity belongs to
      *
      *  returns :
@@ -58,7 +58,7 @@ module.exports = function(app, sequelize, models){
                     description: req.body.description,
                     start_date: req.body.start_date,
                     end_date: req.body.end_date,
-                    supervisor: req.body.supervisor,
+                    supervisor: req.body.supervisor_id,
                     eventId: req.body.event_id
                 }
             )
@@ -78,20 +78,21 @@ module.exports = function(app, sequelize, models){
      *              description: a description of the activity
      *              start_date: the starting date and time of the activity
      *              end_date: the ending date and time of the activity
-     *              supervisor: the user id of the supervisor of the activity
+     *              supervisor_id: the user id of the supervisor of the activity
      *              event_id: the id of the event that the activity belongs to
      *
      *  returns :
      *              a result being 1 if succeeded, 0 else
      */
     app.put('/activity/:id', function(req, res){
+
         Activity.update(
                 {
                     name: req.body.name,
                     description: req.body.description,
                     start_date: req.body.start_date,
                     end_date: req.body.end_date,
-                    supervisor: req.body.supervisor,
+                    supervisor: req.body.supervisor_id,
                     eventId: req.body.event_id
                 },
                 {
