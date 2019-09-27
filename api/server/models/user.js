@@ -16,11 +16,11 @@ module.exports = function(sequelize, Sequelize, Specialty) {
             type: Sequelize.STRING
         },
         birthday: {
-            type: Sequelize.DATE
+            type: Sequelize.DATEONLY
         },
 
         phone_number: {
-            type: Sequelize.STRING(10)
+            type: Sequelize.STRING(15)
         },
         email: {
             type: Sequelize.STRING,

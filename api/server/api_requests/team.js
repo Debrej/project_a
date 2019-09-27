@@ -4,6 +4,8 @@ module.exports = function(app, sequelize, models){
 
     let Team = models.Team;
 
+    //region GET REQUESTS
+
     /**
      *   This request gets all the teams in the database.
      *   arguments :
@@ -31,6 +33,33 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
+     * This request gets the members of a team.
+     *  arguments :
+     *              id_team: the id of the team
+     *
+     *  returns :
+     *              an json array of teams
+     *
+     */
+    app.get('/team/members/:id_team', function(req, res){
+        let User = models.User;
+        Team.findByPk(req.params.id_team).then(team => {
+            console.log("Before getUsers");
+            team.getUsers().then(result => {
+                res.send({"team_members": result});
+            }).catch(err => {
+                res.send({'error': err});
+            });
+        }).catch(err => {
+            res.send({'error': err});
+        });
+    });
+
+    //endregion
+
+    //region POST REQUESTS
+
+    /**
      *  This requests creates a new team with its name.
      *  arguments :
      *              name: the name of the team
@@ -49,6 +78,10 @@ module.exports = function(app, sequelize, models){
             res.send({'error': err});
         });
     });
+
+    //endregion
+
+    //region PUT REQUESTS
 
     /**
      *  This requests updates a team according to its id.
@@ -77,6 +110,10 @@ module.exports = function(app, sequelize, models){
         });
     });
 
+    //endregion
+
+    //region DELETE REQUESTS
+
     /**
      *  This requests deletes a team according to its id.
      *  arguments :
@@ -95,4 +132,6 @@ module.exports = function(app, sequelize, models){
             res.send({'error': err});
         });
     });
+
+    //endregion
 };

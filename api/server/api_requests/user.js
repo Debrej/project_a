@@ -4,6 +4,8 @@ module.exports = function(app, sequelize, models){
 
     let User = models.User;
 
+    //region CRUD REQUESTS
+
     /**
      *   This request gets all the users in the database.
      *   arguments :
@@ -138,7 +140,7 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
-     *  This requests deletes a user according to its id.
+     *  This request deletes a user according to its id.
      *  arguments :
      *              id : the id of the user
      *  returns :
@@ -155,4 +157,149 @@ module.exports = function(app, sequelize, models){
             res.send({'error': err});
         });
     });
+
+    //endregion
+
+    //region VALIDATING USER
+
+    /**
+     *  This request validates a user so it can use the calls for a validated user
+     *  arguments:
+     *              id: the id of the user
+     *
+     *  returns:
+     *              a result being 1 if succeeded, 0 else
+     */
+    app.put('/user/:id/validate', function(req, res){
+       User.update({
+               validity_status: true
+           },{
+               where: {
+                   id: req.params.id
+               }
+           })
+           .then(() => {
+               User.findByPk(req.params.id)
+                   .then(user => {
+                       res.send({'user': user});
+                   })
+                   .catch(err => {
+                       res.send({'error': err});
+                   });
+
+           })
+           .catch((err) => {
+               res.send({'error': err});
+           })
+    });
+
+    /**
+     *  This request devalidates a user
+     *  arguments:
+     *              id: the id of the user
+     *
+     *  returns:
+     *              a result being 1 if succeeded, 0 else
+     */
+    app.put('/user/:id/devalidate', function(req, res){
+        User.update({
+                validity_status: false
+            },{
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(() => {
+                User.findByPk(req.params.id)
+                    .then(user => {
+                        res.send({'user': user});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });
+
+            })
+            .catch((err) => {
+                res.send({'error': err});
+            })
+    });
+
+    //endregion
+
+    //region TEAM MANIPULATION
+
+    /**
+     *  This request gets the team(s) of a user
+     *  arguments:
+     *              id_user: the id of the user
+     *  returns:
+     *              a json object containing the relations
+     */
+    app.get('/user/:id_user/team', function(req, res){
+        let Team = models.Team;
+        User.findByPk(req.params.id_user).then(user => {
+            user.getTeams().then(result => {
+                res.send({'user_teams': result});
+            }).catch(err => {
+                console.log(err);
+                res.send({'error': err});
+            });
+        }).catch(err => {
+            res.send({'error': err});
+        });
+    });
+
+    /**
+     *  This request adds a team to a user
+     *  arguments:
+     *              id_user: the id of the user
+     *              id_team: the id of the team
+     *  returns:
+     *              a json object containing the created relation
+     */
+    app.post('/user/:id_user/team/:id_team', function(req, res){
+        let Team = models.Team;
+        User.findByPk(req.params.id_user).then(user => {
+            Team.findByPk(req.params.id_team).then(team => {
+                user.addTeams(team).then(result => {
+                    res.send({'user_teams': result});
+                }).catch(err => {
+                    console.log(err);
+                    res.send({'error': err});
+                });
+            }).catch(err => {
+                res.send({'error': err});
+            });
+        }).catch(err => {
+            res.send({'error': err});
+        });
+    });
+
+    /**
+     *  This request deletes a team from a user
+     *  arguments:
+     *              id_user: the id of the user
+     *              id_team: the id of the team
+     *  returns:
+     *              a result being 1 if succeeded, 0 else
+     */
+    app.delete('/user/:id_user/team/:id_team', function(req, res){
+        let Team = models.Team;
+        User.findByPk(req.params.id_user).then(user => {
+            Team.findByPk(req.params.id_team).then(team => {
+                user.removeTeams(team).then(result => {
+                    res.send({'result': result});
+                }).catch(err => {
+                    console.log(err);
+                    res.send({'error': err});
+                });
+            }).catch(err => {
+                res.send({'error': err});
+            });
+        }).catch(err => {
+            res.send({'error': err});
+        });
+    });
+
+    //endregion
 };
