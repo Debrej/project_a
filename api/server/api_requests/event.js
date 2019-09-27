@@ -67,7 +67,7 @@ module.exports = function(app, sequelize, models){
     *               start_date : the new starting date of the event
     *               end_date : the new end_date of the event
     *   returns :
-    *               a result being 1 if succeeded, 0 else
+    *               the updated object
     */
     app.put('/event/:id', function(req, res){
         Event.update(
@@ -82,8 +82,14 @@ module.exports = function(app, sequelize, models){
                     id: req.params.id
                 }
             })
-            .then(event => {
-                res.send({'result': event});
+            .then(() => {
+                Event.findByPk(req.params.id)
+                    .then(event => {
+                        res.send({'event': event});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });
             })
             .catch(err => {
                 res.send({'error': err});

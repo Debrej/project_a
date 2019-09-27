@@ -61,7 +61,7 @@ module.exports = function(app, sequelize, models){
      *              team_id: the team id of the team targeted by the notification
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/notification/:id', function(req, res){
         Notification.update(
@@ -74,8 +74,14 @@ module.exports = function(app, sequelize, models){
                     id: req.params.id
                 }
             }
-        ).then(result => {
-            res.send({'result': result});
+        ).then(() => {
+            Notification.findByPk(req.params.id)
+                .then(notification => {
+                    res.send({'notification': notification});
+                })
+                .catch(err => {
+                    res.send({'error': err});
+                });
         }).catch(err => {
             res.send({'error': err});
         });

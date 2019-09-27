@@ -82,7 +82,7 @@ module.exports = function(app, sequelize, models){
      *              event_id: the id of the event that the activity belongs to
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/activity/:id', function(req, res){
 
@@ -101,8 +101,14 @@ module.exports = function(app, sequelize, models){
                     }
                 }
             )
-            .then(result => {
-                res.send({'result': result});
+            .then(() => {
+                Activity.findByPk(req.params.id)
+                    .then(activity => {
+                        res.send({'activity': activity});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });
             })
             .catch(err => {
                 res.send({'error': err});

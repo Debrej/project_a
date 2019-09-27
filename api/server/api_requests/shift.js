@@ -66,7 +66,7 @@ module.exports = function(app, sequelize, models){
      *              shift_category_id : the id of the shift category it belongs to
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/shift/:id', function(req, res){
         Shift.update(
@@ -80,8 +80,14 @@ module.exports = function(app, sequelize, models){
                     id: req.params.id
                 }
             }
-        ).then(shift => {
-            res.send({'shift': shift});
+        ).then(() => {
+            Shift.findByPk(req.params.id)
+                .then(shift => {
+                    res.send({'shift': shift});
+                })
+                .catch(err => {
+                    res.send({'error': err});
+                });
         }).catch(err => {
             res.send({'error': err});
         });
@@ -167,18 +173,24 @@ module.exports = function(app, sequelize, models){
      *              name : the name of the shift category
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/shift_category/:id', function(req, res){
         Shift_Category.update({
-                name: req.body.name
-            },
-            {
-                where: {
-                    id: req.params.id
-                }
-            }).then(result => {
-            res.send({'result': result})
+            name: req.body.name
+        },
+        {
+            where: {
+                id: req.params.id
+            }
+        }).then(() => {
+            Shift_Category.findByPk(req.params.id)
+                .then(shift_category => {
+                    res.send({'shift_category': shift_category});
+                })
+                .catch(err => {
+                    res.send({'error': err});
+                });
         }).catch(err => {
             res.send({'error': err});
         });

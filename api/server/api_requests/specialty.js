@@ -68,7 +68,7 @@ module.exports = function(app, sequelize, models){
      *              year: the year in the specialty
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/specialty/:id', function(req, res){
         Specialty.update({
@@ -81,8 +81,14 @@ module.exports = function(app, sequelize, models){
                 }
             }
             )
-            .then(result => {
-                res.send({'result': result});
+            .then(() => {
+                Specialty.findByPk(req.params.id)
+                    .then(specialty => {
+                        res.send({'specialty': specialty});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });
             })
             .catch(err => {
                 res.send({'error': err});

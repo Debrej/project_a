@@ -76,7 +76,7 @@ module.exports = function(app, sequelize, models){
      *              gps_lat: the latitude of the location
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/location/:id', function(req, res){
         Location.update(
@@ -92,8 +92,14 @@ module.exports = function(app, sequelize, models){
                     }
                 }
             )
-            .then(result => {
-                res.send({'result': result});
+            .then(() => {
+                Location.findByPk(req.params.id)
+                    .then(location => {
+                        res.send({'location': location});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });
             })
             .catch(err => {
                 res.send({'error': err});

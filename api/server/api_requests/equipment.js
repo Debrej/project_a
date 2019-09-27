@@ -86,7 +86,7 @@ module.exports = function(app, sequelize, models){
      *              drop_location: the id of the drop location
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/equipment/:id', function(req, res){
         Equipment.update(
@@ -104,9 +104,14 @@ module.exports = function(app, sequelize, models){
                     }
                 }
             )
-            .then(result => {
-                res.send({'result': result});
-            })
+            .then(() => {
+                Equipment.findByPk(req.params.id)
+                    .then(equipment => {
+                        res.send({'equipment': equipment});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });            })
             .catch(err => {
                 res.send({'error': err});
             });
@@ -202,7 +207,7 @@ module.exports = function(app, sequelize, models){
      *              name : the name of the equipment type
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/equipment_type/:id', function(req, res){
         Equipment_Type.update(
@@ -215,9 +220,14 @@ module.exports = function(app, sequelize, models){
                     }
                 }
             )
-            .then(result => {
-                res.send({'result': result})
-            })
+            .then(() => {
+                Equipment_Type.findByPk(req.params.id)
+                    .then(equipment_type => {
+                        res.send({'equipment_type': equipment_type});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });            })
             .catch(err => {
                 res.send({'error': err});
             });

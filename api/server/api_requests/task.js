@@ -88,7 +88,7 @@ module.exports = function(app, sequelize, models){
      *              activity_id: the activity id of the activity the task belongs to
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/task/:id', function(req, res){
         Task.update(
@@ -108,8 +108,14 @@ module.exports = function(app, sequelize, models){
                 }
             }
         )
-            .then(result => {
-                res.send({'result': result});
+            .then(() => {
+                Task.findByPk(req.params.id)
+                    .then(task => {
+                        res.send({'task': task});
+                    })
+                    .catch(err => {
+                        res.send({'error': err});
+                    });
             })
             .catch(err => {
                 res.send({'error': err});

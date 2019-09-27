@@ -91,7 +91,7 @@ module.exports = function(app, sequelize, models){
      *              supervisor_id: the user id of the supervisor
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/team/:id', function(req, res){
         Team.update(
@@ -103,8 +103,14 @@ module.exports = function(app, sequelize, models){
                     id: req.params.id
                 }
             }
-        ).then(result => {
-            res.send({'result': result});
+        ).then(() => {
+            Team.findByPk(req.params.id)
+                .then(team => {
+                    res.send({'team': team});
+                })
+                .catch(err => {
+                    res.send({'error': err});
+                });
         }).catch(err => {
             res.send({'error': err});
         });

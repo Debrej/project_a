@@ -67,7 +67,7 @@ module.exports = function(app, sequelize, models){
      *              task_id: the task id of the task on which the comment was written
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/comment/:id', function(req, res){
         Comment.update(
@@ -82,9 +82,14 @@ module.exports = function(app, sequelize, models){
                     id: req.params.id
                 }
             }
-        ).then(result => {
-            res.send({'result': result});
-        }).catch(err => {
+        ).then(() => {
+            Comment.findByPk(req.params.id)
+                .then(comment => {
+                    res.send({'comment': comment});
+                })
+                .catch(err => {
+                    res.send({'error': err});
+                });        }).catch(err => {
             res.send({'error': err});
         });
     });

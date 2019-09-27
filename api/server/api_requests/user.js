@@ -105,7 +105,7 @@ module.exports = function(app, sequelize, models){
      *              specialtyId: the specialty of the user
      *
      *  returns :
-     *              a result being 1 if succeeded, 0 else
+     *              the updated object
      */
     app.put('/user/:id', function(req, res){
         User.update(
@@ -132,8 +132,14 @@ module.exports = function(app, sequelize, models){
                     id: req.params.id
                 }
             }
-        ).then(result => {
-            res.send({'result': result});
+        ).then(() => {
+            User.findByPk(req.params.id)
+                .then(user => {
+                    res.send({'user': user});
+                })
+                .catch(err => {
+                    res.send({'error': err});
+                });
         }).catch(err => {
             res.send({'error': err});
         });
@@ -217,7 +223,6 @@ module.exports = function(app, sequelize, models){
                     .catch(err => {
                         res.send({'error': err});
                     });
-
             })
             .catch((err) => {
                 res.send({'error': err});
