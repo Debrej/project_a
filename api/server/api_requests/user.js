@@ -174,7 +174,7 @@ module.exports = function(app, sequelize, models){
      *              id: the id of the user
      *
      *  returns:
-     *              a result being 1 if succeeded, 0 else
+     *              a json object containing the updated user
      */
     app.put('/user/:id/validate', function(req, res){
        User.update({
@@ -205,9 +205,9 @@ module.exports = function(app, sequelize, models){
      *              id: the id of the user
      *
      *  returns:
-     *              a result being 1 if succeeded, 0 else
+     *              a json object containing the updated user
      */
-    app.put('/user/:id/devalidate', function(req, res){
+    app.put('/user/:id/invalidate', function(req, res){
         User.update({
                 validity_status: false
             },{

@@ -1,5 +1,7 @@
 module.exports = function(app, sequelize, models){
 
+    let moment = require('moment');
+
     console.log('\tshift and shift category requests loaded');
 
     //region SHIFT REQUESTS
@@ -55,6 +57,40 @@ module.exports = function(app, sequelize, models){
             res.send({'error': err});
         });
     });
+
+    /**
+     *  This request creates multiple shifts with a starting date, ending date, charisma, shift category id and shift length in minutes
+     *  arguments :
+     *              start_date : the starting date and time of the shift window
+     *              end_date : the ending date and time of the shift window
+     *              charisma : the number of charisma points awarded for the shifts
+     *              shift_category_id : the id of the shift category it belongs to
+     *              shift_length : a single shift length defined in minutes
+     *  returns :
+     *              a json array containing the created shifts
+     */
+    app.post('/shift/window', function(req, res){
+       let nb_shifts = Math.ceil(((new Date(req.body.end_date) - new Date(req.body.start_date))/(3600*1000)*60)/req.body.shift_length);
+       let start_date = new Date(req.body.start_date);
+       let shift_array = [], shift_array_ret = [];
+       for(let i = 0; i < nb_shifts; i++) {
+           let new_start_date = moment(start_date).add(req.body.shift_length * i, 'm').toDate();
+           let new_end_date = moment(new_start_date).add(req.body.shift_length, 'm').toDate();
+           shift_array[i] = {
+               "start_date": new_start_date,
+               "end_date": new_end_date,
+               "charisma": req.body.charisma,
+               "shift_category_id": req.body.shift_category_id
+           };
+       }
+       Shift.bulkCreate(shift_array)
+           .then(shifts => {
+                res.send({'shifts': shifts})
+           })
+           .catch(err => {
+               res.send({'error': err});
+           });
+   });
 
     /**
      *  This requests updates a shift according to its id.
