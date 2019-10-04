@@ -38,13 +38,11 @@ module.exports = function(app, sequelize, models){
      *              id_team: the id of the team
      *
      *  returns :
-     *              an json array of teams
+     *              an json array of users members of the team
      *
      */
     app.get('/team/members/:id_team', function(req, res){
-        let User = models.User;
         Team.findByPk(req.params.id_team).then(team => {
-            console.log("Before getUsers");
             team.getUsers().then(result => {
                 res.send({"team_members": result});
             }).catch(err => {
