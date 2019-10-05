@@ -71,7 +71,7 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
-     *  This requests updates an activity according to its id.
+     *  This request updates an activity according to its id.
      *  arguments :
      *              id : the id of the activity
      *              name: the name of the activity
