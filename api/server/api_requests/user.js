@@ -78,7 +78,7 @@ module.exports = function(app, sequelize, models){
         }).then(user => {
             res.send({'user': user});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -138,10 +138,10 @@ module.exports = function(app, sequelize, models){
                     res.send({'user': user});
                 })
                 .catch(err => {
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -160,7 +160,7 @@ module.exports = function(app, sequelize, models){
         }).then(result => {
             res.send({'result': result});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -190,12 +190,12 @@ module.exports = function(app, sequelize, models){
                        res.send({'user': user});
                    })
                    .catch(err => {
-                       res.send({'error': err});
+                       res.status(500).send({'error': err})
                    });
 
            })
            .catch((err) => {
-               res.send({'error': err});
+               res.status(500).send({'error': err})
            })
     });
 
@@ -221,11 +221,11 @@ module.exports = function(app, sequelize, models){
                         res.send({'user': user});
                     })
                     .catch(err => {
-                        res.send({'error': err});
+                        res.status(500).send({'error': err})
                     });
             })
             .catch((err) => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             })
     });
 
@@ -241,16 +241,15 @@ module.exports = function(app, sequelize, models){
      *              a json object containing the relations
      */
     app.get('/user/:id_user/team', function(req, res){
-        let Team = models.Team;
         User.findByPk(req.params.id_user).then(user => {
             user.getTeams().then(result => {
                 res.send({'user_teams': result});
             }).catch(err => {
                 console.log(err);
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -270,13 +269,13 @@ module.exports = function(app, sequelize, models){
                     res.send({'user_teams': result});
                 }).catch(err => {
                     console.log(err);
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
             }).catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -296,13 +295,13 @@ module.exports = function(app, sequelize, models){
                     res.send({'result': result});
                 }).catch(err => {
                     console.log(err);
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
             }).catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 

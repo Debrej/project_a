@@ -48,7 +48,7 @@ module.exports = function(app, sequelize, models){
         }).then(notification => {
             res.send({'notification': notification});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -80,10 +80,10 @@ module.exports = function(app, sequelize, models){
                     res.send({'notification': notification});
                 })
                 .catch(err => {
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -102,7 +102,7 @@ module.exports = function(app, sequelize, models){
         }).then(result => {
             res.send({'result': result});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 };

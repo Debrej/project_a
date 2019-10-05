@@ -16,10 +16,10 @@ module.exports = function(app, sequelize, models){
     app.get('/equipment', function(req, res){
         Equipment.findAll()
             .then(equipments => {
-                res.send({'equipment': equipments});
+                res.send({'equipments': equipments});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -36,7 +36,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'equipment': equipment});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -69,7 +69,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'equipment': equipment});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -110,10 +110,10 @@ module.exports = function(app, sequelize, models){
                         res.send({'equipment': equipment});
                     })
                     .catch(err => {
-                        res.send({'error': err});
+                        res.status(500).send({'error': err})
                     });            })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -134,7 +134,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'result': result});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -157,7 +157,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'equipment_type': equipment_types});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -174,7 +174,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'equipment_type': equipment_type})
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -195,7 +195,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'equipment_type': equipment_type});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
 
     });
@@ -226,10 +226,10 @@ module.exports = function(app, sequelize, models){
                         res.send({'equipment_type': equipment_type});
                     })
                     .catch(err => {
-                        res.send({'error': err});
+                        res.status(500).send({'error': err})
                     });            })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -250,7 +250,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'result': result});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 

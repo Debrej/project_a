@@ -54,7 +54,7 @@ module.exports = function(app, sequelize, models){
         }).then(shift => {
             res.send({'shift': shift});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -72,7 +72,7 @@ module.exports = function(app, sequelize, models){
     app.post('/shift/window', function(req, res){
        let nb_shifts = Math.ceil(((new Date(req.body.end_date) - new Date(req.body.start_date))/(3600*1000)*60)/req.body.shift_length);
        let start_date = new Date(req.body.start_date);
-       let shift_array = [], shift_array_ret = [];
+       let shift_array = [];
        for(let i = 0; i < nb_shifts; i++) {
            let new_start_date = moment(start_date).add(req.body.shift_length * i, 'm').toDate();
            let new_end_date = moment(new_start_date).add(req.body.shift_length, 'm').toDate();
@@ -88,7 +88,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'shifts': shifts})
            })
            .catch(err => {
-               res.send({'error': err});
+               res.status(500).send({'error': err})
            });
    });
 
@@ -122,10 +122,10 @@ module.exports = function(app, sequelize, models){
                     res.send({'shift': shift});
                 })
                 .catch(err => {
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -142,9 +142,9 @@ module.exports = function(app, sequelize, models){
                 id: req.params.id
             }
         }).then(shift => {
-            res.send({'shift': shift});
+            res.send({'result': shift});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -180,7 +180,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'shift_category': shift_category})
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -198,7 +198,7 @@ module.exports = function(app, sequelize, models){
         }).then(shift_category => {
             res.send({'shift_category': shift_category})
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -225,10 +225,10 @@ module.exports = function(app, sequelize, models){
                     res.send({'shift_category': shift_category});
                 })
                 .catch(err => {
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -247,7 +247,7 @@ module.exports = function(app, sequelize, models){
         }).then(result => {
             res.send({'result': result});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 

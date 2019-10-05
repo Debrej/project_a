@@ -17,7 +17,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'specialty': specialties});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -34,7 +34,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'specialty': specialty});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -56,7 +56,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'specialty': specialty});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -87,11 +87,11 @@ module.exports = function(app, sequelize, models){
                         res.send({'specialty': specialty});
                     })
                     .catch(err => {
-                        res.send({'error': err});
+                        res.status(500).send({'error': err})
                     });
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -114,7 +114,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'result': result});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 };

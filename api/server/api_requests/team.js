@@ -46,10 +46,10 @@ module.exports = function(app, sequelize, models){
             team.getUsers().then(result => {
                 res.send({"team_members": result});
             }).catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -73,7 +73,7 @@ module.exports = function(app, sequelize, models){
         }).then(team => {
             res.send({'team': team});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -107,10 +107,10 @@ module.exports = function(app, sequelize, models){
                     res.send({'team': team});
                 })
                 .catch(err => {
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 
@@ -133,7 +133,7 @@ module.exports = function(app, sequelize, models){
         }).then(result => {
             res.send({'result': result});
         }).catch(err => {
-            res.send({'error': err});
+            res.status(500).send({'error': err})
         });
     });
 

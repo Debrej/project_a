@@ -15,7 +15,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'requirements': requirements});
             })
             .catch(err =>{
-                res.send({'error': err})
+                res.status(500).send({'error': err})
             });
     });
 
@@ -33,7 +33,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'requirement': requirement})
             })
             .catch(err =>{
-                res.send({'error': err})
+                res.status(500).send({'error': err})
             });
     });
 
@@ -54,7 +54,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'requirements': requirements})
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -88,10 +88,10 @@ module.exports = function(app, sequelize, models){
                     res.send({'requirement': requirement});
                 })
                 .catch(err => {
-                    res.send({'error': err});
+                    res.status(500).send({'error': err})
                 });
         }).catch(err => {
-            res.send({'error': err})
+            res.status(500).send({'error': err})
         });
     });
 
@@ -111,7 +111,7 @@ module.exports = function(app, sequelize, models){
         }).then(requirement => {
             res.send({'result': requirement})
         }).catch(err =>{
-            res.send({'error': err})
+            res.status(500).send({'error': err})
         });
     });
 };

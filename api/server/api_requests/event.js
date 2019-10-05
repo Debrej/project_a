@@ -29,7 +29,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'event': event});
             })
            .catch(err => {
-                res.send({'error': err});
+               res.status(500).send({'error': err})
             });
     });
 
@@ -54,7 +54,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'event': event});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -88,11 +88,11 @@ module.exports = function(app, sequelize, models){
                         res.send({'event': event});
                     })
                     .catch(err => {
-                        res.send({'error': err});
+                        res.status(500).send({'error': err})
                     });
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 
@@ -114,7 +114,7 @@ module.exports = function(app, sequelize, models){
                 res.send({'result': event});
             })
             .catch(err => {
-                res.send({'error': err});
+                res.status(500).send({'error': err})
             });
     });
 };
