@@ -98,7 +98,7 @@ module.exports = function(app, sequelize, models){
                     .then(() => {
                         task.getShifts()
                             .then(ret => {
-                                res.send({'shifts': ret});
+                                res.send({'result': ret});
                             })
                             .catch(err => {
                                 res.status(500).send({'error': err});

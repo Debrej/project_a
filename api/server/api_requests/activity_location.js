@@ -94,7 +94,7 @@ module.exports = function(app, sequelize, models){
                     .then(() => {
                         activity.getLocations()
                             .then(ret => {
-                                res.send({'locations': ret});
+                                res.send({'result': ret});
                             })
                             .catch(err => {
                                 res.status(500).send({'error': err});
