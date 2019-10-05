@@ -16,8 +16,12 @@ module.exports = function(app, sequelize, models){
      *               an json array of shifts
      */
     app.get('/shift', function(req, res){
-        Shift.findAll().then(shifts => {
+        Shift.findAll()
+        .then(shifts => {
             res.send({'shifts': shifts});
+        })
+        .catch( err => {
+            res.status(500).send({'error': err});
         });
     });
 
@@ -29,8 +33,12 @@ module.exports = function(app, sequelize, models){
      *               a json object containing the shift
      */
     app.get('/shift/:id', function(req, res){
-       Shift.findByPk(req.params.id).then(shift => {
+       Shift.findByPk(req.params.id)
+       .then(shift => {
            res.send({'shift': shift});
+       })
+       .catch( err => {
+           res.status(500).send({'error': err});
        });
     });
 
@@ -51,9 +59,11 @@ module.exports = function(app, sequelize, models){
             end_date: req.body.end_date,
             charisma: req.body.charisma,
             shiftCategoryId: req.body.shift_category_id
-        }).then(shift => {
+        })
+        .then(shift => {
             res.send({'shift': shift});
-        }).catch(err => {
+        })
+        .catch(err => {
             res.status(500).send({'error': err})
         });
     });
