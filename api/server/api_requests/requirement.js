@@ -27,7 +27,7 @@ module.exports = function(app, sequelize, models){
      *               a json object containing the requirement
      */
 
-    app.get('requirement/:id',function (req,res) {
+    app.get('/requirement/:id',function (req,res) {
         Requirement.findByPk(req.params.id)
             .then(requirement =>{
                 res.send({'requirement': requirement})
@@ -103,7 +103,7 @@ module.exports = function(app, sequelize, models){
      *              a result being 1 if succeeded, 0 else
      */
 
-    app.delete('/requirement', function(req, res){
+    app.delete('/requirement/:id', function(req, res){
         Requirement.destroy({
             where:{
                 id: req.params.id
