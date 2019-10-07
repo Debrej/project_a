@@ -31,6 +31,69 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
+     *  This request get all comment from one user
+     *  arguments :
+     *              id_user : the id of the user
+     *  returns :
+     *              an array of comments
+     */
+    app.get('/comment/user/:id_user', function(req, res){
+        Comment.findAll({
+                where: {
+                    userId: req.params.id_user
+                }
+            })
+            .then(comments => {
+                res.send({'comments': comments});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
+    });
+
+    /**
+     *  This request get all comment from one task
+     *  arguments :
+     *              id_task : the id of the task
+     *  returns :
+     *              an array of comments
+     */
+    app.get('/comment/task/:id_task', function(req, res){
+        Comment.findAll({
+            where: {
+                taskId: req.params.id_task
+            }
+        })
+            .then(comments => {
+                res.send({'comments': comments});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
+    });
+
+    /**
+     *  This request get all comment from one activity
+     *  arguments :
+     *              id_activity : the id of the activity
+     *  returns :
+     *              an array of comments
+     */
+    app.get('/comment/activity/:id_activity', function(req, res){
+        Comment.findAll({
+            where: {
+                activityId: req.params.id_activity
+            }
+        })
+            .then(comments => {
+                res.send({'comments': comments});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
+    });
+
+    /**
      *  This requests creates a new comment with the content, date, user, activity and task.
      *  arguments :
      *              content: the content of the comment
