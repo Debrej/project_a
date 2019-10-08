@@ -20,16 +20,16 @@ module.exports = function(sequelize, Sequelize, User, Activity, Location, Team) 
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
     User.hasOne(Task, { foreignKey: 'supervisor'});
 
-    Team.hasOne(Task);
+    Team.hasOne(Task, { foreignKey: 'team_id'});
 
-    Location.hasOne(Task);
+    Location.hasOne(Task, { foreignKey: 'location_id'});
 
-    Task.belongsTo(Activity);
+    Task.belongsTo(Activity, { foreignKey: 'activity_id'});
 
     return Task;
 };

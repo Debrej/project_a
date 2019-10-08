@@ -74,10 +74,10 @@ module.exports = function(sequelize, Sequelize, Specialty) {
             defaultValue: false
         }
     }, {
-        // options
+        underscored: true
     });
 
-    User.belongsTo(Specialty);
+    User.belongsTo(Specialty, { foreignKey: 'specialty_id'});
 
     return User;
 };

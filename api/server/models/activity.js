@@ -20,12 +20,12 @@ module.exports = function(sequelize, Sequelize, User, Event) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
     User.hasOne(Activity, { foreignKey: 'supervisor'});
 
-    Activity.belongsTo(Event);
+    Activity.belongsTo(Event, { foreignKey: 'event_id'});
 
     return Activity;
 };

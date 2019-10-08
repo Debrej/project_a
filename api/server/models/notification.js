@@ -9,11 +9,11 @@ module.exports = function(sequelize, Sequelize, User, Team) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
-    User.hasOne(Notification, { foreignKey: 'user'});
-    Team.hasOne(Notification, { foreignKey: 'team'});
+    User.hasOne(Notification, { foreignKey: 'user_id'});
+    Team.hasOne(Notification, { foreignKey: 'team_id'});
 
     return Notification;
 };

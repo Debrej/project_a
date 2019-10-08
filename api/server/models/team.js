@@ -9,7 +9,7 @@ module.exports = function(sequelize, Sequelize, User) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
     User.hasOne(Team, { foreignKey: 'supervisor'});

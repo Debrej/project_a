@@ -59,7 +59,7 @@ module.exports = function(app, sequelize, models){
                     start_date: req.body.start_date,
                     end_date: req.body.end_date,
                     supervisor: req.body.supervisor_id,
-                    eventId: req.body.event_id
+                    event_id: req.body.event_id
                 }
             )
             .then(activity => {
@@ -93,7 +93,7 @@ module.exports = function(app, sequelize, models){
                     start_date: req.body.start_date,
                     end_date: req.body.end_date,
                     supervisor: req.body.supervisor_id,
-                    eventId: req.body.event_id
+                    event_id: req.body.event_id
                 },
                 {
                     where: {

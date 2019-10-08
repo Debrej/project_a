@@ -74,7 +74,7 @@ module.exports = function(app, sequelize, models){
             comment: req.body.comment,
             experience: req.body.experience,
             incapacity: req.body.incapacity,
-            specialtyId: req.body.specialty_id
+            specialty_id: req.body.specialty_id
         }).then(user => {
             res.send({'user': user});
         }).catch(err => {
@@ -102,7 +102,7 @@ module.exports = function(app, sequelize, models){
      *              comment: a comment the user has made about itself
      *              experience: the experience of the user in other events
      *              incapacity: the incapacity the user might have
-     *              specialtyId: the specialty of the user
+     *              specialty_id: the specialty of the user
      *
      *  returns :
      *              the updated object
@@ -126,7 +126,7 @@ module.exports = function(app, sequelize, models){
                 comment: req.body.comment,
                 experience: req.body.experience,
                 incapacity: req.body.incapacity,
-                specialtyId: req.body.specialty_id
+                specialty_id: req.body.specialty_id
             },{
                 where: {
                     id: req.params.id
@@ -236,12 +236,12 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request gets the team(s) of a user
      *  arguments:
-     *              id_user: the id of the user
+     *              user_id: the id of the user
      *  returns:
      *              a json object containing the relations
      */
-    app.get('/user/:id_user/team', function(req, res){
-        User.findByPk(req.params.id_user).then(user => {
+    app.get('/user/:user_id/team', function(req, res){
+        User.findByPk(req.params.user_id).then(user => {
             user.getTeams().then(result => {
                 res.send({'user_teams': result});
             }).catch(err => {
@@ -256,15 +256,15 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request adds a team to a user
      *  arguments:
-     *              id_user: the id of the user
-     *              id_team: the id of the team
+     *              user_id: the id of the user
+     *              team_id: the id of the team
      *  returns:
      *              a json object containing the created relation
      */
-    app.post('/user/:id_user/team/:id_team', function(req, res){
+    app.post('/user/:user_id/team/:team_id', function(req, res){
         let Team = models.Team;
-        User.findByPk(req.params.id_user).then(user => {
-            Team.findByPk(req.params.id_team).then(team => {
+        User.findByPk(req.params.user_id).then(user => {
+            Team.findByPk(req.params.team_id).then(team => {
                 user.addTeams(team).then(result => {
                     res.send({'user_teams': result});
                 }).catch(err => {
@@ -282,15 +282,15 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request deletes a team from a user
      *  arguments:
-     *              id_user: the id of the user
-     *              id_team: the id of the team
+     *              user_id: the id of the user
+     *              team_id: the id of the team
      *  returns:
      *              a result being 1 if succeeded, 0 else
      */
-    app.delete('/user/:id_user/team/:id_team', function(req, res){
+    app.delete('/user/:user_id/team/:team_id', function(req, res){
         let Team = models.Team;
-        User.findByPk(req.params.id_user).then(user => {
-            Team.findByPk(req.params.id_team).then(team => {
+        User.findByPk(req.params.user_id).then(user => {
+            Team.findByPk(req.params.team_id).then(team => {
                 user.removeTeams(team).then(result => {
                     res.send({'result': result});
                 }).catch(err => {

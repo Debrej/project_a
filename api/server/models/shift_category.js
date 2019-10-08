@@ -2,15 +2,13 @@ module.exports = function(sequelize, Sequelize) {
 
     console.log('\tshift category model loaded');
 
-    const Shift_Category = sequelize.define('shift_category', {
+    return sequelize.define('shift_category', {
         // attributes
         name: {
             type: Sequelize.STRING,
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
-
-    return Shift_Category;
 };

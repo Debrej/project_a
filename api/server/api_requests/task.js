@@ -61,9 +61,9 @@ module.exports = function(app, sequelize, models){
                 start_date: req.body.start_date,
                 end_date: req.body.end_date,
                 supervisor: req.body.supervisor_id,
-                teamId: req.body.team_id,
-                locationId: req.body.location_id,
-                activityId: req.body.activity_id
+                team_id: req.body.team_id,
+                location_id: req.body.location_id,
+                activity_id: req.body.activity_id
             }
         )
             .then(task => {
@@ -98,9 +98,9 @@ module.exports = function(app, sequelize, models){
                 start_date: req.body.start_date,
                 end_date: req.body.end_date,
                 supervisor: req.body.supervisor_id,
-                teamId: req.body.team_id,
-                locationId: req.body.location_id,
-                activityId: req.body.activity_id
+                team_id: req.body.team_id,
+                location_id: req.body.location_id,
+                activity_id: req.body.activity_id
             },
             {
                 where: {

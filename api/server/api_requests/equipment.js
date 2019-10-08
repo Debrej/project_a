@@ -60,7 +60,7 @@ module.exports = function(app, sequelize, models){
                    name: req.body.name,
                    description: req.body.description,
                    quantity: req.body.quantity,
-                   equipmentTypeId: req.body.equipment_type_id,
+                   equipment_type_id: req.body.equipment_type_id,
                    pickup_location: req.body.pickup_location,
                    drop_location: req.body.drop_location
                 }
@@ -94,7 +94,7 @@ module.exports = function(app, sequelize, models){
                     name: req.body.name,
                     description: req.body.description,
                     quantity: req.body.quantity,
-                    equipmentTypeId: req.body.equipment_type_id,
+                    equipment_type_id: req.body.equipment_type_id,
                     pickup_location: req.body.pickup_location,
                     drop_location: req.body.drop_location
                 },

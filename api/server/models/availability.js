@@ -6,11 +6,11 @@ module.exports = function(sequelize, Sequelize, Shift, User) {
         // attributes
 
     }, {
-        // options
+        underscored: true
     });
 
-    User.hasMany(Availability);
-    Shift.hasMany(Availability);
+    User.hasMany(Availability, { foreignKey: 'user_id' });
+    Shift.hasMany(Availability, { foreignKey: 'shift_id' });
 
     return Availability;
 };

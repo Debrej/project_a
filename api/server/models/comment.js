@@ -13,12 +13,12 @@ module.exports = function(sequelize, Sequelize, User, Activity, Task) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
-    User.hasOne(CommentObject);
-    Activity.hasOne(CommentObject);
-    Task.hasOne(CommentObject);
+    User.hasOne(CommentObject, { foreignKey: 'user_id'});
+    Activity.hasOne(CommentObject, { foreignKey: 'activity_id'});
+    Task.hasOne(CommentObject, { foreignKey: 'task_id'});
 
     return CommentObject;
 };

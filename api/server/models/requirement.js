@@ -9,12 +9,12 @@ module.exports = function(sequelize, Sequelize, User, Team, Task) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
-    User.hasMany(Requirement);
-    Team.hasMany(Requirement);
-    Task.hasMany(Requirement);
+    User.hasMany(Requirement, { foreignKey: 'user_id'});
+    Team.hasMany(Requirement, { foreignKey: 'team_id'});
+    Task.hasMany(Requirement, { foreignKey: 'task_id'});
 
     return Requirement;
 };

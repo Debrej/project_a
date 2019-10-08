@@ -38,12 +38,12 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
-     * This request creates a new requirement with the quantity, userId, teamId and taskId
+     * This request creates a new requirement with the quantity, user_id, team_id and task_id
      * arguments :
      *          quantity : the number of needed volunteer(s)
-     *          userId : the Id of the needed volunteer(s)
-     *          teamId : the team of the needed volunteer(s)
-     *          taskId : the Id of the task for which the requirement is created
+     *          user_id : the _id of the needed volunteer(s)
+     *          team_id : the team of the needed volunteer(s)
+     *          task_id : the _id of the task for which the requirement is created
      * returns :
      *          a json array containing the created requirement(s)
      */
@@ -63,9 +63,9 @@ module.exports = function(app, sequelize, models){
      *  arguments :
      *              id : the id of the shift
      *              quantity : the number of needed volunteer(s)
-     *              userId : the Id of the needed volunteer(s)
-     *              teamId : the team of the needed volunteer(s)
-     *              taskId : the Id of the task for which the requirement is created
+     *              user_id : the _id of the needed volunteer(s)
+     *              team_id : the team of the needed volunteer(s)
+     *              task_id : the _id of the task for which the requirement is created
      *  returns :
      *              the updated object
      */

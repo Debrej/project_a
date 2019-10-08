@@ -7,11 +7,11 @@ module.exports = function(sequelize, Sequelize, Task, Activity, Equipment) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
-    Task.hasMany(Task_Equipment_Requirement);
-    Equipment.hasMany(Task_Equipment_Requirement);
+    Task.hasMany(Task_Equipment_Requirement, { foreignKey: 'task_id'});
+    Equipment.hasMany(Task_Equipment_Requirement, { foreignKey: 'equipment_id'});
 
     const Activity_Equipment_Requirement = sequelize.define('activity_equipment_requirement', {
         // attributes
@@ -20,11 +20,11 @@ module.exports = function(sequelize, Sequelize, Task, Activity, Equipment) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
-    Activity.hasMany(Activity_Equipment_Requirement);
-    Equipment.hasMany(Activity_Equipment_Requirement);
+    Activity.hasMany(Activity_Equipment_Requirement, { foreignKey: 'activity_id'});
+    Equipment.hasMany(Activity_Equipment_Requirement, { foreignKey: 'equipment_id'});
 
     return {'task_equipment': Task_Equipment_Requirement, 'activity_equipment': Activity_Equipment_Requirement};
 };

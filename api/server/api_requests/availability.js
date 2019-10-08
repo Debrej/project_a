@@ -42,12 +42,12 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request gets all the shifts a user is available on
      *  arguments:
-     *              id_user: the id of the user
+     *              user_id: the id of the user
      *  returns:
      *              a json array of availabilities
      */
-    app.get('/availability/user/:id_user', function(req, res){
-        Availability.findAll({where: {userId: req.params.id_user}})
+    app.get('/availability/user/:user_id', function(req, res){
+        Availability.findAll({where: {user_id: req.params.user_id}})
             .then(availabilities => {
                 res.send({'availabilities': availabilities});
             })
@@ -59,12 +59,12 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request gets all the users available on a shift
      *  arguments:
-     *              id_shift: the id of the shift
+     *              shift_id: the id of the shift
      *  returns:
      *              a json array of availabilities
      */
-    app.get('/availability/shift/:id_shift', function(req, res){
-        Availability.findAll({where: {shiftId: req.params.id_shift}})
+    app.get('/availability/shift/:shift_id', function(req, res){
+        Availability.findAll({where: {shift_id: req.params.shift_id}})
             .then(availabilities => {
                 res.send({'availabilities': availabilities});
             })
@@ -76,8 +76,8 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request creates multiple availabilities with an array of json objects containing a user id and a shift id
      *  arguments:
-     *              userId: the id of the user
-     *              shiftId: the id of the shift
+     *              user_id: the id of the user
+     *              shift_id: the id of the shift
      *  returns:
      *              a json object containing the created availabilities
      */
@@ -94,8 +94,8 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request updates an availability with a user id and a shift id
      *  arguments:
-     *              userId: the id of the user
-     *              shiftId: the id of the shift
+     *              user_id: the id of the user
+     *              shift_id: the id of the shift
      *  returns:
      *              a json object containing the updated availability
      */

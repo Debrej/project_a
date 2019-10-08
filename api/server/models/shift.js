@@ -17,10 +17,10 @@ module.exports = function(sequelize, Sequelize, Shift_Category) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
 
-    Shift.belongsTo(Shift_Category);
+    Shift.belongsTo(Shift_Category, { foreignKey: 'shift_category_id'});
 
     return Shift;
 };

@@ -33,14 +33,14 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request get all comment from one user
      *  arguments :
-     *              id_user : the id of the user
+     *              user_id : the id of the user
      *  returns :
      *              an array of comments
      */
-    app.get('/comment/user/:id_user', function(req, res){
+    app.get('/comment/user/:user_id', function(req, res){
         Comment.findAll({
                 where: {
-                    userId: req.params.id_user
+                    user_id: req.params.user_id
                 }
             })
             .then(comments => {
@@ -54,14 +54,14 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request get all comment from one task
      *  arguments :
-     *              id_task : the id of the task
+     *              task_id : the id of the task
      *  returns :
      *              an array of comments
      */
-    app.get('/comment/task/:id_task', function(req, res){
+    app.get('/comment/task/:task_id', function(req, res){
         Comment.findAll({
             where: {
-                taskId: req.params.id_task
+                task_id: req.params.task_id
             }
         })
             .then(comments => {
@@ -75,14 +75,14 @@ module.exports = function(app, sequelize, models){
     /**
      *  This request get all comment from one activity
      *  arguments :
-     *              id_activity : the id of the activity
+     *              activity_id : the id of the activity
      *  returns :
      *              an array of comments
      */
-    app.get('/comment/activity/:id_activity', function(req, res){
+    app.get('/comment/activity/:activity_id', function(req, res){
         Comment.findAll({
             where: {
-                activityId: req.params.id_activity
+                activity_id: req.params.activity_id
             }
         })
             .then(comments => {
@@ -109,9 +109,9 @@ module.exports = function(app, sequelize, models){
         Comment.create({
             content: req.body.content,
             date: req.body.date,
-            userId: req.body.user_id,
-            activityId: req.body.activity_id,
-            taskId: req.body.task_id
+            user_id: req.body.user_id,
+            activity_id: req.body.activity_id,
+            task_id: req.body.task_id
         }).then(comment => {
             res.send({'comment': comment});
         }).catch(err => {
@@ -137,9 +137,9 @@ module.exports = function(app, sequelize, models){
             {
                 content: req.body.content,
                 date: req.body.date,
-                userId: req.body.user_id,
-                activityId: req.body.activity_id,
-                taskId: req.body.task_id
+                user_id: req.body.user_id,
+                activity_id: req.body.activity_id,
+                task_id: req.body.task_id
             },{
                 where: {
                     id: req.params.id

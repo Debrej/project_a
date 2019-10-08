@@ -2,7 +2,7 @@ module.exports = function(sequelize, Sequelize) {
 
     console.log('\tevent model loaded');
 
-    const Event = sequelize.define('event', {
+    return sequelize.define('event', {
         // attributes
         name: {
             type: Sequelize.STRING,
@@ -20,8 +20,6 @@ module.exports = function(sequelize, Sequelize) {
             allowNull: false
         }
     }, {
-        // options
+        underscored: true
     });
-
-    return Event;
 };

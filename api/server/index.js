@@ -18,7 +18,8 @@ app.use(express.urlencoded());
 
 let sequelize = new Sequelize('project_a', 'project_a', pwd_bd, {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
 });
 
 /*

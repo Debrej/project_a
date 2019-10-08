@@ -87,7 +87,7 @@ models.User.create({
     comment: 'Je retourne vers l\'industrie',
     experience: 'Dirlo d\'l\'INSA',
     incapacity: null,
-    specialtyId: 10
+    specialty_id: 10
 }).then(() => {
 models.User.create({
     first_name: 'Thibaut',
@@ -106,7 +106,7 @@ models.User.create({
     comment: 'asso m\'écoeure',
     experience: 'Négociant en fromage, redoublant',
     incapacity: null,
-    specialtyId: 1
+    specialty_id: 1
 }).then(() => {
 models.User.create({
     first_name: 'Ludovic',
@@ -125,7 +125,7 @@ models.User.create({
     comment: 'j\'aimerai dire que... c\'est pas parque j\'ai un crâne moche que je suis moche',
     experience: 'président',
     incapacity: null,
-    specialtyId: 3
+    specialty_id: 3
 }).then(() => {
 models.User.create({
     first_name: 'Alexis',
@@ -144,7 +144,7 @@ models.User.create({
     comment: 'jaaaaaaaaaaaune',
     experience: '1  année de Qlture',
     incapacity: 'enorme sexe',
-    specialtyId: 7
+    specialty_id: 7
 }).then(() => {
 models.Team.create({
     name: 'INSA',
@@ -174,7 +174,7 @@ models.Equipment.create({
     quantity: 1,
     pickup_location: 1,
     drop_location: 3,
-    equipmentTypeId: 1
+    equipment_type_id: 1
 }).then(() => {
 models.Equipment.create({
     name: 'Colson',
@@ -182,7 +182,7 @@ models.Equipment.create({
     quantity: 500,
     pickup_location: 3,
     drop_location: 3,
-    equipmentTypeId: 2
+    equipment_type_id: 2
 }).then(() => {
 models.Equipment.create({
     name: 'Balai',
@@ -190,7 +190,7 @@ models.Equipment.create({
     quantity: 7,
     pickup_location: 3,
     drop_location: 3,
-    equipmentTypeId: 2
+    equipment_type_id: 2
 }).then(() => {
 models.Shift_Category.create({
     name: 'C\'est le rush'
@@ -202,26 +202,26 @@ models.Shift.create({
     start_date: new Date('2019/05/19 12:00:00'),
     end_date: new Date('2019/05/19 14:00:00'),
     charisma: 15,
-    shiftCategoryId: 1
+    shift_category_id: 1
 }).then(() => {
 models.Shift.create({
     start_date: new Date('2019/05/19 20:00:00'),
     end_date: new Date('2019/05/19 22:00:00'),
     charisma: 30,
-    shiftCategoryId: 1
+    shift_category_id: 1
 }).then(() => {
 models.Shift.create({
     start_date: new Date('2019/05/20 00:00:00'),
     end_date: new Date('2019/05/20 02:00:00'),
     charisma: 15,
-    shiftCategoryId: 2
+    shift_category_id: 2
 }).then(() => {
 models.Activity.create({
     name: 'Ramener le fromage à la maison',
     description: 'on a acheté bcp bcp (bcp) de fromage et on doit le stocker dans le frigos',
     start_date: new Date('2019/05/11 12:00:00'),
     end_date: new Date('2019/05/11 18:00:00'),
-    eventId: 1,
+    event_id: 1,
     supervisor: 2
 }).then(() => {
 models.Activity.create({
@@ -229,7 +229,7 @@ models.Activity.create({
     description: 'la manif est fini c\'était bien rigolo mais maintenant au boulot on range tout',
     start_date: new Date('2019/05/19 20:00:00'),
     end_date: new Date('2019/05/20 18:00:00'),
-    eventId: 1,
+    event_id: 1,
     supervisor: 3
 }).then(() => {
 models.Task.create({
@@ -238,9 +238,9 @@ models.Task.create({
     start_date: new Date('2019/05/11 12:00:00'),
     end_date: new Date('2019/05/11 14:00:00'),
     supervisor: 2,
-    teamId: 2,
-    locationId: 2,
-    activityId: 1
+    team_id: 2,
+    location_id: 2,
+    activity_id: 1
 }).then(() => {
 models.Task.create({
     name: 'Acheter le fromedu',
@@ -248,9 +248,9 @@ models.Task.create({
     start_date: new Date('2019/05/11 14:00:00'),
     end_date: new Date('2019/05/11 18:00:00'),
     supervisor: 2,
-    teamId: 2,
-    locationId: 2,
-    activityId: 1
+    team_id: 2,
+    location_id: 2,
+    activity_id: 1
 }).then(() => {
 models.Task.create({
     name: 'Ranger l\'Agora',
@@ -258,9 +258,9 @@ models.Task.create({
     start_date: new Date('2019/05/19 20:00:00'),
     end_date: new Date('2019/05/20 16:00:00'),
     supervisor: 3,
-    teamId: 1,
-    locationId: 3,
-    activityId: 2
+    team_id: 1,
+    location_id: 3,
+    activity_id: 2
 }).then(() => {
 models.Task.create({
     name: 'Ranger la salle dodo',
@@ -268,45 +268,45 @@ models.Task.create({
     start_date: new Date('2019/05/20 06:00:00'),
     end_date: new Date('2019/05/20 08:00:00'),
     supervisor: 3,
-    teamId: 1,
-    locationId: 3,
-    activityId: 2
+    team_id: 1,
+    location_id: 3,
+    activity_id: 2
 }).then(() => {
 models.CommentObject.create({
     content: 'T\'es sûr qu\'un seul camion ça va suffire ?',
     date: new Date('2019/04/12 13:57:04'),
-    userId: 3,
-    activityId: null,
-    taskId: 1
+    user_id: 3,
+    activity_id: null,
+    task_id: 1
 }).then(() => {
 models.CommentObject.create({
     content: 'Ouais tkt, j\'en mangerai en sortant du magasin',
     date: new Date('2019/04/13 12:08:56'),
-    userId: 2,
-    activityId: null,
-    taskId: 1
+    user_id: 2,
+    activity_id: null,
+    task_id: 1
 }).then(() => {
 models.CommentObject.create({
     content: 'Ouais, rangez-moi tout ça avant que je ne parte dans le privé',
     date: new Date('2019/05/17 09:17:56'),
-    userId: 1,
-    activityId: 2,
-    taskId: null
+    user_id: 1,
+    activity_id: 2,
+    task_id: null
 }).then(() => {
 models.Notification.create({
     content: 'Vous avez un nouveau message.',
-    user: 3,
-    team: null
+    user_id: 3,
+    team_id: null
 }).then(() => {
 models.Notification.create({
     content: 'Vous avez un projet A en attente.',
-    user: 2,
-    team: null
+    user_id: 2,
+    team_id: null
 }).then(() => {
 models.Notification.create({
     content: 'Vous avez des FT à faire les enfants.',
-    user: null,
-    team: 1
+    user_id: null,
+    team_id: 1
 }).then(() => {
 
 });

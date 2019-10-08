@@ -58,7 +58,7 @@ module.exports = function(app, sequelize, models){
             start_date: req.body.start_date,
             end_date: req.body.end_date,
             charisma: req.body.charisma,
-            shiftCategoryId: req.body.shift_category_id
+            shift_category_d: req.body.shift_category_id
         })
         .then(shift => {
             res.send({'shift': shift});
@@ -120,7 +120,7 @@ module.exports = function(app, sequelize, models){
                 start_date: req.body.start_date,
                 end_date: req.body.end_date,
                 charisma: req.body.charisma,
-                shiftCategoryId: req.body.shift_category_id
+                shift_category_d: req.body.shift_category_id
             },{
                 where: {
                     id: req.params.id

@@ -11,8 +11,8 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json object
      */
-    app.get('/activity_location/:id_activity', function(req, res){
-        Activity.findByPk(req.params.id_activity)
+    app.get('/activity_location/:activity_id', function(req, res){
+        Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.getLocations()
                     .then(ret => {
@@ -34,8 +34,8 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json array off all the added locations
      */
-    app.post('/activity_location/:id_activity', function(req, res){
-        Activity.findByPk(req.params.id_activity)
+    app.post('/activity_location/:activity_id', function(req, res){
+        Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.addLocations(req.body.location_ids)
                     .then(ret => {
@@ -58,8 +58,8 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json array off all the added locations
      */
-    app.put('/activity_location/:id_activity', function(req, res){
-        Activity.findByPk(req.params.id_activity)
+    app.put('/activity_location/:activity_id', function(req, res){
+        Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.setLocations(req.body.location_ids)
                     .then(() => {
@@ -87,8 +87,8 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json array off all the added locations
      */
-    app.delete('/activity_location/:id_activity', function(req, res){
-        Activity.findByPk(req.params.id_activity)
+    app.delete('/activity_location/:activity_id', function(req, res){
+        Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.removeLocations(req.body.location_ids)
                     .then(() => {

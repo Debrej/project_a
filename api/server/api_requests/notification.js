@@ -12,9 +12,13 @@ module.exports = function(app, sequelize, models){
      *               an json array of notifications
      */
     app.get('/notification', function(req, res){
-        Notification.findAll().then(notifications => {
-            res.send({'notification': notifications});
-        });
+        Notification.findAll()
+            .then(notifications => {
+                res.send({'notification': notifications});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
     });
 
     /**
@@ -25,9 +29,13 @@ module.exports = function(app, sequelize, models){
      *               a json object containing the notification
      */
     app.get('/notification/:id', function(req, res){
-        Notification.findByPk(req.params.id).then(notification => {
-            res.send({'notification': notification});
-        });
+        Notification.findByPk(req.params.id)
+            .then(notification => {
+                res.send({'notification': notification});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
     });
 
     /**
@@ -43,8 +51,8 @@ module.exports = function(app, sequelize, models){
     app.post('/notification', function(req, res){
         Notification.create({
             content: req.body.content,
-            user: req.body.user_id,
-            team: req.body.team_id
+            user_id: req.body.user_id,
+            team_id: req.body.team_id
         }).then(notification => {
             res.send({'notification': notification});
         }).catch(err => {
@@ -67,8 +75,8 @@ module.exports = function(app, sequelize, models){
         Notification.update(
             {
                 content: req.body.content,
-                user: req.body.user_id,
-                team: req.body.team_id
+                user_id: req.body.user_id,
+                team_id: req.body.team_id
             },{
                 where: {
                     id: req.params.id

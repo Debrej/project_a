@@ -2,7 +2,7 @@ module.exports = function(sequelize, Sequelize) {
 
     console.log('\tspecialty model loaded');
 
-    const Specialty = sequelize.define('specialty', {
+    return sequelize.define('specialty', {
         // attributes
         name: {
             type: Sequelize.STRING,
@@ -12,8 +12,6 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         }
     }, {
-        // options
+        underscored: true
     });
-
-    return Specialty;
 };
