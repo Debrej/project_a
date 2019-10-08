@@ -7,6 +7,10 @@ module.exports = function(sequelize, Sequelize, User, Team) {
         content: {
             type: Sequelize.TEXT('medium'),
             allowNull: false
+        },
+        status: {
+            type: Sequelize.ENUM('unread', 'read'),
+            defaultValue: 'unread'
         }
     }, {
         underscored: true

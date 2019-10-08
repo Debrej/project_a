@@ -96,6 +96,60 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
+     *  This requests change the status of a notification to read
+     *  arguments:
+     *              id: the id of the notification
+     *  returns:
+     *              the updated notification
+     */
+    app.put('/notification/read/:id', function(req, res){
+        Notification.update({
+            status: 'read'
+        },{
+            where: {
+                id: req.params.id
+            }
+        }).then(() => {
+            Notification.findByPk(req.params.id)
+                .then(notification => {
+                    res.send({'notification': notification});
+                })
+                .catch(err => {
+                    res.status(500).send({'error': err})
+                });
+        }).catch(err => {
+            res.status(500).send({'error': err})
+        });
+    });
+
+    /**
+     *  This requests change the status of a notification to unread
+     *  arguments:
+     *              id: the id of the notification
+     *  returns:
+     *              the updated notification
+     */
+    app.put('/notification/unread/:id', function(req, res){
+        Notification.update({
+            status: 'unread'
+        },{
+            where: {
+                id: req.params.id
+            }
+        }).then(() => {
+            Notification.findByPk(req.params.id)
+                .then(notification => {
+                    res.send({'notification': notification});
+                })
+                .catch(err => {
+                    res.status(500).send({'error': err})
+                });
+        }).catch(err => {
+            res.status(500).send({'error': err})
+        });
+    });
+
+    /**
      *  This requests deletes a notification according to its id.
      *  arguments :
      *              id : the id of the notification
