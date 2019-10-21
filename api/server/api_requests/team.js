@@ -69,7 +69,7 @@ module.exports = function(app, sequelize, models){
     app.post('/team', function(req, res){
         Team.create({
             name: req.body.name,
-            supervisor: req.body.supervisor_id
+            supervisor_id: req.body.supervisor_id
         }).then(team => {
             res.send({'team': team});
         }).catch(err => {
@@ -95,7 +95,7 @@ module.exports = function(app, sequelize, models){
         Team.update(
             {
                 name: req.body.name,
-                supervisor: req.body.supervisor_id
+                supervisor_id: req.body.supervisor_id
             },{
                 where: {
                     id: req.params.id

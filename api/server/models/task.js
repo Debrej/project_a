@@ -23,7 +23,7 @@ module.exports = function(sequelize, Sequelize, User, Activity, Location, Team) 
         underscored: true
     });
 
-    User.hasOne(Task, { foreignKey: 'supervisor'});
+    User.hasOne(Task, { foreignKey: 'supervisor_id'});
 
     Team.hasOne(Task, { foreignKey: 'team_id'});
 

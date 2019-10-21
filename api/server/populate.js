@@ -148,19 +148,19 @@ models.User.create({
 }).then(() => {
 models.Team.create({
     name: 'INSA',
-    supervisor: 1
+    supervisor_id: 1
 }).then(() => {
 models.Team.create({
     name: 'Fromage',
-    supervisor: 2
+    supervisor_id: 2
 }).then(() => {
 models.Team.create({
     name: 'Plus d\'ordi',
-    supervisor: 3
+    supervisor_id: 3
 }).then(() => {
 models.Team.create({
     name: 'jaune',
-    supervisor: 4
+    supervisor_id: 4
 }).then(() => {
 models.Equipment_Type.create({
     name: 'Véhicule'
@@ -222,7 +222,7 @@ models.Activity.create({
     start_date: new Date('2019/05/11 12:00:00'),
     end_date: new Date('2019/05/11 18:00:00'),
     event_id: 1,
-    supervisor: 2
+    supervisor_id: 2
 }).then(() => {
 models.Activity.create({
     name: 'Ranger le QG orga',
@@ -230,14 +230,14 @@ models.Activity.create({
     start_date: new Date('2019/05/19 20:00:00'),
     end_date: new Date('2019/05/20 18:00:00'),
     event_id: 1,
-    supervisor: 3
+    supervisor_id: 3
 }).then(() => {
 models.Task.create({
     name: 'Stocker le clackos',
     description: 'on prend la liste de course et on achete ce qu\'il y a marqué',
     start_date: new Date('2019/05/11 12:00:00'),
     end_date: new Date('2019/05/11 14:00:00'),
-    supervisor: 2,
+    supervisor_id: 2,
     team_id: 2,
     location_id: 2,
     activity_id: 1
@@ -247,7 +247,7 @@ models.Task.create({
     description: 'on prend le fromage dans le camion et on le met dans les frigos',
     start_date: new Date('2019/05/11 14:00:00'),
     end_date: new Date('2019/05/11 18:00:00'),
-    supervisor: 2,
+    supervisor_id: 2,
     team_id: 2,
     location_id: 2,
     activity_id: 1
@@ -257,7 +257,7 @@ models.Task.create({
     description: 'on range l\'agora',
     start_date: new Date('2019/05/19 20:00:00'),
     end_date: new Date('2019/05/20 16:00:00'),
-    supervisor: 3,
+    supervisor_id: 3,
     team_id: 1,
     location_id: 3,
     activity_id: 2
@@ -267,7 +267,7 @@ models.Task.create({
     description: 'on a pas envie de se faire niquer alors on va la ranger bien proprement',
     start_date: new Date('2019/05/20 06:00:00'),
     end_date: new Date('2019/05/20 08:00:00'),
-    supervisor: 3,
+    supervisor_id: 3,
     team_id: 1,
     location_id: 3,
     activity_id: 2

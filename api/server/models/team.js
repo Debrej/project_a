@@ -12,7 +12,7 @@ module.exports = function(sequelize, Sequelize, User) {
         underscored: true
     });
 
-    User.hasOne(Team, { foreignKey: 'supervisor'});
+    User.hasOne(Team, { foreignKey: 'supervisor_id'});
 
     return Team;
 };

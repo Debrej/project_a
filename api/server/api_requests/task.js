@@ -60,7 +60,7 @@ module.exports = function(app, sequelize, models){
                 description: req.body.description,
                 start_date: req.body.start_date,
                 end_date: req.body.end_date,
-                supervisor: req.body.supervisor_id,
+                supervisor_id: req.body.supervisor_id,
                 team_id: req.body.team_id,
                 location_id: req.body.location_id,
                 activity_id: req.body.activity_id
@@ -97,7 +97,7 @@ module.exports = function(app, sequelize, models){
                 description: req.body.description,
                 start_date: req.body.start_date,
                 end_date: req.body.end_date,
-                supervisor: req.body.supervisor_id,
+                supervisor_id: req.body.supervisor_id,
                 team_id: req.body.team_id,
                 location_id: req.body.location_id,
                 activity_id: req.body.activity_id

@@ -48,7 +48,7 @@ module.exports = function(app, sequelize, models){
     app.get('/activity/supervisor/:supervisor_id', function(req, res){
         Activity.findAll({
             where: {
-                supervisor: req.params.supervisor_id
+                supervisor_id: req.params.supervisor_id
             }
         })
             .then(activities => {
@@ -79,7 +79,7 @@ module.exports = function(app, sequelize, models){
                     description: req.body.description,
                     start_date: req.body.start_date,
                     end_date: req.body.end_date,
-                    supervisor: req.body.supervisor_id,
+                    supervisor_id: req.body.supervisor_id,
                     event_id: req.body.event_id
                 }
             )
@@ -113,7 +113,7 @@ module.exports = function(app, sequelize, models){
                     description: req.body.description,
                     start_date: req.body.start_date,
                     end_date: req.body.end_date,
-                    supervisor: req.body.supervisor_id,
+                    supervisor_id: req.body.supervisor_id,
                     event_id: req.body.event_id
                 },
                 {

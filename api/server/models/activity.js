@@ -23,7 +23,7 @@ module.exports = function(sequelize, Sequelize, User, Event) {
         underscored: true
     });
 
-    User.hasOne(Activity, { foreignKey: 'supervisor'});
+    User.hasOne(Activity, { foreignKey: 'supervisor_id'});
 
     Activity.belongsTo(Event, { foreignKey: 'event_id'});
 
