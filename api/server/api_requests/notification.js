@@ -39,6 +39,92 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
+     *  This request gets all the notifications for a given user
+     *  arguments:
+     *              user_id: the id of the user
+     *  returns:
+     *              a json array of notifications
+     */
+    app.get('/notification/user/:user_id', function(req, res){
+        Notification.findAll({
+            where: {
+                user_id: req.params.user_id
+            }
+        })
+            .then(notifications => {
+                res.send({'notifications': notifications});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
+    });
+
+    /**
+     *  This request gets all the unread notifications for a given user
+     *  arguments:
+     *              user_id: the id of the user
+     *  returns:
+     *              a json array of notifications
+     */
+    app.get('/notification/unread/user/:user_id', function(req, res){
+        Notification.findAll({
+                where: {
+                    status: 'unread',
+                    user_id: req.params.user_id
+                }
+            })
+            .then(notifications => {
+                res.send({'notifications': notifications});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
+    });
+
+    /**
+     *  This request gets all the notifications for a given team
+     *  arguments:
+     *              team_id: the id of the team
+     *  returns:
+     *              a json array of notifications
+     */
+    app.get('/notification/unread/team/:team_id', function(req, res){
+        Notification.findAll({
+            where: {
+                team_id: req.params.team_id
+            }
+        })
+            .then(notifications => {
+                res.send({'notifications': notifications});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
+    });
+
+    /**
+     *  This request gets all the unread notifications for a given team
+     *  arguments:
+     *              team_id: the id of the team
+     *  returns:
+     *              a json array of notifications
+     */
+    app.get('/notification/unread/team/:team_id', function(req, res){
+        Notification.findAll({
+            where: {
+                status: 'unread',
+                team_id: req.params.team_id
+            }
+        })
+            .then(notifications => {
+                res.send({'notifications': notifications});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
+            });
+    });
+
+    /**
      *  This requests creates a new notification with the content, user and team.
      *  arguments :
      *              content: the content of the notification
