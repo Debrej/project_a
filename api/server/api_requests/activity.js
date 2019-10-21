@@ -39,6 +39,27 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
+     *  This request gets all the activities of a given supervisor
+     *  arguments :
+     *              supervisor_id : the id of the user
+     *  returns :
+     *              a json array of activities
+     */
+    app.get('/activity/supervisor/:supervisor_id', function(req, res){
+        Activity.findAll({
+            where: {
+                supervisor: req.params.supervisor_id
+            }
+        })
+            .then(activities => {
+                res.send({'activities': activities});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err})
+            });
+    });
+
+    /**
      *  This requests creates a new activity with the name, description, starting and ending date, supervisor id and event id
      *  arguments :
      *              name: the name of the activity
