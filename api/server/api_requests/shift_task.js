@@ -1,6 +1,6 @@
 module.exports = function(app, sequelize, models){
 
-    console.log('shift_task requests loaded');
+    console.log('\tshift_task requests loaded');
 
     let Task = models.Task;
     let Shift = models.Shift;

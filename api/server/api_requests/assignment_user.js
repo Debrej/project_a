@@ -1,6 +1,6 @@
 module.exports = function(app, sequelize, models){
 
-    console.log('assignment_user requests loaded');
+    console.log('\tassignment_user requests loaded');
 
     let Availability = models.Availability;
 

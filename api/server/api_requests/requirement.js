@@ -1,6 +1,6 @@
 module.exports = function(app, sequelize, models){
 
-    console.log('requirement requests loaded');
+    console.log('\trequirement requests loaded');
 
     let Requirement = models.Requirement;
     /**

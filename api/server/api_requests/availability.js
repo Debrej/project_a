@@ -2,7 +2,7 @@ module.exports = function(app, sequelize, models){
 
     let Availability = models.Availability;
 
-    console.log('availability requests loaded');
+    console.log('\tavailability requests loaded');
 
     /**
      *  This request gets all the availabilities in the database
