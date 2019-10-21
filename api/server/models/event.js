@@ -18,6 +18,10 @@ module.exports = function(sequelize, Sequelize) {
         end_date: {
             type: Sequelize.DATE,
             allowNull: false
+        },
+        logo_url: {
+            type: Sequelize.STRING,
+            defaultValue: 'images/event_logo_default.png'
         }
     }, {
         underscored: true

@@ -40,6 +40,7 @@ module.exports = function(app, sequelize, models){
     *               description : a text to describe quickly the event
     *               start_date : the starting date of the event
     *               end_date : the ending date of the event
+     *              logo_url : the url for the logo of the event
     *   returns :
     *               a json object containing the created event
     */
@@ -48,7 +49,8 @@ module.exports = function(app, sequelize, models){
                 name: req.body.name,
                 description: req.body.description,
                 start_date: new Date(req.body.start_date),
-                end_date: new Date(req.body.end_date)
+                end_date: new Date(req.body.end_date),
+                logo_url: req.body.logo_url
             })
             .then(event => {
                 res.send({'event': event});
@@ -66,6 +68,7 @@ module.exports = function(app, sequelize, models){
     *               description : the new description of the event
     *               start_date : the new starting date of the event
     *               end_date : the new end_date of the event
+     *              logo_url : the url for the logo of the event
     *   returns :
     *               the updated object
     */
@@ -75,7 +78,8 @@ module.exports = function(app, sequelize, models){
                 name: req.body.name,
                 description: req.body.description,
                 start_date: new Date(req.body.start_date),
-                end_date: new Date(req.body.end_date)
+                end_date: new Date(req.body.end_date),
+                logo_url: req.body.logo_url
             },
             {
                 where: {
