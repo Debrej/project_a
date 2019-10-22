@@ -88,7 +88,7 @@ module.exports = function(app, sequelize, models){
      *  returns:
      *              a json array of notifications
      */
-    app.get('/notification/unread/team/:team_id', function(req, res){
+    app.get('/notification/team/:team_id', function(req, res){
         Notification.findAll({
             where: {
                 team_id: req.params.team_id
