@@ -24,28 +24,19 @@ module.exports = function(sequelize, Sequelize){
 
     db.Availability = require('./availability')(sequelize, Sequelize, db.Shift, db.User);
 
-    db.Task.belongsToMany(db.Availability, {through: 'assignment_user'});
-    db.Availability.belongsToMany(db.Task, {through: 'assignment_user'});
+    db.User_Requirement = require('./user_requirement')(sequelize, Sequelize, db.User, db.Team, db.Task, db.Shift);
 
-    db.Task_Equipment_Requirement = require('./equipment_requirement')(sequelize, Sequelize, db.Task, db.Activity, db.Equipment).task_equipment;
-    db.Activity_Equipment_Requirement = require('./equipment_requirement')(sequelize, Sequelize, db.Task, db.Activity, db.Equipment).activity_equipment;
+    db.User_Assigment = require('./user_assignment')(sequelize, Sequelize, db.User, db.Availability);
 
-    db.Shift.belongsToMany(db.Task_Equipment_Requirement, {through: 'assignment_equipment'});
-    db.Task_Equipment_Requirement.belongsToMany(db.Shift, {through: 'assignment_equipment'});
+    db.Equipment_Requirement = require('./equipment_requirement')(sequelize, Sequelize, db.Task, db.Activity, db.Equipment, db.Shift);
 
-    db.Requirement = require('./requirement')(sequelize, Sequelize, db.User, db.Team, db.Task);
+    db.Equipment_Assignment = require('./equipment_assignment')(sequelize, Sequelize, db.Equipment_Requirement);
 
     /**
      * Table user_team which represents in which teams users are
      */
     db.User.belongsToMany(db.Team, {through: 'user_team'});
     db.Team.belongsToMany(db.User, {through: 'user_team'});
-
-    /**
-     * Table task_shift which represents on which shifts tasks are
-     */
-    db.Task.belongsToMany(db.Shift, {through: 'shift_task'});
-    db.Shift.belongsToMany(db.Task, {through: 'shift_task'});
 
     /**
      * Table activity_location which represents on which location(s) activities are located

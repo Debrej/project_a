@@ -1,6 +1,6 @@
-module.exports = function(sequelize, Sequelize, Task, Activity, Equipment) {
+module.exports = function(sequelize, Sequelize, Task, Activity, Equipment, Shift) {
 
-    const Task_Equipment_Requirement = sequelize.define('task_equipment_requirement', {
+    const Equipment_Requirement = sequelize.define('equipment_requirement', {
         // attributes
         quantity: {
             type: Sequelize.INTEGER,
@@ -10,21 +10,10 @@ module.exports = function(sequelize, Sequelize, Task, Activity, Equipment) {
         underscored: true
     });
 
-    Task.hasMany(Task_Equipment_Requirement, { foreignKey: 'task_id'});
-    Equipment.hasMany(Task_Equipment_Requirement, { foreignKey: 'equipment_id'});
+    Task.hasMany(Equipment_Requirement, { foreignKey: 'task_id' });
+    Activity.hasMany(Equipment_Requirement, { foreignKey: 'activity_id'});
+    Equipment.hasMany(Equipment_Requirement, { foreignKey: 'equipment_id'});
+    Shift.hasMany(Equipment_Requirement, { foreignKey: 'shift_id'});
 
-    const Activity_Equipment_Requirement = sequelize.define('activity_equipment_requirement', {
-        // attributes
-        quantity: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        }
-    }, {
-        underscored: true
-    });
-
-    Activity.hasMany(Activity_Equipment_Requirement, { foreignKey: 'activity_id'});
-    Equipment.hasMany(Activity_Equipment_Requirement, { foreignKey: 'equipment_id'});
-
-    return {'task_equipment': Task_Equipment_Requirement, 'activity_equipment': Activity_Equipment_Requirement};
+    return Equipment_Requirement;
 };

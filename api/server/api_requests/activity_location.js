@@ -7,7 +7,7 @@ module.exports = function(app, sequelize, models){
     /**
      * This request gets an activity according location to the activity id.
      * arguments :
-     *              id : the id of the activity
+     *              activity_id : the id of the activity
      * returns :
      *              a json object
      */
@@ -83,7 +83,7 @@ module.exports = function(app, sequelize, models){
     /**
      * This request deletes the link between location(s) and an activity
      * arguments :
-     *              locations_ids : array of all the id that will be added
+     *              locations_ids : array of all the id that will be deleted
      * returns :
      *              a json array off all the added locations
      */
