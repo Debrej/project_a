@@ -57,7 +57,7 @@ let models = require('./models/import')(sequelize, Sequelize); // we retrieve th
 console.log('\nLoading models complete\n');
 
 console.log('Loading requests...\n');
-require('./api_requests/import')(app, sequelize, models); // we add all the requests for every model to the app
+require('./api_requests/import')(app, sequelize, models, Sequelize); // we add all the requests for every model to the app
 console.log('\nLoading requests complete\n');
 
 

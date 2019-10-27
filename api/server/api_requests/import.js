@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models){
+module.exports = function(app, sequelize, models, Sequelize){
 
     require('./activity')(app, sequelize, models);
     require('./comment')(app, sequelize, models);
@@ -13,7 +13,7 @@ module.exports = function(app, sequelize, models){
     require('./user')(app, sequelize, models);
 
     require('./activity_location')(app, sequelize, models);
-    require('./user_requirement')(app, sequelize, models);
+    require('./user_requirement')(app, sequelize, models, Sequelize);
     require('./availability')(app, sequelize, models);
     require('./user_assignment')(app, sequelize, models);
 

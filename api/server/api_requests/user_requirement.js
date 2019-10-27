@@ -1,8 +1,13 @@
-module.exports = function(app, sequelize, models){
+module.exports = function(app, sequelize, models, Sequelize){
+
+    const Op = Sequelize.Op;
+
+    let moment = require('moment');
 
     console.log('\tuser_requirement requests loaded');
 
     let Requirement = models.User_Requirement;
+    let Shift = models.Shift;
 
     /**
      * This request gets all the requirements in the database.
@@ -35,6 +40,47 @@ module.exports = function(app, sequelize, models){
             })
             .catch(err =>{
                 res.status(500).send({'error': err})
+            });
+    });
+
+    /**
+     *  This request gets all the requirement on a time window
+     *  arguments:
+     *              start_date: the starting date and time of the time window
+     *              end_date: the ending date and time of the time window
+     *  returns:
+     *              a json array of requirements
+     */
+    app.get('/user_requirement/window', function(req, res){
+        Shift.findAll({
+                where: {
+                    start_date: {
+                        [Op.gte]: new Date(req.body.start_date)
+                    },
+                    end_date: {
+                        [Op.lte]: new Date(req.body.end_date)
+                    }
+                }
+            })
+            .then(shifts => {
+                let shift_ids = [];
+                for(let i in shifts){
+                    shift_ids.push(shifts[i].id);
+                }
+                Requirement.findAll({
+                        where:{
+                            shift_id: shift_ids
+                        }
+                    })
+                    .then(requirements => {
+                        res.send({'requirements': requirements});
+                    })
+                    .catch(err =>{
+                        res.status(500).send({'error': err});
+                    });
+            })
+            .catch(err =>{
+                res.status(500).send({'error': err});
             });
     });
 
