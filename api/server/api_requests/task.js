@@ -3,6 +3,7 @@ module.exports = function(app, sequelize, models){
     console.log('\ttask requests loaded');
 
     let Task = models.Task;
+    let User_Requirement = models.User_Requirement;
 
     /**
      *   This request gets all the tasks in the database.
@@ -32,6 +33,60 @@ module.exports = function(app, sequelize, models){
         Task.findByPk(req.params.id)
             .then(task => {
                 res.send({'task': task});
+            })
+            .catch(err => {
+                res.status(500).send({'error': err})
+            });
+    });
+
+    /**
+     *  This request gets all the tasks that require one specific user
+     *  arguments:
+     *              user_id: the id of the user
+     *  returns:
+     *              a json array of tasks
+     */
+    app.get('/task/require_user', function(req, res){
+        User_Requirement.findAll({where: {user_id: req.body.user}})
+            .then(requirements => {
+                let task_ids = [];
+                for(let i in requirements){
+                    task_ids.push(requirements[i].task_id)
+                }
+                Task.findAll({where: {id: task_ids}})
+                    .then(tasks => {
+                        res.send({"tasks": tasks});
+                    })
+                    .catch(err => {
+                        res.status(500).send({'error': err});
+                    });
+            })
+            .catch(err => {
+                res.status(500).send({'error': err})
+            });
+    });
+
+    /**
+     *  This request gets all the tasks that require one or multiple teams
+     *  arguments:
+     *              teams: an array of team ids
+     *  returns:
+     *              a json array of tasks
+     */
+    app.get('/task/require_team', function(req, res){
+        User_Requirement.findAll({where: {team_id: req.body.teams}})
+            .then(requirements => {
+                let task_ids = [];
+                for(let i in requirements){
+                    task_ids.push(requirements[i].task_id)
+                }
+                Task.findAll({where: {id: task_ids}})
+                    .then(tasks => {
+                        res.send({"tasks": tasks});
+                    })
+                    .catch(err => {
+                        res.status(500).send({'error': err});
+                    });
             })
             .catch(err => {
                 res.status(500).send({'error': err})
