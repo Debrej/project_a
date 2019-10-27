@@ -3,11 +3,13 @@ module.exports = function(app, sequelize, models){
     console.log('\tuser_requirement requests loaded');
 
     let Requirement = models.User_Requirement;
+
     /**
      * This request gets all the requirements in the database.
      * arguments :
      *              none
-     *
+     *  returns :
+     *              a json array of requirements
      */
     app.get('/user_requirement', function(req, res){
         Requirement.findAll()
@@ -26,7 +28,6 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the user_requirement
      */
-
     app.get('/user_requirement/:id',function (req,res) {
         Requirement.findByPk(req.params.id)
             .then(requirement =>{
@@ -48,7 +49,6 @@ module.exports = function(app, sequelize, models){
      * returns :
      *          a json array containing the created user_requirement(s)
      */
-
     app.post('/user_requirements', function(req, res){
         Requirement.bulkCreate(req.body.requirements)
             .then(requirements => {
@@ -71,7 +71,6 @@ module.exports = function(app, sequelize, models){
      *  returns :
      *              the updated object
      */
-
     app.put('/user_requirement/:id', function(req, res){
         Requirement.update(
             {
@@ -105,7 +104,6 @@ module.exports = function(app, sequelize, models){
      *  returns :
      *              a result being 1 if succeeded, 0 else
      */
-
     app.delete('/user_requirement/:id', function(req, res){
         Requirement.destroy({
             where:{

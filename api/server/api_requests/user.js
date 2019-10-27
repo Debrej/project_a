@@ -200,7 +200,7 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
-     *  This request devalidates a user
+     *  This request invalidates a user
      *  arguments:
      *              id: the id of the user
      *

@@ -47,10 +47,10 @@ module.exports = function(app, sequelize, models){
      */
     app.get('/activity/supervisor/:supervisor_id', function(req, res){
         Activity.findAll({
-            where: {
-                supervisor_id: req.params.supervisor_id
-            }
-        })
+                where: {
+                    supervisor_id: req.params.supervisor_id
+                }
+            })
             .then(activities => {
                 res.send({'activities': activities});
             })

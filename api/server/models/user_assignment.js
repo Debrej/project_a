@@ -1,11 +1,7 @@
 module.exports = function(sequelize, Sequelize, User, Availability) {
 
     const User_Assignment = sequelize.define('user_assignment', {
-        // attributes
-        quantity: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        }
+
     }, {
         underscored: true
     });

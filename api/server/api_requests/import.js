@@ -13,9 +13,9 @@ module.exports = function(app, sequelize, models){
     require('./user')(app, sequelize, models);
 
     require('./activity_location')(app, sequelize, models);
-    require('./requirement')(app, sequelize, models);
+    require('./user_requirement')(app, sequelize, models);
     require('./availability')(app, sequelize, models);
-    require('./assignment_user')(app, sequelize, models);
+    require('./user_assignment')(app, sequelize, models);
 
 
     /*
