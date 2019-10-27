@@ -68,21 +68,16 @@ module.exports = function(app, sequelize, models){
      *              end_date: the ending date and time of the activity
      *              supervisor_id: the user id of the supervisor of the activity
      *              event_id: the id of the event that the activity belongs to
-     *
+     *              contractor_name: the name of the contractor
+     *              contractor_phone: the phone of the contractor
+     *              contractor_mail: the mail of the contractor
+     *              contractor_comment: a comment on the contractor
+     *              contractor_present_on_event: if the contractor is present during the event
      *  returns :
      *              a json object containing the created activity
      */
     app.post('/activity', function(req, res){
-        Activity.create(
-                {
-                    name: req.body.name,
-                    description: req.body.description,
-                    start_date: req.body.start_date,
-                    end_date: req.body.end_date,
-                    supervisor_id: req.body.supervisor_id,
-                    event_id: req.body.event_id
-                }
-            )
+        Activity.create(req.body)
             .then(activity => {
                 res.send({'activity': activity});
             })
@@ -101,27 +96,17 @@ module.exports = function(app, sequelize, models){
      *              end_date: the ending date and time of the activity
      *              supervisor_id: the user id of the supervisor of the activity
      *              event_id: the id of the event that the activity belongs to
-     *
+     *              contractor_name: the name of the contractor
+     *              contractor_phone: the phone of the contractor
+     *              contractor_mail: the mail of the contractor
+     *              contractor_comment: a comment on the contractor
+     *              contractor_present_on_event: if the contractor is present during the event
      *  returns :
      *              the updated object
      */
     app.put('/activity/:id', function(req, res){
 
-        Activity.update(
-                {
-                    name: req.body.name,
-                    description: req.body.description,
-                    start_date: req.body.start_date,
-                    end_date: req.body.end_date,
-                    supervisor_id: req.body.supervisor_id,
-                    event_id: req.body.event_id
-                },
-                {
-                    where: {
-                        id: req.params.id
-                    }
-                }
-            )
+        Activity.update(req.body, {where: {id: req.params.id}})
             .then(() => {
                 Activity.findByPk(req.params.id)
                     .then(activity => {

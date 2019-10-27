@@ -18,6 +18,21 @@ module.exports = function(sequelize, Sequelize, User, Event) {
         end_date: {
             type: Sequelize.DATE,
             allowNull: false
+        },
+        contractor_name: {
+            type: Sequelize.STRING
+        },
+        contractor_phone: {
+            type: Sequelize.STRING
+        },
+        contractor_mail: {
+            type: Sequelize.STRING
+        },
+        contractor_comment: {
+            type: Sequelize.STRING
+        },
+        contractor_present_on_event: {
+            type: Sequelize.STRING
         }
     }, {
         underscored: true
