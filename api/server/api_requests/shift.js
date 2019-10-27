@@ -32,7 +32,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the shift
      */
-    app.get('/shift/:id', function(req, res){
+    app.get('/shift/id/:id', function(req, res){
        Shift.findByPk(req.params.id)
        .then(shift => {
            res.send({'shift': shift});
@@ -184,7 +184,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the shift category
      */
-    app.get('/shift_category/:id', function(req, res){
+    app.get('/shift_category/id/:id', function(req, res){
         Shift_Category.findByPk(req.params.id)
             .then(shift_category => {
                 res.send({'shift_category': shift_category})

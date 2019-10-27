@@ -28,7 +28,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the user_requirement
      */
-    app.get('/user_requirement/:id',function (req,res) {
+    app.get('/user_requirement/id/:id',function (req,res) {
         Requirement.findByPk(req.params.id)
             .then(requirement =>{
                 res.send({'requirement': requirement})

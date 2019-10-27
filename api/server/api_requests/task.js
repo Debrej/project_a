@@ -28,7 +28,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the task
      */
-    app.get('/task/:id', function(req, res){
+    app.get('/task/id/:id', function(req, res){
         Task.findByPk(req.params.id)
             .then(task => {
                 res.send({'task': task});

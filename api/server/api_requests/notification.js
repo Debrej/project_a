@@ -28,7 +28,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the notification
      */
-    app.get('/notification/:id', function(req, res){
+    app.get('/notification/id/:id', function(req, res){
         Notification.findByPk(req.params.id)
             .then(notification => {
                 res.send({'notification': notification});

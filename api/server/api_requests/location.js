@@ -28,7 +28,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the location
      */
-    app.get('/location/:id', function(req, res){
+    app.get('/location/id/:id', function(req, res){
         Location.findByPk(req.params.id)
             .then(location => {
                 res.send({'location': location});

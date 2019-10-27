@@ -30,7 +30,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the equipment
      */
-    app.get('/equipment/:id', function(req, res) {
+    app.get('/equipment/id/:id', function(req, res) {
         Equipment.findByPk(req.params.id)
             .then(equipment => {
                 res.send({'equipment': equipment});
@@ -168,7 +168,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the equipment type
      */
-    app.get('/equipment_type/:id', function (req, res) {
+    app.get('/equipment_type/id/:id', function (req, res) {
         Equipment_Type.findByPk(req.params.id)
             .then(equipment_type => {
                 res.send({'equipment_type': equipment_type})

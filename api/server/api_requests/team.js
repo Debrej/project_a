@@ -26,7 +26,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the team
      */
-    app.get('/team/:id', function(req, res){
+    app.get('/team/id/:id', function(req, res){
         Team.findByPk(req.params.id).then(team => {
             res.send({'team': team});
         });

@@ -29,7 +29,7 @@ module.exports = function(app, sequelize, models){
      *  returns:
      *              an object containing the user assignment
      */
-    app.get('/user_assignment/:id', function(req, res){
+    app.get('/user_assignment/id/:id', function(req, res){
         User_Assignment.findByPk(req.params.id)
             .then(user_assignment => {
                 res.send({"user_assignment": user_assignment});

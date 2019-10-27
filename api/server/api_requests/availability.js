@@ -28,7 +28,7 @@ module.exports = function(app, sequelize, models){
      *  returns:
      *              a json array of availabilities
      */
-    app.get('/availability/:id', function(req, res){
+    app.get('/availability/id/:id', function(req, res){
         Availability.findByPk(req.params.id)
             .then(availability => {
                 res.send({'availability': availability});

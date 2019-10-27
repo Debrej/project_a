@@ -28,7 +28,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the specialty
      */
-    app.get('/specialty/:id', function(req, res){
+    app.get('/specialty/id/:id', function(req, res){
         Specialty.findByPk(req.params.id)
             .then(specialty => {
                 res.send({'specialty': specialty});

@@ -11,7 +11,7 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json object
      */
-    app.get('/activity_location/:activity_id', function(req, res){
+    app.get('/activity_location/id/:activity_id', function(req, res){
         Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.getLocations()

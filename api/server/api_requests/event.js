@@ -24,7 +24,7 @@ module.exports = function(app, sequelize, models){
     *   returns :
     *               a json object containing the event
     */
-    app.get('/event/:id', function(req, res){
+    app.get('/event/id/:id', function(req, res){
        Event.findByPk(req.params.id).then(event => {
                 res.send({'event': event});
             })

@@ -26,7 +26,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the user
      */
-    app.get('/user/:id', function(req, res){
+    app.get('/user/id/:id', function(req, res){
         User.findByPk(req.params.id).then(user => {
             res.send({'user': user});
         });

@@ -24,7 +24,7 @@ module.exports = function(app, sequelize, models){
      *   returns :
      *               a json object containing the comment
      */
-    app.get('/comment/:id', function(req, res){
+    app.get('/comment/id/:id', function(req, res){
         Comment.findByPk(req.params.id).then(comment => {
             res.send({'comment': comment});
         });
