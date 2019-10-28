@@ -8,6 +8,8 @@ module.exports = function(app, sequelize, models, Sequelize){
 
     let Requirement = models.User_Requirement;
     let Shift = models.Shift;
+    let User = models.User;
+    let Team = models.Team;
 
     /**
      * This request gets all the requirements in the database.
@@ -40,6 +42,48 @@ module.exports = function(app, sequelize, models, Sequelize){
             })
             .catch(err =>{
                 res.status(500).send({'error': err})
+            });
+    });
+
+    /**
+     *  This request gets all the user meeting a requirement
+     *  arguments:
+     *              id: the id of the requirement
+     *  returns:
+     *              a json array of users
+     */
+    app.get('/user_requirement/users/:id', function(req, res){
+        Requirement.findByPk(req.params.id)
+            .then(requirement => {
+                let user_id = requirement.user_id;
+                let team_id = requirement.team_id;
+                if (user_id != null) {
+                    User.findByPk(user_id)
+                        .then(users => {
+                            res.send({'users': users});
+                        })
+                        .catch(err => {
+                            res.status(500).send({'error': err});
+                        });
+                }
+                else if (team_id != null){
+                    Team.findByPk(team_id)
+                        .then(team => {
+                            team.getUsers()
+                                .then(users => {
+                                    res.send({'users': users});
+                                })
+                                .catch(err => {
+                                    res.status(500).send({'error': err});
+                                });
+                        })
+                        .catch(err => {
+                            res.status(500).send({'error': err});
+                        });
+                }
+            })
+            .catch(err => {
+                res.status(500).send({'error': err});
             });
     });
 
