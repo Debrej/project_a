@@ -1,6 +1,7 @@
 module.exports = function(app, sequelize, models){
 
     let Activity = models.Activity;
+    let Location = models.Location;
 
     console.log('\tactivity_location requests loaded');
 
@@ -11,7 +12,7 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json object
      */
-    app.get('/activity_location/id/:activity_id', function(req, res){
+    app.get('/activity/location/id/:activity_id', function(req, res){
         Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.getLocations()
@@ -28,13 +29,37 @@ module.exports = function(app, sequelize, models){
     });
 
     /**
+     *  This request qets all the locations for all the activities
+     *  arguments:
+     *              none
+     *  returns:
+     *              a json array of activities and corresponding locations
+     */
+    app.get('/activity/all_locations', function(req, res){
+        Activity.findAll({
+                include: [
+                    {
+                        model: Location
+                    }
+                ]
+            })
+            .then(response => {
+                res.send({'response': response});
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).send({'error': err});
+            })
+    });
+
+    /**
      * This requests adds new locations to the specified activity
      * arguments :
      *              locations_ids : array of all the id that will be added
      * returns :
      *              a json array off all the added locations
      */
-    app.post('/activity_location/:activity_id', function(req, res){
+    app.post('/activity/location/:activity_id', function(req, res){
         Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.addLocations(req.body.location_ids)
@@ -50,7 +75,6 @@ module.exports = function(app, sequelize, models){
             });
     });
 
-
     /**
      * This requests updates locations from the specified activity
      * arguments :
@@ -58,7 +82,7 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json array off all the added locations
      */
-    app.put('/activity_location/:activity_id', function(req, res){
+    app.put('/activity/location/:activity_id', function(req, res){
         Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.setLocations(req.body.location_ids)
@@ -87,7 +111,7 @@ module.exports = function(app, sequelize, models){
      * returns :
      *              a json array off all the added locations
      */
-    app.delete('/activity_location/:activity_id', function(req, res){
+    app.delete('/activity/location/:activity_id', function(req, res){
         Activity.findByPk(req.params.activity_id)
             .then(activity => {
                 activity.removeLocations(req.body.location_ids)
