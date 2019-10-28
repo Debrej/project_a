@@ -2,8 +2,6 @@ module.exports = function(app, sequelize, models, Sequelize){
 
     const Op = Sequelize.Op;
 
-    let moment = require('moment');
-
     console.log('\tuser_requirement requests loaded');
 
     let Requirement = models.User_Requirement;
