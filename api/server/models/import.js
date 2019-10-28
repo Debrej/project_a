@@ -39,6 +39,11 @@ module.exports = function(sequelize, Sequelize){
     db.Team.belongsToMany(db.User, {through: 'user_team'});
 
     /**
+     * Table friend which represents friendship between users
+     */
+    db.Friendship = require('./friendship')(sequelize, Sequelize, db.User);
+
+    /**
      * Table activity_location which represents on which location(s) activities are located
      */
     db.Activity.belongsToMany(db.Location, {through: 'activity_location'});

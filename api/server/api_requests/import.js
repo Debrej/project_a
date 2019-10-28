@@ -16,12 +16,11 @@ module.exports = function(app, sequelize, models, Sequelize){
     require('./user_requirement')(app, sequelize, models, Sequelize);
     require('./availability')(app, sequelize, models);
     require('./user_assignment')(app, sequelize, models);
-
+    require('./friend')(app, sequelize, models, Sequelize);
 
     /*
     require('./activity_equipment')(app, sequelize, models);
     require('./assignment_equipment')(app, sequelize, models);
-
     require('./task_equipment')(app, sequelize, models);*/
 
 };
