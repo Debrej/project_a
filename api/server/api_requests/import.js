@@ -20,4 +20,6 @@ module.exports = function(app, sequelize, models, Sequelize){
     require('./equipment_requirement')(app, sequelize, models);
     require('./equipment_assignment')(app, sequelize, models);
 
+    require('./search')(app, sequelize, models, Sequelize);
+
 };
