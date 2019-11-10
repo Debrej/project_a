@@ -1,0 +1,74 @@
+div.form{
+    height: 80%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.name{
+    width: 50%;
+    flex-grow: 1;
+}
+
+div.dates{
+    display: flex;
+    flex-grow: 1;
+}
+
+div.date{
+    flex-basis: 100%;
+    padding-right: 2%;
+}
+
+div.description{
+    flex-grow: 3;
+}
+
+div.label{
+    font-size: 1.2em;
+}
+
+div.submit{
+    display: flex;
+    justify-content: flex-end;
+}
+
+div.submit > div.button{
+    flex-grow: unset;
+    flex-basis: unset;
+
+    border-radius: 2%;
+}
+
+div.submit > div.button:hover{
+    flex-grow: unset;
+    flex-basis: unset;
+
+    background-color: #d6d5ae;
+}
+
+input.description{
+    height: 80%;
+    margin: 0;
+}
+
+input[type=text], input[type=password]{
+    border: none;
+    border-bottom: 1px solid #99987b;
+    background: none;
+    padding: 3% 2%;
+    margin-bottom: 5%;
+    width: 100%;
+    font-size: 1.2em;
+}
+
+textarea.description{
+    border: none;
+    border-bottom: 1px solid #99987b;
+    background: none;
+    margin-top: 2%;
+    width: 100%;
+    height: 80%;
+    font-size: 1.2em;
+    resize: none;
+}

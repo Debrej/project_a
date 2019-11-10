@@ -4,7 +4,11 @@
 </head>
 <body>
     <%- include header.ejs %>
-    <div class="container" onclick="on_click_container()">
-        <%- include dashboard.ejs %>
+    <div class="container" onclick="on_click_container()" id="app">
+        Orgassomaker
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.4.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/global.js"></script>
 </body>

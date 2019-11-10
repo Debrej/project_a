@@ -1,7 +1,9 @@
 //region INITIALIZATION
 const express = require('express');
-const dateFormat = require('date-format');
 const app = express();
+
+const path = require('path');
+const dateFormat = require('date-format');
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -20,8 +22,11 @@ app.use(function(req, res, next){
 
 //region EXPRESS SET UP
 
-app.use('/css', express.static('public/stylesheet'));
-app.use('/js', express.static('public/javascript'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/css', express.static('public/css'));
+app.use('/js', express.static('public/js'));
+app.use('/images', express.static('public/images'));
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -31,8 +36,10 @@ app.set('view engine', 'html');
 //region ROUTES
 
 let indexRouter = require('./routes/index');
-
 app.use('/', indexRouter);
+
+let createRouter = require('./routes/create');
+app.use('/create', createRouter);
 
 //endregion
 
