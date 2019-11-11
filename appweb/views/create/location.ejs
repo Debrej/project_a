@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <%- include ../head.ejs %>
+    <link href="/css/create/location.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<%- include ../header.ejs %>
+<div class="container" onclick="on_click_container()" id="app">
+    <div class="form">
+        <div class="container_name_map">
+            <div class="name">
+                <div class="label">Name</div>
+                <input type="text" name="name" placeholder="The name of this beautiful (I hope) place" v-model="name" style="width: 80%;"/>
+            </div>
+            <div class="map">
+                <div class="label">Map</div>
+                <gmap-map :center="center"
+                          :zoom="15"
+                          :options="map_options"
+                          map-type-id="terrain"
+                          style="width: 100%; height: 90%">
+                    <gmap-marker
+                            :key="location"
+                            :position="center"
+                        ></gmap-marker>
+                </gmap-map>
+            </div>
+        </div>
+        <div class="description">
+            <div class="label">Description</div>
+            <textarea name="description" class="description" placeholder="The best description of all times" v-model="description">
+        </textarea>
+        </div>
+        <div class="submit">
+            <div class="button" style="width: 20%;" v-on:click="submit">
+                Submit
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue2-google-maps@0.10.7/dist/vue-google-maps.js" charset="utf-8"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="module" src="/js/create/location.js"></script>
+</body>
