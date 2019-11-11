@@ -3,38 +3,33 @@ div.form{
     width: 60%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 div.form_title{
     font-size: 1.5em;
 }
 
-div.container_name_map{
-    display: flex;
-    flex-grow: 2;
-}
-
 div.name{
-    flex-grow: 1;
+    width: 50%;
 }
 
-div.map{
-    flex-grow: 1;
-    height: 100%;
+div.supervisor_event{
+    display: flex;
+}
+
+div.supervisor, div.event{
+    flex-basis: 100%;
+    padding-right: 2%;
 }
 
 div.dates{
     display: flex;
-    flex-grow: 1;
 }
 
 div.date{
     flex-basis: 100%;
     padding-right: 2%;
-}
-
-div.description{
-    flex-grow: 3;
 }
 
 div.label{

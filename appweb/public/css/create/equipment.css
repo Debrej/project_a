@@ -19,6 +19,7 @@ div.name{
 div.quantity_locations{
     display: flex;
     flex-grow: 1;
+    justify-content: space-evenly;
 }
 
 div.quantity, div.location{
@@ -77,7 +78,7 @@ input[type=text], input[type=password]{
 }
 
 input[type=number]{
-    width: 80%;
+    width: 95%;
 }
 
 textarea.description{

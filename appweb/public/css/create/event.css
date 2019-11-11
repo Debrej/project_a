@@ -1,8 +1,12 @@
 div.form{
-    height: 80%;
+    height: 90%;
     width: 60%;
     display: flex;
     flex-direction: column;
+}
+
+div.form_title{
+    font-size: 1.5em;
 }
 
 div.name{
