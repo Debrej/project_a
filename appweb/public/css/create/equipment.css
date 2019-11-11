@@ -1,5 +1,5 @@
 div.form{
-    height: 80%;
+    height: 90%;
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -9,28 +9,29 @@ div.form_title{
     font-size: 1.5em;
 }
 
-div.container_name_map{
-    display: flex;
-    flex-grow: 2;
-}
-
 div.name{
+    width: 50%;
+    display: flex;
     flex-grow: 1;
+    flex-direction: column;
 }
 
-div.map{
-    flex-grow: 1;
-    height: 100%;
-}
-
-div.dates{
+div.quantity_locations{
     display: flex;
     flex-grow: 1;
 }
 
-div.date{
-    flex-basis: 100%;
-    padding-right: 2%;
+div.quantity, div.location{
+    display: flex;
+    width: 33%;
+    flex-direction: column;
+}
+
+div.equipment_type{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 div.description{
@@ -73,6 +74,10 @@ input[type=text], input[type=password]{
     margin-bottom: 5%;
     width: 100%;
     font-size: 1.2em;
+}
+
+input[type=number]{
+    width: 80%;
 }
 
 textarea.description{

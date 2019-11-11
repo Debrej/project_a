@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <%- include ../head.ejs %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@desislavsd/vue-select/dist/vue-select.css">
+    <link href="/css/create/equipment.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<%- include ../header.ejs %>
+<div class="container" onclick="on_click_container()" id="app">
+    <div class="form">
+        <div class="form_title">Equipment</div>
+        <div class="name">
+            <div class="label">Name</div>
+            <input type="text" name="name" placeholder="The name of this beautiful (I hope) equipment" v-model="name"/>
+        </div>
+        <div class="quantity_locations">
+            <div class="quantity">
+                <div class="label">Quantity</div>
+                <input type="number" name="quantity" value=1 v-model="quantity" min="1"/>
+            </div>
+            <div class="location">
+                <div class="label">Pickup Location</div>
+                <v-select v-model="pickup_location" as="name::id" :from="locations"></v-select>
+            </div>
+            <div class="location">
+                <div class="label">Drop Location</div>
+                <v-select v-model="drop_location" as="name::id" :from="locations"></v-select>
+            </div>
+        </div>
+        <div class="equipment_type">
+            <div class="label">Equipment Type</div>
+            <v-select v-model="equipment_type" as="name::id" :from="equipment_types"></v-select>
+        </div>
+        <div class="description">
+            <div class="label">Description</div>
+            <textarea name="description" class="description" placeholder="The best description of all times" v-model="description">
+        </textarea>
+        </div>
+        <div class="submit">
+            <div class="button" style="width: 20%;" v-on:click="submit">
+                Submit
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@desislavsd/vue-select"></script>
+<script type="module" src="/js/create/equipment.js"></script>
+</body>
