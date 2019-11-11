@@ -4,8 +4,6 @@ Vue.use(VueGoogleMaps, {
     }
 });
 
-const host = "http://localhost:2424";
-
 const app = new Vue({
     el: '#app',
     data () {

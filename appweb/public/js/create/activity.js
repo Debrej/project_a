@@ -1,7 +1,5 @@
 Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
 
-const host = "http://localhost:2424";
-
 const app = new Vue({
     el: '#app',
     data () {
