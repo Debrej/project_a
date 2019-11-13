@@ -1,1 +1,0 @@
-const host = "http://localhost:2424";

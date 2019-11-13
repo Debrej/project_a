@@ -19,7 +19,7 @@ app.use(express.urlencoded());
 let sequelize = new Sequelize('project_a', 'project_a', pwd_bd, {
     host: 'localhost',
     dialect: 'mysql',
-    logging: false
+    logging: true
 });
 
 /*
@@ -50,7 +50,7 @@ app.use(function(req, res, next){
 *   This method will allow CORS
 */
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:2445"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
