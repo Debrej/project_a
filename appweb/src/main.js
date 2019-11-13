@@ -1,14 +1,23 @@
+//region IMPORTING MODULES TO USE IN VUE
+
 import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 
 import axios from 'axios';
+import moment from 'moment';
+
+//endregion
+
+//region IMPORTING COMPONENTS TO USE IN THE APP
 
 import '@desislavsd/vue-select/dist/vue-select.css'
 import VueSelect from '@desislavsd/vue-select'
+Vue.use(VueSelect);
 
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker);
 
 import {LMap, LTileLayer, LMarker} from 'vue2-leaflet'
 import { Icon } from 'leaflet'
@@ -26,22 +35,20 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
+//endregion
+
+//region ROUTER CONFIGURATION
 import Home from './components/Home';
+
 import Event_Create from './components/create/Event';
 import Equipment_Create from './components/create/Equipment';
 import Activity_Create from './components/create/Activity';
 import Task_Create from './components/create/Task';
 import Location_Create from './components/create/Location';
 
-Vue.config.productionTip = false;
+import Event_Show from './components/show/Event';
 
 Vue.use(VueRouter);
-
-Vue.prototype.$host = 'http://localhost:2424';
-Vue.prototype.$axios = axios;
-
-Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker);
-Vue.use(VueSelect);
 
 const routes = [
   {path: '/', component: Home},
@@ -49,13 +56,26 @@ const routes = [
   {path: '/create/equipment', component: Equipment_Create},
   {path: '/create/activity', component: Activity_Create},
   {path: '/create/task', component: Task_Create},
-  {path: '/create/location', component: Location_Create}
+  {path: '/create/location', component: Location_Create},
+  {path: '/show/events', component: Event_Show},
 ];
 
 const router = new VueRouter({
   routes: routes,
   mode: 'history'
 });
+
+//endregion
+
+//region VUE GLOBAL VARIABLE
+
+Vue.prototype.$host = 'http://localhost:2424';
+Vue.prototype.$axios = axios;
+Vue.prototype.$moment = moment;
+
+//endregion
+
+Vue.config.productionTip = false;
 
 new Vue({
   render: h => h(App),
