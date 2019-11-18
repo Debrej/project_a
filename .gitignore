@@ -5,3 +5,6 @@ node_modules/
 
 *.png
 *.svg
+
+launch_project_a
+doc/
