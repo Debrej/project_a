@@ -15,20 +15,20 @@ models.Event.create({
 models.Location.create({
     name: 'Bar AIP',
     description: 'c\'est le bar à coté de l\'AIP',
-    gps_long: 45.783367,
-    gps_lat: 4.876851
+    gps_lat: 45.783367,
+    gps_long: 4.876851
 }).then(() => {
 models.Location.create({
     name: 'QG catering',
     description: 'là où on stocke les 80 kg de frometon',
-    gps_long: 45.784156,
-    gps_lat: 4.874421
+    gps_lat: 45.784156,
+    gps_long: 4.874421
 }).then(() => {
 models.Location.create({
     name: 'QG orga',
     description: 'une fois y\'as eu une chèvre',
-    gps_long: 45.783943,
-    gps_lat: 4.873784
+    gps_lat: 45.783943,
+    gps_long: 4.873784
 }).then(() => {
 models.Specialty.create({
     name: 'TC',

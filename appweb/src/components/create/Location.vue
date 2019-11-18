@@ -124,7 +124,13 @@
         flex-grow: unset;
         flex-basis: unset;
 
+        display: flex;
+        justify-content: center;
+
+        cursor: pointer;
+
         border-radius: 2%;
+        padding: 1%;
     }
 
     div.submit > div.button:hover{

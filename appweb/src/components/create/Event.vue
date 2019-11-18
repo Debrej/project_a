@@ -8,11 +8,11 @@
         <div class="dates">
             <div class="date">
                 <div class="label">Starting date</div>
-                <vue-ctk-date-time-picker v-model="start_date" label="" locale="fr" only-date :minute-interval="30"></vue-ctk-date-time-picker>
+                <vue-ctk-date-time-picker v-model="start_date" label="" locale="fr" :minute-interval="60"></vue-ctk-date-time-picker>
             </div>
             <div class="date">
                 <div class="label">Ending date</div>
-                <vue-ctk-date-time-picker v-model="end_date" label="" locale="fr" only-date :minute-interval="30" :min-date="start_date"></vue-ctk-date-time-picker>
+                <vue-ctk-date-time-picker v-model="end_date" label="" locale="fr" :minute-interval="60" :min-date="start_date"></vue-ctk-date-time-picker>
             </div>
         </div>
         <div class="description">
@@ -102,7 +102,13 @@
         flex-grow: unset;
         flex-basis: unset;
 
+        display: flex;
+        justify-content: center;
+
+        cursor: pointer;
+
         border-radius: 2%;
+        padding: 1%;
     }
 
     div.submit > div.button:hover{
