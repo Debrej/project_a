@@ -8,7 +8,7 @@
         <div class="dates">
             <div class="date">
                 <div class="label">Starting date</div>
-                <vue-ctk-date-time-picker v-model="start_date" label="" locale="fr" :minute-interval="60"></vue-ctk-date-time-picker>
+                <vue-ctk-date-time-picker v-model="start_date" label="" locale="fr" :minute-interval="60" :max-date="end_date"></vue-ctk-date-time-picker>
             </div>
             <div class="date">
                 <div class="label">Ending date</div>

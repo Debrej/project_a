@@ -28,11 +28,11 @@
         <div class="dates">
             <div class="date">
                 <div class="label">Starting date</div>
-                <vue-ctk-date-time-picker v-model="start_date" label="" locale="fr" :minute-interval="15"></vue-ctk-date-time-picker>
+                <vue-ctk-date-time-picker v-model="start_date" label="" locale="fr" :minute-interval="15" :max-date="end_date"></vue-ctk-date-time-picker>
             </div>
             <div class="date">
                 <div class="label">Ending date</div>
-                <vue-ctk-date-time-picker v-model="end_date" label="" locale="fr" :minute-interval="15"></vue-ctk-date-time-picker>
+                <vue-ctk-date-time-picker v-model="end_date" label="" locale="fr" :minute-interval="15" :min-date="start_date"></vue-ctk-date-time-picker>
             </div>
         </div>
         <div class="description">
