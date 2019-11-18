@@ -5,6 +5,7 @@
             <EventCard
                     v-for="event in events"
                     :key="event.id"
+                    :id="event.id"
                     :name="event.name"
                     :start_date="$moment.utc(event.start_date).local().format('DD-MM-YYYY HH:mm')"
                     :end_date="$moment.utc(event.end_date).local().format('DD-MM-YYYY HH:mm')"

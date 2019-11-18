@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" v-on:click="count">
         <div class="flexline">
             <div class="column">
                 <div class="name">{{ name }}</div>
@@ -23,13 +23,21 @@
     export default {
         name: "EquipmentCard",
         props: [
+            "id",
             "name",
             "description",
             "type_name",
             "pickup_location",
             "drop_location",
             "quantity"
-        ]
+        ],
+        methods: {
+            count () {
+                /* eslint-disable no-console */
+                console.log("show/equipment/"+this.id);
+                /* eslint-enable no-console */
+            }
+        }
     }
 </script>
 
@@ -42,6 +50,14 @@
         align-items: center;
         padding: 3%;
         margin-bottom: 2%;
+        cursor: pointer;
+
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+    }
+
+    div.card:hover{
+        background-color: #f6f9e7;
     }
 
     div.flexline{

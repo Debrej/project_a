@@ -5,6 +5,7 @@
             <EquipmentCard
                     v-for="equipment in equipments"
                     :key="equipment.id"
+                    :id="equipment.id"
                     :name="equipment.name"
                     :description="equipment.description"
                     :quantity="equipment.quantity"

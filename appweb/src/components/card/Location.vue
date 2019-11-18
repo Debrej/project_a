@@ -1,11 +1,11 @@
 <template>
-    <div class="card">
+    <div class="card" v-on:click="count">
         <div class="flexline">
             <div class="column">
                 <div class="name">{{ name }}</div>
                 <div class="description">{{ description }}</div>
             </div>
-            <div class="column">
+            <div class="column" v-on:click.stop>
                 <l-map ref="location_map"
                        :center="center"
                        :zoom="zoom">
@@ -27,6 +27,7 @@
           }
         },
         props : [
+            'id',
             'name',
             'description',
             'center'
@@ -36,6 +37,13 @@
                 this.$refs.location_map.mapObject.center = this.center;
             })
         },
+        methods: {
+            count () {
+                /* eslint-disable no-console */
+                console.log("show/event/"+this.id);
+                /* eslint-enable no-console */
+            }
+        }
     }
 </script>
 
@@ -50,6 +58,14 @@
         margin-bottom: 2%;
         max-height: 20vh;
         min-height: 12vh;
+        cursor: pointer;
+
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+    }
+
+    div.card:hover{
+        background-color: #f6f9e7;
     }
 
     div.flexline{

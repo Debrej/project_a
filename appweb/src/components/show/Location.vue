@@ -5,6 +5,7 @@
             <LocationCard
                     v-for="location in locations"
                     :key="location.id"
+                    :id="location.id"
                     :name="location.name"
                     :description="location.description"
                     :center="[location.gps_lat, location.gps_long]"
