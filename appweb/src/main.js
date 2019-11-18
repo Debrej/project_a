@@ -49,6 +49,7 @@ import Location_Create from './components/create/Location';
 import Event_Show from './components/show/Event';
 import Location_Show from './components/show/Location';
 import Equipment_Show from './components/show/Equipment';
+import Activity_Show from './components/show/Activity';
 
 Vue.use(VueRouter);
 
@@ -62,6 +63,7 @@ const routes = [
   {path: '/show/events', component: Event_Show},
   {path: '/show/locations', component: Location_Show},
   {path: '/show/equipments', component: Equipment_Show},
+  {path: '/show/activities', component: Activity_Show},
 ];
 
 const router = new VueRouter({
