@@ -48,7 +48,7 @@
                         "end_date": this.end_date
                     })
                     .then(() => {
-                        window.location.href = "/"
+                        window.location.href = "/show/events"
                     })
                     .catch(() => {
                         window.location.href = "/error"

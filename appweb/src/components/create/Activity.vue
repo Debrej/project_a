@@ -102,10 +102,8 @@
                     "supervisor_id": this.supervisor.id,
                     "event_id": this.event.id
                 })
-                    .then(res => {
-                        /* eslint-disable no-console */
-                        console.log(res.data.activity);
-                        /* eslint-enable no-console */
+                    .then(() => {
+                        window.location.href = "/show/activities"
                     })
                     .catch(err => {
                         /* eslint-disable no-console */

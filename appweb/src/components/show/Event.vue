@@ -1,14 +1,16 @@
 <template>
     <div class="content">
         <div class="title">Events</div>
-        <EventCard
-            v-for="event in events"
-            :key="event.id"
-            :name="event.name"
-            :start_date="$moment.utc(event.start_date).local().format('DD-MM-YYYY HH:mm')"
-            :end_date="$moment.utc(event.end_date).local().format('DD-MM-YYYY HH:mm')"
-            :description="event.description"
-        ></EventCard>
+        <div class="scrollable">
+            <EventCard
+                    v-for="event in events"
+                    :key="event.id"
+                    :name="event.name"
+                    :start_date="$moment.utc(event.start_date).local().format('DD-MM-YYYY HH:mm')"
+                    :end_date="$moment.utc(event.end_date).local().format('DD-MM-YYYY HH:mm')"
+                    :description="event.description"
+            ></EventCard>
+        </div>
     </div>
 </template>
 
@@ -47,5 +49,10 @@
         font-size: 1.5em;
         width: 100%;
         margin-bottom: 2%;
+    }
+
+    div.scrollable{
+        overflow: auto;
+        width: 100%;
     }
 </style>

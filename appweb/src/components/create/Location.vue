@@ -38,7 +38,7 @@
         data () {
             return {
                 value: null,
-                center: [45.78025361202239, 4.87398136395485],
+                center: {"lat": 45.78025361202239, "lng": 4.87398136395485},
                 url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
                 zoom: 15,
                 name: null,
@@ -52,17 +52,14 @@
         },
         methods: {
             submit () {
-
                 this.$axios.post(this.$host+'/location',{
                         "name": this.name,
                         "description": this.description,
                         "gps_long": this.center.lng,
                         "gps_lat": this.center.lat
                     })
-                    .then(res => {
-                        /* eslint-disable no-console */
-                        console.log(res.data);
-                        /* eslint-enable no-console */
+                    .then(() => {
+                        window.location.href = "/show/locations"
                     })
                     .catch(err => {
                         /* eslint-disable no-console */

@@ -82,7 +82,7 @@
                     "drop_location": this.drop_location.id
                 })
                     .then(() => {
-                        window.location.href = "/"
+                        window.location.href = "/show/equipments"
                     })
                     .catch(() => {
                         window.location.href = "/error"

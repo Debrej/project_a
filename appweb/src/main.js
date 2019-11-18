@@ -47,6 +47,7 @@ import Task_Create from './components/create/Task';
 import Location_Create from './components/create/Location';
 
 import Event_Show from './components/show/Event';
+import Location_Show from './components/show/Location';
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,7 @@ const routes = [
   {path: '/create/task', component: Task_Create},
   {path: '/create/location', component: Location_Create},
   {path: '/show/events', component: Event_Show},
+  {path: '/show/locations', component: Location_Show},
 ];
 
 const router = new VueRouter({

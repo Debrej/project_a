@@ -121,10 +121,8 @@
                     "location_id": this.location.id,
                     "activity_id": this.activity.id
                 })
-                    .then(res => {
-                        /* eslint-disable no-console */
-                        console.log(res.data.task);
-                        /* eslint-enable no-console */
+                    .then(() => {
+                        window.location.href = "/show/tasks"
                     })
                     .catch(err => {
                         /* eslint-disable no-console */
