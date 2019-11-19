@@ -1,5 +1,5 @@
 <template>
-    <h1>Orgassomakerify</h1>
+    <img src="../../public/images/event_logo_default.png" alt="logos 24 heures de l'INSA" />
 </template>
 
 <script>
@@ -9,5 +9,8 @@
 </script>
 
 <style scoped>
-
+    img{
+        max-height: 75%;
+        width: auto;
+    }
 </style>

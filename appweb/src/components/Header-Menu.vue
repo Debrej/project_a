@@ -1,13 +1,13 @@
 <template>
     <div class="menu" id="main">
-        <div class="button" v-on:click="create_menu()" style="background-color: #8185ff;">
-            Créer
+        <div class="button create" v-on:click="create_menu()">
+            Create
         </div>
-        <div class="button" v-on:click="show_menu()" style="background-color: #77ff77;">
-            Afficher
+        <div class="button show" v-on:click="show_menu()" style="">
+            Show
         </div>
-        <div class="button" v-on:click="affect_menu()" style="background-color: #ffac50;">
-            Affecter
+        <div class="button affect" v-on:click="affect_menu()" style="">
+            Affect
         </div>
         <Create></Create>
         <Show></Show>
@@ -113,16 +113,16 @@
         transition-duration: 0.4s;
     }
 
-    div.menu#create > div.button{
-        background-color: rgba(137, 138, 255, 0.69);
+    div.create, div.menu#create > div.button{
+        background-color: #41C5E5;
     }
 
-    div.menu#show > div.button{
-        background-color: rgba(119, 255, 119, 0.69);
+    div.show, div.menu#show > div.button{
+        background-color: #FFCB29;
     }
 
-    div.menu#affect > div.button{
-        background-color: rgba(255, 172, 80, 0.69);
+    div.affect, div.menu#affect > div.button {
+        background-color: #ED1D45;
     }
 
     div.button:hover{

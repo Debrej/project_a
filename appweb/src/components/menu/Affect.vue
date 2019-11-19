@@ -61,15 +61,15 @@
     }
 
     div.menu#create > div.button{
-        background-color: rgba(137, 138, 255, 0.69);
+        background-color: #41C5E5;
     }
 
     div.menu#show > div.button{
-        background-color: rgba(119, 255, 119, 0.69);
+        background-color: #FFCB29;
     }
 
     div.menu#affect > div.button{
-        background-color: rgba(255, 172, 80, 0.69);
+        background-color: #ED1D45;
     }
 
     div.button:hover{

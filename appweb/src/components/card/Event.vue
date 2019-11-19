@@ -21,9 +21,7 @@
         ],
         methods: {
             count () {
-                /* eslint-disable no-console */
-                console.log("show/event/"+this.id);
-                /* eslint-enable no-console */
+                window.location.href = "event/"+this.id;
             }
         }
     }
@@ -45,7 +43,7 @@
     }
 
     div.card:hover{
-        background-color: #f6f9e7;
+        background-color: #d0d0d0;
     }
 
     div.flexline{
@@ -63,7 +61,7 @@
 
     div.column.date{
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     div.description{

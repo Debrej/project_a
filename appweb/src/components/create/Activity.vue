@@ -136,7 +136,7 @@
         display: flex;
     }
 
-    div.supervisor, div.event{
+    div.supervisor, div.activity{
         flex-basis: 100%;
         padding-right: 2%;
     }

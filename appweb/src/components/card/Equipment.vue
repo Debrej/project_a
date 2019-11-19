@@ -57,7 +57,7 @@
     }
 
     div.card:hover{
-        background-color: #f6f9e7;
+        background-color: #d0d0d0;
     }
 
     div.flexline{
@@ -75,7 +75,7 @@
 
     div.column.quantity, div.column.type{
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     div.name{

@@ -3,7 +3,7 @@
         <div class="flexline">
             <div class="column">
                 <div class="column name">{{ name }}</div>
-                <div class="column event">{{ event_name }}</div>
+                <div class="column activity">{{ event_name }}</div>
             </div>
             <div class="column"></div>
         </div>
@@ -56,7 +56,7 @@
     }
 
     div.card:hover{
-        background-color: #f6f9e7;
+        background-color: #d0d0d0;
     }
 
     div.flexline{
@@ -77,7 +77,7 @@
         font-size: 1.2em;
     }
 
-    div.column.event{
+    div.column.activity{
         font-size: 0.8em;
     }
 
@@ -89,6 +89,6 @@
 
     div.column.supervisor{
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
     }
 </style>

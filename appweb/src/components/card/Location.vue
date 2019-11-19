@@ -40,7 +40,7 @@
         methods: {
             count () {
                 /* eslint-disable no-console */
-                console.log("show/event/"+this.id);
+                console.log("show/location/"+this.id);
                 /* eslint-enable no-console */
             }
         }
@@ -65,7 +65,7 @@
     }
 
     div.card:hover{
-        background-color: #f6f9e7;
+        background-color: #d0d0d0;
     }
 
     div.flexline{

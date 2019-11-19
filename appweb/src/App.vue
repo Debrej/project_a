@@ -29,22 +29,22 @@
 </script>
 
 <style>
-div.container{
-  height: 92vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  div.container{
+    height: 92vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-*{
-  margin: 0;
-  padding: 0;
-  font-family: 'Oswald', sans-serif;
-}
+  *{
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+  }
 
-body{
-  height: 100vh;
-  width: 100vw;
-}
+  body{
+    height: 100vh;
+    width: 100vw;
+  }
 </style>
