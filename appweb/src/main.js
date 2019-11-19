@@ -50,6 +50,10 @@ import Event_Show from './components/show/Event';
 import Location_Show from './components/show/Location';
 import Equipment_Show from './components/show/Equipment';
 import Activity_Show from './components/show/Activity';
+import Task_Show from './components/show/Task';
+import User_Show from './components/show/User';
+
+import Event_Detail from './components/detail/Event'
 
 Vue.use(VueRouter);
 
@@ -60,10 +64,15 @@ const routes = [
   {path: '/create/activity', component: Activity_Create},
   {path: '/create/task', component: Task_Create},
   {path: '/create/location', component: Location_Create},
+
   {path: '/show/events', component: Event_Show},
   {path: '/show/locations', component: Location_Show},
   {path: '/show/equipments', component: Equipment_Show},
   {path: '/show/activities', component: Activity_Show},
+  {path: '/show/tasks', component: Task_Show},
+  {path: '/show/users', component: User_Show},
+
+  {path: '/show/event/:id', component: Event_Detail}
 ];
 
 const router = new VueRouter({
