@@ -21,7 +21,7 @@ module.exports = function(sequelize, Sequelize) {
         },
         logo_url: {
             type: Sequelize.STRING,
-            defaultValue: 'images/event_logo_default.png'
+            defaultValue: 'event_logo_default.png'
         }
     }, {
         underscored: true
