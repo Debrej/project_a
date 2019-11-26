@@ -1,5 +1,5 @@
 <template>
-    <div class="card" v-on:click="count">
+    <div class="card" v-on:click="redirect">
         <div class="flexline">
             <div class="column">
                 <div class="column name">{{ name }}</div>
@@ -36,7 +36,7 @@
             "location_name"
         ],
         methods: {
-            count () {
+            redirect () {
                 /* eslint-disable no-console */
                 console.log("show/task/"+this.id);
                 /* eslint-enable no-console */

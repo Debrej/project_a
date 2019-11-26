@@ -1,27 +1,29 @@
 <template>
     <div class="content">
         <div class="line top">
-            <div class="column logo">
-                <img :src="`${publicPath}`+'images/'+event.logo_url" :alt="`${publicPath}`+'images/'+event.logo_url"/>
-            </div>
             <div class="column">
-                <div class="line name">{{ event.name }}</div>
-                <div class="line date">
-                    Dates : {{ $moment.utc(event.start_date).local().format('DD-MM-YYYY HH:mm') }} - {{ $moment.utc(event.end_date).local().format('DD-MM-YYYY HH:mm') }}
+                <div class="line name">{{ location.name }}</div>
+                <div class="line description">
+                    {{ location.description }}
                 </div>
             </div>
         </div>
-        <div class="line description">
-            {{ event.description }}
+        <div class="line map">
+            <l-map ref="location_map"
+                   :center="center"
+                   :zoom="zoom">
+                <l-tile-layer :url="url"></l-tile-layer>
+                <l-marker :lat-lng="center"></l-marker>
+            </l-map>
         </div>
         <div class="line controls">
-            <div class="button" style="width: 20%;" v-on:click="backEvent">
+            <div class="button" style="width: 20%;" v-on:click="backLocation">
                 Back
             </div>
-            <div class="button" style="width: 20%;" v-on:click="editEvent">
+            <div class="button" style="width: 20%;" v-on:click="editLocation">
                 Edit
             </div>
-            <div class="button delete" style="width: 20%;" v-on:click="deleteEvent">
+            <div class="button delete" style="width: 20%;" v-on:click="deleteLocation">
                 Delete
             </div>
         </div>
@@ -30,20 +32,25 @@
 
 <script>
     export default {
-        name: "EventDetail",
+        name: "LocationDetail",
         data () {
             return {
-                publicPath: process.env.BASE_URL,
-                event: null,
-                logo_url: null,
-                id: null
+                url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+                zoom: 16,
+                id: null,
+                location: null,
+                center: null
             }
         },
         mounted () {
             this.id = this.$route.params.id;
-            this.$axios.get(this.$host+"/event/id/"+this.id)
+            this.$axios.get(this.$host+"/location/id/"+this.id)
                 .then(res => {
-                    this.event = res.data.event;
+                    this.location = res.data.location;
+                    this.center = [this.location.gps_lat, this.location.gps_long];
+                    this.$nextTick(() => {
+                        this.$refs.location_map.mapObject.center = this.center;
+                    })
                 })
                 .catch(err => {
                     /* eslint-disable no-console */
@@ -52,13 +59,13 @@
                 });
         },
         methods : {
-            backEvent () {
-                window.location.href = '/show/events';
+            backLocation () {
+                window.location.href = '/show/locations';
             },
-            editEvent () {
-                window.location.href = '/edit/event/'+this.id;
+            editLocation () {
+                window.location.href = '/edit/location/'+this.id;
             },
-            deleteEvent () {
+            deleteLocation () {
 
             }
         }
@@ -80,9 +87,10 @@
         flex-basis: 100%;
     }
 
-    div.line.description{
+    div.line.map{
         flex-grow: 6;
         flex-basis: unset;
+        padding: 2%;
     }
 
     div.line.top{
@@ -106,21 +114,10 @@
         flex-direction: column;
     }
 
-    div.column.logo{
-        flex-basis: unset;
-        min-width: 10%;
-        max-width: 20%;
-        max-height: 15vh;
-    }
-
     div.description{
         padding: 2% 5%;
         justify-content: flex-start;
         align-items: flex-start;
-    }
-
-    div.date{
-        font-style: italic;
     }
 
     div.name{

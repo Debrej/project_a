@@ -1,27 +1,25 @@
 <template>
     <div class="card" v-on:click="redirect">
         <div class="flexline">
-            <div class="column"><div class="name">{{ name }}</div></div>
-            <div class="column date">{{ start_date }}</div>
-            <div class="column date">{{ end_date }}</div>
+            <div class="column name">{{ name }}</div>
+            <div class="column">Supervisor : {{ supervisor.first_name }}&nbsp;{{ supervisor.last_name.toUpperCase() }}</div>
         </div>
-        <div class="description">{{ description }}</div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "EventCard",
-        props : [
-            'id',
-            'name',
-            'start_date',
-            'end_date',
-            'description'
+        name: "TeamCard",
+        props: [
+            "name",
+            "supervisor",
+            "id"
         ],
-        methods: {
+        methods : {
             redirect () {
-                window.location.href = "event/"+this.id;
+                /* eslint-disable no-console */
+                console.log("show/team/"+this.id);
+                /* eslint-enable no-console */
             }
         }
     }
@@ -30,7 +28,6 @@
 <style scoped>
     div.card{
         display: flex;
-        flex-direction: column;
         width: 90%;
         border: #d6d5b4 solid 1px;
         align-items: center;
@@ -54,24 +51,14 @@
     }
 
     div.column{
+        display: flex;
         flex-basis: 100%;
         height: 100%;
         align-items: center;
     }
 
-    div.column.date{
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    div.description{
-        width: 90%;
-        padding: 2% 0 2% 0;
-        max-height: 20vh;
-    }
-
-    div.name{
-        flex-basis: 100%;
-        font-size: 1.2em;
+    div.column.name{
+        font-size: 1.4em;
+        align-items: flex-start;
     }
 </style>

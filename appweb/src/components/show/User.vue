@@ -15,6 +15,7 @@
                     :specialty="specialties.find(s => s.id === user.specialty_id).year + specialties.find(s => s.id === user.specialty_id).name"
                     :balance="user.balance"
                     :is_in_debt="user.balance < 0"
+                    :profile_pic_url="user.profile_pic_url != null ? user.profile_pic_url : 'default_profile_pic.png'"
             ></UserCard>
         </div>
     </div>

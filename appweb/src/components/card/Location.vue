@@ -1,5 +1,5 @@
 <template>
-    <div class="card" v-on:click="count">
+    <div class="card" v-on:click="redirect">
         <div class="flexline">
             <div class="column">
                 <div class="name">{{ name }}</div>
@@ -38,10 +38,8 @@
             })
         },
         methods: {
-            count () {
-                /* eslint-disable no-console */
-                console.log("show/location/"+this.id);
-                /* eslint-enable no-console */
+            redirect () {
+                window.location.href = "/show/location/"+this.id;
             }
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <div class="card" v-on:click="count">
+    <div class="card" v-on:click="redirect">
         <div class="flexline">
             <div class="column">
                 <div class="name">{{ name }}</div>
@@ -32,7 +32,7 @@
             "quantity"
         ],
         methods: {
-            count () {
+            redirect () {
                 /* eslint-disable no-console */
                 console.log("show/equipment/"+this.id);
                 /* eslint-enable no-console */

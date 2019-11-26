@@ -1,5 +1,5 @@
 <template>
-    <img src="../../public/images/event_logo_default.png" alt="logos 24 heures de l'INSA" />
+    <img src="../../public/images/event_logo_default.png" alt="logo 24 heures de l'INSA" />
 </template>
 
 <script>
