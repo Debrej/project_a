@@ -8,3 +8,6 @@ node_modules/
 
 launch_project_a
 doc/
+
+api/server/assets/json/config.json
+api/server/assets/json/pwd.json
