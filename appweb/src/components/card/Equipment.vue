@@ -34,7 +34,7 @@
         methods: {
             redirect () {
                 /* eslint-disable no-console */
-                console.log("show/equipment/"+this.id);
+                window.location.href = "/show/equipment/"+this.id;
                 /* eslint-enable no-console */
             }
         }
