@@ -4,7 +4,9 @@ const express = require('express');
 const Sequelize = require('sequelize');
 const dateFormat = require('date-format');
 
-const host = "localhost:2424";
+const config = require('./assets/json/config.json');
+
+const host = config.host;
 const pwd_bd = require('./assets/json/pwd.json').pwd_project_a;
 
 const app = express();
@@ -19,7 +21,7 @@ app.use(express.urlencoded());
 let sequelize = new Sequelize('project_a', 'project_a', pwd_bd, {
     host: 'localhost',
     dialect: 'mysql',
-    logging: true
+    logging: config.logging
 });
 
 /*
