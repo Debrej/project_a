@@ -49,9 +49,6 @@
                     })
                     .then(() => {
                         window.location.href = "/show/events"
-                    })
-                    .catch(() => {
-                        window.location.href = "/error"
                     });
             }
         }

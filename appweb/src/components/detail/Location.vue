@@ -51,11 +51,6 @@
                     this.$nextTick(() => {
                         this.$refs.location_map.mapObject.center = this.center;
                     })
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
                 });
         },
         methods : {

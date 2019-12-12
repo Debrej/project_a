@@ -58,18 +58,13 @@
         methods: {
             submit () {
                 this.$axios.put(this.$host+'/location/'+this.id,{
-                    "name": this.location.name,
-                    "description": this.location.description,
-                    "gps_long": this.center.lng,
-                    "gps_lat": this.center.lat
-                })
+                        "name": this.location.name,
+                        "description": this.location.description,
+                        "gps_long": this.center.lng,
+                        "gps_lat": this.center.lat
+                    })
                     .then(() => {
                         window.location.href = "/show/location/"+this.id;
-                    })
-                    .catch(err => {
-                        /* eslint-disable no-console */
-                        console.log(err);
-                        /* eslint-enable no-console */
                     });
 
             },

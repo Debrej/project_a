@@ -67,11 +67,6 @@
                     })
                     .then(() => {
                         window.location.href = "/show/event/"+this.id;
-                    })
-                    .catch(err => {
-                        /* eslint-disable no-console */
-                        console.log(err);
-                        /* eslint-enable no-console */
                     });
             },
             cancel () {

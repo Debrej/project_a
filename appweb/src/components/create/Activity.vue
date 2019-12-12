@@ -61,36 +61,23 @@
             }
         },
         created: function () {
-            this.$axios.get(this.$host+"/location")
+            this.$axios.all([
+                    this.$axios.get(this.$host+"/location"),
+                    this.$axios.get(this.$host+"/event")
+                ])
                 .then(res => {
-                    this.locations = res.data.location;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
+                    this.locations = res[0].data.location;
+                    this.events = res[1].data.events;
+
+                    this.$axios.get(this.$host+"/user")
+                        .then(res => {
+                            for(let user in res.data.users){
+                                res.data.users[user].name = `${res.data.users[user].first_name} ${res.data.users[user].last_name}`;
+                            }
+                            this.users = res.data.users;
+                        });
                 });
-            this.$axios.get(this.$host+"/event")
-                .then(res => {
-                    this.events = res.data.events;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
-                });
-            this.$axios.get(this.$host+"/user")
-                .then(res => {
-                    for(let user in res.data.users){
-                        res.data.users[user].name = res.data.users[user].first_name + " " + res.data.users[user].last_name;
-                    }
-                    this.users = res.data.users;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
-                });
+
         },
         methods: {
             submit: function () {

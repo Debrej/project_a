@@ -63,20 +63,22 @@
         },
         mounted () {
             this.id = this.$route.params.id;
-            this.$axios.get(this.$host+'/location')
+            this.$axios.all([
+                    this.$axios.get(this.$host+'/location'),
+                    this.$axios.get(this.$host+'/equipment_type')
+                ])
                 .then(res => {
-                    this.locations = res.data.location
+                    this.locations = res[0].data.location;
+                    this.equipment_types = res[1].data.equipment_type;
+
+                    this.$axios.get(this.$host+'/equipment/id/'+this.id)
+                        .then(res => {
+                            this.equipment = res.data.equipment;
+                            this.pickup_location = this.locations.find(l => l.id === this.equipment.pickup_location);
+                            this.drop_location = this.locations.find(l => l.id === this.equipment.drop_location);
+                        });
                 });
-            this.$axios.get(this.$host+'/equipment_type')
-                .then(res => {
-                    this.equipment_types = res.data.equipment_type
-                });
-            this.$axios.get(this.$host+'/equipment/id/'+this.id)
-                .then(res => {
-                    this.equipment = res.data.equipment;
-                    this.pickup_location = this.locations.find(l => l.id === this.equipment.pickup_location);
-                    this.drop_location = this.locations.find(l => l.id === this.equipment.drop_location);
-                });
+
         },
         methods : {
             backEquipment () {

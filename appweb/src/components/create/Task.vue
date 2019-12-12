@@ -72,29 +72,14 @@
             this.$axios.get(this.$host+"/location")
                 .then(res => {
                     this.locations = res.data.location;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
                 });
             this.$axios.get(this.$host+"/activity")
                 .then(res => {
                     this.activities = res.data.activity;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
                 });
             this.$axios.get(this.$host+"/team")
                 .then(res => {
                     this.teams = res.data.team;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
                 });
             this.$axios.get(this.$host+"/user")
                 .then(res => {
@@ -102,32 +87,22 @@
                         res.data.users[user].name = res.data.users[user].first_name + " " + res.data.users[user].last_name;
                     }
                     this.users = res.data.users;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
                 });
         },
         methods: {
             submit: function () {
                 this.$axios.post(this.$host+'/task',{
-                    "name": this.name,
-                    "description": this.description,
-                    "start_date": this.start_date,
-                    "end_date": this.end_date,
-                    "supervisor_id": this.supervisor.id,
-                    "team_id": this.team.id,
-                    "location_id": this.location.id,
-                    "activity_id": this.activity.id
-                })
+                        "name": this.name,
+                        "description": this.description,
+                        "start_date": this.start_date,
+                        "end_date": this.end_date,
+                        "supervisor_id": this.supervisor.id,
+                        "team_id": this.team.id,
+                        "location_id": this.location.id,
+                        "activity_id": this.activity.id
+                    })
                     .then(() => {
                         window.location.href = "/show/tasks"
-                    })
-                    .catch(err => {
-                        /* eslint-disable no-console */
-                        console.log(err);
-                        /* eslint-enable no-console */
                     });
             }
         }

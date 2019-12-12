@@ -44,11 +44,6 @@
             this.$axios.get(this.$host+"/event/id/"+this.id)
                 .then(res => {
                     this.event = res.data.event;
-                })
-                .catch(err => {
-                    /* eslint-disable no-console */
-                    console.log(err);
-                    /* eslint-enable no-console */
                 });
         },
         methods : {

@@ -60,11 +60,6 @@
                     })
                     .then(() => {
                         window.location.href = "/show/locations"
-                    })
-                    .catch(err => {
-                        /* eslint-disable no-console */
-                        console.log(err);
-                        /* eslint-enable no-console */
                     });
 
             },

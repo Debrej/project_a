@@ -56,19 +56,10 @@
             this.$axios.get(this.$host+"/equipment_type")
                 .then(res => {
                     this.equipment_types = res.data.equipment_type;
-                    /* eslint-disable no-console */
-                    console.log(res.data.equipment_type);
-                    /* eslint-enable no-console */
-                })
-                .catch(() => {
-                    window.location.href = "/error_equipment_type"
                 });
             this.$axios.get(this.$host+"/location")
                 .then(res => {
                     this.locations = res.data.location;
-                })
-                .catch(() => {
-                    window.location.href = "/error_location"
                 });
         },
         methods: {
