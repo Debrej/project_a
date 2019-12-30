@@ -82,10 +82,10 @@
         },
         methods : {
             backEquipment () {
-                window.location.href = '/show/equipments';
+                this.$router.push('/show/equipments');
             },
             editEquipment () {
-                window.location.href = '/edit/equipment/' + this.id;
+                this.$router.push('/edit/equipment/' + this.id);
             },
             deleteEquipment () {
                 

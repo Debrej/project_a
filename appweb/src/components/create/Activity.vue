@@ -90,7 +90,7 @@
                     "event_id": this.event.id
                 })
                     .then(() => {
-                        window.location.href = "/show/activities"
+                        this.$router.push("/show/activities");
                     })
                     .catch(err => {
                         /* eslint-disable no-console */

@@ -102,7 +102,7 @@
                         "activity_id": this.activity.id
                     })
                     .then(() => {
-                        window.location.href = "/show/tasks"
+                        this.$router.push("/show/tasks");
                     });
             }
         }

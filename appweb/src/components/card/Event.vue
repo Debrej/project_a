@@ -21,7 +21,7 @@
         ],
         methods: {
             redirect () {
-                window.location.href = "event/"+this.id;
+                this.$router.push("event/"+this.id);
             }
         }
     }

@@ -66,11 +66,11 @@
                         }
                     })
                     .then(() => {
-                        window.location.href = "/show/event/"+this.id;
+                        this.$router.push("/show/event/"+this.id);
                     });
             },
             cancel () {
-                window.location.href = "/show/event/"+this.id;
+                this.$router.push("/show/event/"+this.id);
             }
         }
     }

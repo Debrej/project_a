@@ -39,7 +39,7 @@
         },
         methods: {
             redirect () {
-                window.location.href = "/show/location/"+this.id;
+                this.$router.push("/show/location/"+this.id);
             }
         }
     }

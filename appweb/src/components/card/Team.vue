@@ -17,9 +17,7 @@
         ],
         methods : {
             redirect () {
-                /* eslint-disable no-console */
-                console.log("show/team/"+this.id);
-                /* eslint-enable no-console */
+                this.$router.push("show/team/"+this.id);
             }
         }
     }

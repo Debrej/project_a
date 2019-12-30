@@ -55,10 +55,10 @@
         },
         methods : {
             backLocation () {
-                window.location.href = '/show/locations';
+                this.$router.push('/show/locations');
             },
             editLocation () {
-                window.location.href = '/edit/location/'+this.id;
+                this.$router.push('/edit/location/'+this.id);
             },
             deleteLocation () {
 

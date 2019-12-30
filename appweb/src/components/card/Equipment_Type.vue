@@ -15,9 +15,7 @@
         ],
         methods : {
             redirect () {
-                /* eslint-disable no-console */
-                console.log("show/equipment_type/"+this.id);
-                /* eslint-enable no-console */
+                this.$router.push("show/equipment_type/"+this.id);
             }
         }
     }

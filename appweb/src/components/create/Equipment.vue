@@ -73,10 +73,10 @@
                     "drop_location": this.drop_location.id
                 })
                     .then(() => {
-                        window.location.href = "/show/equipments"
+                        this.$router.push("/show/equipments");
                     })
                     .catch(() => {
-                        window.location.href = "/error"
+                        this.$router.push("/error");
                     });
             }
         }

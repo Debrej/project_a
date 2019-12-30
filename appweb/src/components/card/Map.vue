@@ -28,9 +28,6 @@
             "center"
         ],
         mounted () {
-            /* eslint-disable no-console */
-            console.log(this.center);
-            /* eslint-enable no-console */
             this.$nextTick(() => {
                 this.$refs.location_map.mapObject.center = this.center;
             })

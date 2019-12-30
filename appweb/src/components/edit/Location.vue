@@ -64,7 +64,7 @@
                         "gps_lat": this.center.lat
                     })
                     .then(() => {
-                        window.location.href = "/show/location/"+this.id;
+                        this.$router.push("/show/location/"+this.id);
                     });
 
             },

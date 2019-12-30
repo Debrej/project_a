@@ -32,9 +32,7 @@
         ],
         methods: {
             redirect () {
-                /* eslint-disable no-console */
-                console.log("show/activity/"+this.id);
-                /* eslint-enable no-console */
+                this.$router.push("show/activity/"+this.id);
             }
         }
     }

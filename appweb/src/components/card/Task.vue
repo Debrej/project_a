@@ -37,9 +37,7 @@
         ],
         methods: {
             redirect () {
-                /* eslint-disable no-console */
-                console.log("show/task/"+this.id);
-                /* eslint-enable no-console */
+                this.$router.push("show/task/"+this.id);
             }
         }
     }

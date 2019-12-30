@@ -45,9 +45,7 @@
         ],
         methods: {
             redirect () {
-                /* eslint-disable no-console */
-                console.log("show/user/"+this.id);
-                /* eslint-enable no-console */
+                this.$router.push("show/user/"+this.id);
             }
         }
     }

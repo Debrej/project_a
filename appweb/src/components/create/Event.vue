@@ -48,7 +48,7 @@
                         "end_date": this.end_date
                     })
                     .then(() => {
-                        window.location.href = "/show/events"
+                        this.$router.push("/show/events");
                     });
             }
         }

@@ -33,9 +33,7 @@
         ],
         methods: {
             redirect () {
-                /* eslint-disable no-console */
-                window.location.href = "/show/equipment/"+this.id;
-                /* eslint-enable no-console */
+                this.$router.push("/show/equipment/"+this.id);
             }
         }
     }

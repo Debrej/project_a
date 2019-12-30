@@ -28,26 +28,41 @@
     export default {
         name: "Show",
         methods: {
+            hide () {
+                this.create_isset = false;
+                this.show_isset = false;
+                this.affect_isset = false;
+                document.getElementById("create").style.display = "none";
+                document.getElementById("show").style.display = "none";
+                document.getElementById("affect").style.display = "none";
+            },
             show_tasks: function (){
-                window.location.href = "/show/tasks";
+                this.$router.push("/show/tasks");
+                this.hide();
             },
             show_activities: function (){
-                window.location.href = "/show/activities";
+                this.$router.push("/show/activities");
+                this.hide();
             },
             show_events: function (){
-                window.location.href = "/show/events";
+                this.$router.push("/show/events");
+                this.hide();
             },
             show_locations: function (){
-                window.location.href = "/show/locations";
+                this.$router.push("/show/locations");
+                this.hide();
             },
             show_equipments: function (){
-                window.location.href = "/show/equipments";
+                this.$router.push("/show/equipments");
+                this.hide();
             },
             show_users: function (){
-                window.location.href = "/show/users";
+                this.$router.push("/show/users");
+                this.hide();
             },
             show_shifts: function (){
-                window.location.href = "/show/shifts";
+                this.$router.push("/show/shifts");
+                this.hide();
             },
         }
     }

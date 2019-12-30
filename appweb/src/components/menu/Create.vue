@@ -22,20 +22,33 @@
     export default {
         name: "create",
         methods: {
+            hide () {
+                this.create_isset = false;
+                this.show_isset = false;
+                this.affect_isset = false;
+                document.getElementById("create").style.display = "none";
+                document.getElementById("show").style.display = "none";
+                document.getElementById("affect").style.display = "none";
+            },
             create_task : function (){
-                window.location.href = "/create/task"
+                this.$router.push("/create/task");
+                this.hide();
             },
             create_activity : function (){
-                window.location.href = "/create/activity"
+                this.$router.push("/create/activity");
+                this.hide();
             },
             create_event : function (){
-                window.location.href = "/create/event"
+                this.$router.push("/create/event");
+                this.hide();
             },
             create_location : function (){
-                window.location.href = "/create/location"
+                this.$router.push("/create/location");
+                this.hide();
             },
             create_equipment : function (){
-                window.location.href = "/create/equipment"
+                this.$router.push("/create/equipment");
+                this.hide();
             }
         }
     }

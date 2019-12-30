@@ -48,10 +48,10 @@
         },
         methods : {
             backEvent () {
-                window.location.href = '/show/events';
+                this.$router.push('/show/events');
             },
             editEvent () {
-                window.location.href = '/edit/event/'+this.id;
+                this.$router.push('/edit/event/'+this.id);
             },
             deleteEvent () {
 

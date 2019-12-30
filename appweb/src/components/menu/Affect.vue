@@ -16,14 +16,25 @@
     export default {
         name: "Affect",
         methods: {
+            hide () {
+                this.create_isset = false;
+                this.show_isset = false;
+                this.affect_isset = false;
+                document.getElementById("create").style.display = "none";
+                document.getElementById("show").style.display = "none";
+                document.getElementById("affect").style.display = "none";
+            },
             affect_by_task : function () {
-                window.location.href = "/affect/task";
+                this.$router.push("/affect/task");
+                this.hide();
             },
             affect_by_user : function(){
-                window.location.href = "/affect/user";
+                this.$router.push("/affect/user");
+                this.hide();
             },
             affect_by_equipment: function(){
-                window.location.href = "/affect/equipment";
+                this.$router.push("/affect/equipment");
+                this.hide();
             }
         }
     }
