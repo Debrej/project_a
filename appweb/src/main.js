@@ -60,6 +60,7 @@ import Equipment_Detail from './components/detail/Equipment';
 
 import Event_Edit from './components/edit/Event';
 import Location_Edit from './components/edit/Location';
+import Equipment_Edit from './components/edit/Equipment';
 
 Vue.use(VueRouter);
 
@@ -85,6 +86,7 @@ const routes = [
 
   {path: '/edit/event/:id', component: Event_Edit},
   {path: '/edit/location/:id', component: Location_Edit},
+  {path: '/edit/equipment/:id', component: Equipment_Edit},
 ];
 
 const router = new VueRouter({
