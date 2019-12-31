@@ -4,6 +4,7 @@
 node_modules/
 
 *.png
+*.jpg
 *.svg
 
 launch_project_a
