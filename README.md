@@ -25,12 +25,34 @@ Pour l'application web :
 + _VueJS_ : ce framework de front-end permet de construire rapidement des applications avec une logique de composants réutilisables. 
 On l'as choisi car il permet d'avoir une arborescence compréhensible tout en ayant une complexité suffisante pour notre projet.
 
-### Lancer le projet
+### Installer et lancer le Projet A
 
-Le projet se sépare en deux processus, le serveur d'API et le serveur de l'appweb. 
-+ Pour lancer le serveur d'API il faut aller dans `/api/server/` et lancer le fichier `index.js`. On utilise soit `nodemon` 
-en situation de dev avec la commande `nodemon index.js`.
-Sinon en situation de prod, on peut utiliser `forever`, 
-avec une option de logs : `forever start index.js -o <fichier d'output> -e <fichier d'erreur>`.
+Le projet se sépare en deux processus, le serveur d'API et le serveur de l'appweb.
 
-+ Pour lancer le serveur de l'appweb il faut aller dans `/appweb/` et utiliser la commande `npm run serve`.
+#### API
+Pour installer l'API :
+`npm install`.
+
+Pour créer la base de données :
+`sudo npm run create_database`.
+Si on ne lance pas le script avec `sudo` ou avec root, on ne peut pas se connecter à MySQL en root.
+
+Pour lancer l'API :
+`npm start index.js` ou `nodemon index.js`.
+Au niveau du serveur à distance, on utilise [pm2](https://pm2.keymetrics.io/) qui est un gestionnaire de processus 
+permettant de facilement les gérer ainsi que d'ajouter du load-balancing. 
+On y ajoute le plugin [pm2-logrotate](https://www.npmjs.com/package/pm2-logrotate) pour limiter la taille des fichiers de log.
+Pour utiliser pm2 : `pm2 start index.js`.
+
+#### Appweb
+Pour installer l'appweb : 
+`npm install`.
+
+Pour lancer l'appweb : 
+`npm run serve`. Cette commande lance le serveur de dev avec le hot-reload. 
+
+Pour build le projet et le minifier : 
+`npm run build`, cette commande compile le projet dans le dossier `/dist`.
+Pour lancer le projet, on utilise encore [pm2](https://pm2.keymetrics.io/) :
+`pm2 start serve.sh`. Le fichier `serve.sh` lance la commande `serve --single --listen 3500 dist`. 
+`serve` permet de servir un dossier donné en argument, ici `dist`, sur le port 3500.
