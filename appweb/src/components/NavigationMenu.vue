@@ -4,7 +4,6 @@
     :color="color"
     :clipped="true"
     app
-    expand-on-hover
     absolute
     dark
   >
@@ -30,15 +29,40 @@
 
       <v-divider></v-divider>
 
-      <v-list-item v-for="item in items" :key="item.title" link :to="item.url">
+      <v-list-item link :to="dashboard.url">
         <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
+          <v-icon>{{ dashboard.icon }}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title>{{ dashboard.title }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
+      <v-menu v-for="item in items" :key="item.title">
+        <template v-slot:activator="{ on }">
+          <v-list-item v-on="on" link>
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+
+        <v-list nav flat>
+          <v-list-item
+            v-for="dropdown in item.items"
+            :key="dropdown"
+            :to="item.url + dropdown.url"
+            link
+          >
+            <v-list-item-title>{{ dropdown.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -51,11 +75,40 @@ export default {
     drawer: true,
     color: "primary",
     colors: ["primary", "blue", "success", "red", "teal"],
+    dashboard: { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
     items: [
-      { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
-      { title: "Create", icon: "mdi-pencil", url: "/create" },
-      { title: "Show", icon: "mdi-eye", url: "/show" },
-      { title: "Affect", icon: "mdi-account-multiple", url: "/affect" }
+      {
+        title: "Create",
+        icon: "mdi-pencil",
+        url: "/create",
+        items: [
+          { title: "Task", url: "/task" },
+          { title: "Activity", url: "/activity" },
+          { title: "Location", url: "/location" },
+          { title: "User", url: "/user" }
+        ]
+      },
+      {
+        title: "Show",
+        icon: "mdi-eye",
+        url: "/show",
+        items: [
+          { title: "Task", url: "/task" },
+          { title: "Activity", url: "/activity" },
+          { title: "Location", url: "/location" },
+          { title: "User", url: "/user" },
+          { title: "Equipment", url: "/equipment" }
+        ]
+      },
+      {
+        title: "Affect",
+        icon: "mdi-account-multiple",
+        url: "/affect",
+        items: [
+          { title: "By user", url: "/user" },
+          { title: "By task", url: "/task" }
+        ]
+      }
     ]
   }),
   created() {
