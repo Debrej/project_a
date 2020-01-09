@@ -12,3 +12,5 @@ doc/
 
 api/server/assets/json/config.json
 api/server/assets/json/pwd.json
+!/appweb/src/assets/logo.png
+!/appweb/src/assets/lazy/logo.png
