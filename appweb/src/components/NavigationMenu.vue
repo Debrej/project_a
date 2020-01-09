@@ -1,13 +1,13 @@
 <template>
   <v-navigation-drawer
     v-model="drawer"
-    :color="color"
-    :clipped="true"
+    color="primary"
+    clipped
     app
     absolute
     dark
   >
-    <v-list nav flat>
+    <v-list flat nav>
       <v-list-item>
         <v-col class="align-center" absolute>
           <v-img src="@/assets/logo.png" alt="24h logo"></v-img>
@@ -39,30 +39,30 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-menu v-for="item in items" :key="item.title">
-        <template v-slot:activator="{ on }">
-          <v-list-item v-on="on" link>
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
-
-        <v-list nav flat>
-          <v-list-item
-            v-for="dropdown in item.items"
-            :key="dropdown"
-            :to="item.url + dropdown.url"
-            link
+      <v-expansion-panels accordion v-model="panel">
+        <v-expansion-panel v-for="(item, i) in items" :key="i">
+          <v-expansion-panel-header
+            color="primary"
+            :expand-icon="item.icon"
+            disable-icon-rotate
           >
-            <v-list-item-title>{{ dropdown.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+            {{ item.title }}
+          </v-expansion-panel-header>
+          <v-expansion-panel-content color="primary">
+            <v-list nav flat>
+              <v-list-item
+                v-for="(dropdown, i) in item.items"
+                :key="i"
+                :to="item.url + dropdown.url"
+                v-on:click="onPanelClick"
+                link
+              >
+                <v-list-item-title>{{ dropdown.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -72,9 +72,9 @@ export default {
   name: "NavigationMenu",
   data: () => ({
     user: null,
+    selected: null,
+    panel: [],
     drawer: true,
-    color: "primary",
-    colors: ["primary", "blue", "success", "red", "teal"],
     dashboard: { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
     items: [
       {
@@ -115,6 +115,11 @@ export default {
     this.$axios.get("https://randomuser.me/api").then(res => {
       this.user = res.data.results[0];
     });
+  },
+  methods: {
+    onPanelClick: function() {
+      this.panel = [];
+    }
   }
 };
 </script>
