@@ -8,6 +8,7 @@ import axios from "axios";
 Vue.config.productionTip = false;
 
 Vue.prototype.$axios = axios;
+Vue.prototype.$host = "http://localhost:2424/";
 
 new Vue({
   router,

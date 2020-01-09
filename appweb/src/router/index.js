@@ -22,10 +22,11 @@ const routes = [
       import(/* webpackChunkName: "affect" */ "../views/Affect.vue")
   },
   {
-    path: "/create",
-    name: "create",
+    path: "/create/user",
     component: () =>
-      import(/* webpackChunkName: "create" */ "../views/Create.vue")
+      import(
+        /* webpackChunkName: "create/user" */ "../components/create/User.vue"
+      )
   },
   {
     path: "*",
