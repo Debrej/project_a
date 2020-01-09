@@ -23,9 +23,18 @@ const routes = [
   },
   {
     path: "/create/user",
+    name: "create_user",
     component: () =>
       import(
-        /* webpackChunkName: "create/user" */ "../components/create/User.vue"
+        /* webpackChunkName: "create_user" */ "../components/create/User.vue"
+      )
+  },
+  {
+    path: "/create/location",
+    name: "create_location",
+    component: () =>
+      import(
+        /* webpackChunkName: "create_location" */ "../components/create/Location.vue"
       )
   },
   {
