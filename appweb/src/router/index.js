@@ -26,6 +26,12 @@ const routes = [
     name: "create",
     component: () =>
       import(/* webpackChunkName: "create" */ "../views/Create.vue")
+  },
+  {
+    path: "*",
+    name: "404",
+    component: () =>
+      import(/* webpackChunkName: "create" */ "../views/PageNotFound.vue")
   }
 ];
 

@@ -17,10 +17,7 @@
             </v-row>
           </template>
         </v-img>
-        <h1>
-          Welcome home, use the navigation menu on the left to create, show and
-          affect
-        </h1>
+        <h1>Oops, seems that what you're looking for doesn't exist (yet)...</h1>
       </v-col>
     </v-row>
   </v-container>
@@ -28,6 +25,6 @@
 
 <script>
 export default {
-  name: "home"
+  name: "PageNotFound"
 };
 </script>
