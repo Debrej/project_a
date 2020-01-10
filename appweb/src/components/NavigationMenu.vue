@@ -82,6 +82,7 @@ export default {
         icon: "mdi-pencil",
         url: "/create",
         items: [
+          { title: "Event", url: "/event" },
           { title: "Task", url: "/task" },
           { title: "Activity", url: "/activity" },
           { title: "Location", url: "/location" },
