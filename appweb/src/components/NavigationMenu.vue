@@ -1,12 +1,5 @@
 <template>
-  <v-navigation-drawer
-    v-model="drawer"
-    color="primary"
-    clipped
-    app
-    absolute
-    dark
-  >
+  <v-navigation-drawer v-model="drawer" color="primary" clipped app fixed dark>
     <v-list flat nav>
       <v-list-item>
         <v-col class="align-center" absolute>
