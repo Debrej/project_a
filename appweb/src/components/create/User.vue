@@ -283,17 +283,18 @@ export default {
       this.$axios.post(this.$host + "user", this.user).then(res => {
         let user = res.data.user;
         let promises = [];
-        if (this.user.profile_pic !== null)
+        if (this.user.profile_pic !== null) {
+          let formData = new FormData();
+          formData.append("file", this.user.profile_pic);
           promises.push(
-            this.$axios.put(this.$host + "user/photo/" + user.id, {
-              file: this.user.profile_pic
-            })
+            this.$axios.put(this.$host + "user/photo/" + user.id, formData)
           );
+        }
         if (this.user.licence_scan !== null) {
+          let formData = new FormData();
+          formData.append("file", this.user.licence_scan);
           promises.push(
-            this.$axios.put(this.$host + "user/licence/" + user.id, {
-              file: this.user.licence_scan
-            })
+            this.$axios.put(this.$host + "user/licence/" + user.id, formData)
           );
         }
         this.$axios.all(promises).then(() => {
