@@ -14,6 +14,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
+global.appRoot = __dirname;
+
 //endregion
 
 //region DATABASE CONNECTION
