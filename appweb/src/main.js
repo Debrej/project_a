@@ -10,6 +10,8 @@ Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.prototype.$host = "http://localhost:2424/";
 
+export const eventBus = new Vue();
+
 import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";

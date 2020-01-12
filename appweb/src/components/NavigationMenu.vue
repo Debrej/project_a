@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" color="primary" clipped app fixed dark>
+  <v-navigation-drawer v-model="drawer" color="primary" app fixed dark>
     <v-list flat nav>
       <v-list-item>
         <v-col class="align-center" absolute>
@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import { eventBus } from "../main";
+
 export default {
   name: "NavigationMenu",
   data: () => ({
@@ -107,6 +109,9 @@ export default {
   created() {
     this.$axios.get("https://randomuser.me/api").then(res => {
       this.user = res.data.results[0];
+    });
+    eventBus.$on("drawer-status-change", drawer => {
+      this.drawer = drawer;
     });
   },
   methods: {
