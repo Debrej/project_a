@@ -5,7 +5,7 @@
       <v-divider></v-divider>
       <v-form ref="location" v-model="valid">
         <v-row justify="center">
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="5">
             <v-text-field
               v-model="location.name"
               label="Location name"
@@ -22,8 +22,12 @@
               required
             ></v-textarea>
           </v-col>
-          <v-col cols="12" md="4">
+        </v-row>
+        <v-divider></v-divider>
+        <v-row justify="center">
+          <v-col cols="12" md="5">
             <l-map
+              class="map"
               ref="location_map"
               :center="location.center"
               :zoom="zoom"
@@ -115,3 +119,9 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.map {
+  min-height: 300px;
+}
+</style>
