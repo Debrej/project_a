@@ -123,5 +123,6 @@ export default {
 <style scoped lang="scss">
 .map {
   min-height: 300px;
+  z-index: 0;
 }
 </style>
