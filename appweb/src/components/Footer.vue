@@ -1,5 +1,5 @@
 <template>
-  <v-footer fixed padless max-height="40">
+  <v-footer fixed inset padless max-height="40" app>
     <v-col class="text-center"> 2020 - <strong>Project A</strong> </v-col>
   </v-footer>
 </template>
