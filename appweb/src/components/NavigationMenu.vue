@@ -1,5 +1,12 @@
 <template>
-  <v-navigation-drawer v-model="drawer" color="primary" app fixed dark>
+  <v-navigation-drawer
+    v-model="drawer"
+    color="primary"
+    app
+    fixed
+    dark
+    @transitionend="changeDrawerStatus"
+  >
     <v-list flat nav>
       <v-list-item>
         <v-col class="align-center" absolute>
@@ -69,7 +76,7 @@ export default {
     user: null,
     selected: null,
     panel: [],
-    drawer: true,
+    drawer: false,
     dashboard: { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
     items: [
       {
@@ -110,13 +117,16 @@ export default {
     this.$axios.get("https://randomuser.me/api").then(res => {
       this.user = res.data.results[0];
     });
-    eventBus.$on("drawer-status-change", drawer => {
+    eventBus.$on("drawer-status-change-appbar", drawer => {
       this.drawer = drawer;
     });
   },
   methods: {
     onPanelClick: function() {
       this.panel = [];
+    },
+    changeDrawerStatus: function() {
+      eventBus.$emit("drawer-status-change-drawer", this.drawer);
     }
   }
 };

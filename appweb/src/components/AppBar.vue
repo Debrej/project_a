@@ -1,8 +1,16 @@
 <template>
   <v-app-bar dense app>
     <v-app-bar-nav-icon @click="changeDrawerStatus"></v-app-bar-nav-icon>
-    <v-spacer></v-spacer>
-    <v-btn icon>
+    <v-spacer v-if="!searchInput"></v-spacer>
+    <v-text-field
+      v-model="searchContent"
+      v-if="searchInput"
+      :autofocus="searchInput"
+      label="Search..."
+      single-line
+      hide-details
+    ></v-text-field>
+    <v-btn icon @click="searchInput = !searchInput">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
   </v-app-bar>
@@ -14,12 +22,19 @@ import { eventBus } from "../main";
 export default {
   name: "AppBar",
   data: () => ({
-    drawer: true
+    drawer: false,
+    searchInput: false,
+    searchContent: null
   }),
+  created() {
+    eventBus.$on("drawer-status-change-drawer", drawer => {
+      this.drawer = drawer;
+    });
+  },
   methods: {
     changeDrawerStatus() {
       this.drawer = !this.drawer;
-      eventBus.$emit("drawer-status-change", this.drawer);
+      eventBus.$emit("drawer-status-change-appbar", this.drawer);
     }
   }
 };
