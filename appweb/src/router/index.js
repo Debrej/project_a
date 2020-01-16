@@ -38,6 +38,12 @@ const routes = [
       )
   },
   {
+    path: "/show/user",
+    name: "show_user",
+    component: () =>
+      import(/* webpackChunkName: "show_user" */ "../components/show/User.vue")
+  },
+  {
     path: "*",
     name: "404",
     component: () =>

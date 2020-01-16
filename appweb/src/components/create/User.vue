@@ -298,8 +298,7 @@ export default {
           );
         }
         this.$axios.all(promises).then(() => {
-          //eslint-disable-next-line
-            console.log("i think we're done here");
+          this.$router.push("/show/user");
         });
       });
     },
