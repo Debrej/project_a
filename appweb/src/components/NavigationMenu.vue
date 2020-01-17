@@ -121,6 +121,19 @@ export default {
       this.drawer = drawer;
     });
   },
+  mounted() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "xs":
+      case "sm":
+      case "md":
+        this.drawer = false;
+        break;
+      case "lg":
+      case "xl":
+        this.drawer = true;
+        break;
+    }
+  },
   methods: {
     onPanelClick: function() {
       this.panel = [];
