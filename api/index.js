@@ -95,11 +95,11 @@ console.log("\nLoading requests complete\n");
  *   Once its done, we launch the server as we are ready to fulfill requests.
  * */
 sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log("\nDatabase synced");
     app.listen(2424, function() {
-      require("./populate")(sequelize, models);
+      //require("./populate")(sequelize, models);
       console.log("\n\tPROJECT_A LOADING COMPLETE");
       console.log("\nServer running on port 2424");
     });
