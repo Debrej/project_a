@@ -7,6 +7,7 @@ module.exports = function(app, sequelize, models) {
   console.log("\tuser requests loaded");
 
   let User = models.User;
+  let Team = models.Team;
 
   //region CRUD REQUESTS
 
@@ -18,7 +19,14 @@ module.exports = function(app, sequelize, models) {
    *               an json array of users
    */
   app.get("/user", function(req, res) {
-    User.findAll().then(users => {
+    User.findAll({
+      include: [
+        {
+          model: Team,
+          as: "teams"
+        }
+      ]
+    }).then(users => {
       res.send({ users: users });
     });
   });
