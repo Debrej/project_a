@@ -29,13 +29,17 @@
             <l-map
               class="map"
               ref="location_map"
-              :center="location.center"
+              :center="mapCenter"
               :zoom="zoom"
-              @update:zoom="zoomUpdated"
-              @update:center="centerUpdated"
+              @update:center="mapCenterUpdated"
+              @update:bounds="boundsUpdated"
             >
               <l-tile-layer :url="url"></l-tile-layer>
-              <l-marker :lat-lng="location.center"></l-marker>
+              <l-marker
+                :lat-lng="location.center"
+                :draggable="true"
+                @update:latLng="centerUpdated"
+              ></l-marker>
             </l-map>
           </v-col>
         </v-row>
@@ -72,6 +76,7 @@ export default {
   name: "Location",
   data: () => ({
     valid: false,
+    mapCenter: { lat: 45.78025361202239, lng: 4.87398136395485 },
     location: {
       name: "",
       description: "",
@@ -96,11 +101,21 @@ export default {
     });
   },
   methods: {
-    zoomUpdated(zoom) {
-      this.zoom = zoom;
+    centerUpdated(e) {
+      this.location.center = e;
     },
-    centerUpdated(center) {
-      this.location.center = center;
+    mapCenterUpdated: function(center) {
+      this.mapCenter = center;
+    },
+    boundsUpdated: function(e) {
+      if (
+        this.location.center.lat > e._northEast.lat ||
+        this.location.center.lat < e._southWest.lat ||
+        this.location.center.lng > e._northEast.lng ||
+        this.location.center.lng < e._southWest.lng
+      ) {
+        this.location.center = this.mapCenter;
+      }
     },
     validate: function() {
       this.location.gps_long = this.location.center.lng;
@@ -114,6 +129,7 @@ export default {
       this.resetCenter();
     },
     resetCenter: function() {
+      this.mapCenter = { lat: 45.78025361202239, lng: 4.87398136395485 };
       this.location.center = { lat: 45.78025361202239, lng: 4.87398136395485 };
     }
   }
