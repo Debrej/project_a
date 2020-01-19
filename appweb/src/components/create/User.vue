@@ -40,25 +40,6 @@
               <!-- Phone and email -->
               <v-row justify="center">
                 <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="user.phone_number"
-                    :rules="phoneRules"
-                    label="Phone"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="user.email"
-                    :rules="emailRules"
-                    label="Email"
-                    required
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <!-- Birthday -->
-              <v-row justify="center">
-                <v-col cols="12" md="4">
                   <v-menu
                     v-model="menu"
                     :close-on-content-click="false"
@@ -83,6 +64,24 @@
                       :max="new Date().toISOString()"
                     ></v-date-picker>
                   </v-menu>
+                </v-col>
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    v-model="user.email"
+                    :rules="emailRules"
+                    label="Email"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <!-- Birthday -->
+              <v-row justify="center">
+                <v-col cols="12" md="4">
+                  <vue-phone-number-input
+                    v-model="user.phone_number"
+                    :preferred-countries="preferredCountries"
+                    @update="phoneNumberUpdated"
+                  ></vue-phone-number-input>
                 </v-col>
               </v-row>
             </v-carousel-item>
@@ -200,7 +199,7 @@
           <v-row justify="center">
             <v-col cols="12" md="4" align="center">
               <v-btn
-                :disabled="!valid"
+                :disabled="!(valid && phoneValid)"
                 color="success"
                 class="mr-4"
                 @click="validate"
@@ -247,6 +246,8 @@ export default {
     },
     specialties: null,
     tshirt_sizes: ["XS", "S", "M", "L", "XL"],
+    preferredCountries: ["FR", "BE", "US", "BR"],
+    phoneValid: false,
     nameRules: [
       v => !!v || "Name is required",
       v => v.length <= 255 || "Name must be less than 255 characters"
@@ -304,6 +305,9 @@ export default {
     },
     reset: function() {
       this.$refs.create_user.reset();
+    },
+    phoneNumberUpdated: function(e) {
+      this.phoneValid = e.isValid;
     }
   }
 };

@@ -28,6 +28,11 @@ Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
+import VuePhoneNumberInput from "vue-phone-number-input/dist/vue-phone-number-input.common";
+import "vue-phone-number-input/dist/vue-phone-number-input.css";
+
+Vue.component("vue-phone-number-input", VuePhoneNumberInput);
+
 new Vue({
   router,
   vuetify,
