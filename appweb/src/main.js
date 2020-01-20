@@ -3,12 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 
+import config from "./config";
+
 import axios from "axios";
 
 Vue.config.productionTip = false;
 
 Vue.prototype.$axios = axios;
-Vue.prototype.$host = "http://localhost:2424/";
+Vue.prototype.$host = config.host;
 
 export const eventBus = new Vue();
 
