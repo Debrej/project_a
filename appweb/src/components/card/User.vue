@@ -276,7 +276,6 @@ export default {
       this.$router.push(this.$host + url);
     },
     addTeamToSelection: function(team) {
-      console.log(team);
       eventBus.$emit("add-team-to-selection", team);
     }
   },
