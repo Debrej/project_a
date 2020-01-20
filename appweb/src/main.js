@@ -11,6 +11,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$axios = axios;
 Vue.prototype.$host = config.host;
+Vue.prototype.$momentLocale = config.locale || "en";
 
 export const eventBus = new Vue();
 

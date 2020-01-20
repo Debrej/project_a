@@ -47,53 +47,7 @@
           v-for="user in filteredUsers()"
           :key="user.id"
         >
-          <v-card min-width="300" min-height="150" max-width="370" hover>
-            <v-list>
-              <v-list-item two-line>
-                <v-list-item-avatar>
-                  <v-img
-                    :src="$host + profile_pic_baseURL + user.profile_pic_url"
-                    alt="profile_picture"
-                  ></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ user.first_name + " " + user.last_name }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                    {{ user.surname }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon>mdi-phone</v-icon>
-                </v-list-item-icon>
-                <v-item-list-content>
-                  {{ user.phone_number }}
-                </v-item-list-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon>mdi-email</v-icon>
-                </v-list-item-icon>
-                <v-item-list-content>
-                  {{ user.email }}
-                </v-item-list-content>
-              </v-list-item>
-            </v-list>
-            <v-card-actions>
-              <v-chip-group>
-                <v-chip
-                  v-for="team in user.teams"
-                  :key="team.id"
-                  :color="colorIfSupervisor(user, team)"
-                >
-                  {{ team.name }}
-                </v-chip>
-              </v-chip-group>
-            </v-card-actions>
-          </v-card>
+          <UserCard :user="user"></UserCard>
         </v-col>
       </v-row>
     </v-col>
@@ -101,11 +55,15 @@
 </template>
 
 <script>
+import UserCard from "../card/User";
+import Fuse from "fuse.js";
+import { eventBus } from "../../main";
+
 export default {
   name: "User",
+  components: { UserCard },
   data: () => ({
     users: [],
-    profile_pic_baseURL: "files/user/profile_picture/",
     search: "",
     selectedTeams: [],
     teams: []
@@ -113,35 +71,45 @@ export default {
   created() {
     this.$axios.get(this.$host + "team").then(res => {
       this.teams = res.data.team;
+      for (let i in this.users) {
+        this.dialog[this.users[i]] = false;
+      }
     });
     this.$axios.get(this.$host + "user").then(res => {
       this.users = res.data.users;
     });
   },
+  mounted() {
+    eventBus.$on("add-team-to-selection", team =>
+      this.addTeamToSelection(team)
+    );
+  },
   methods: {
     resetTeams: function() {
       this.selectedTeams = [];
+    },
+    addTeamToSelection: function(team) {
+      if (!this.selectedTeams.includes(team.id)) {
+        this.selectedTeams.push(team.id);
+      }
     },
     filteredUsers: function() {
       if (this.selectedTeams.length === 0 && this.search.length === 0) {
         return this.users;
       } else {
+        const options = {
+          shouldSort: true,
+          threshold: 0.45,
+          location: 0,
+          distance: 100,
+          maxPatternLength: 32,
+          minMatchCharLength: 1,
+          keys: ["first_name", "last_name", "surname", "email", "phone_number"]
+        };
+        const fuse = new Fuse(this.users, options);
         if (this.selectedTeams.length === 0) {
-          let filteredArraySearch = [];
           let search = this.search.toLowerCase();
-          for (let i in this.users) {
-            let user = this.users[i];
-            if (
-              user.first_name.toLowerCase().includes(search) ||
-              user.last_name.toLowerCase().includes(search) ||
-              user.surname.toLowerCase().includes(search) ||
-              user.email.toLowerCase().includes(search) ||
-              user.phone_number.toLowerCase().includes(search)
-            ) {
-              filteredArraySearch.push(user);
-            }
-          }
-          return filteredArraySearch;
+          return fuse.search(search);
         } else if (this.search.length === 0) {
           let filteredArrayTeams = [];
           for (let i in this.users) {
@@ -152,20 +120,8 @@ export default {
           }
           return filteredArrayTeams;
         } else {
-          let filteredArraySearch = [];
           let search = this.search.toLowerCase();
-          for (let i in this.users) {
-            let user = this.users[i];
-            if (
-              user.first_name.toLowerCase().includes(search) ||
-              user.last_name.toLowerCase().includes(search) ||
-              user.surname.toLowerCase().includes(search) ||
-              user.email.toLowerCase().includes(search) ||
-              user.phone_number.toLowerCase().includes(search)
-            ) {
-              filteredArraySearch.push(user);
-            }
-          }
+          let filteredArraySearch = fuse.search(search);
           let filteredArrayTeams = [];
           for (let i in filteredArraySearch) {
             let user = filteredArraySearch[i];
@@ -175,13 +131,6 @@ export default {
           }
           return filteredArrayTeams;
         }
-      }
-    },
-    colorIfSupervisor: function(user, team) {
-      if (user.id === team.supervisor_id) {
-        return "#84faf0";
-      } else {
-        return null;
       }
     }
   }
