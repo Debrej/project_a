@@ -46,6 +46,7 @@
           <v-chip-group>
             <v-chip
               v-for="team in user.teams"
+              outlined
               :key="team.id"
               :color="colorIfSupervisor(user, team)"
               @click.stop="addTeamToSelection(team)"
@@ -169,6 +170,7 @@
                       <v-chip-group v-if="user.teams.length > 0">
                         <v-chip
                           v-for="team in user.teams"
+                          outlined
                           :key="team.id"
                           :color="colorIfSupervisor(user, team)"
                         >
@@ -255,7 +257,7 @@ export default {
   methods: {
     colorIfSupervisor: function(user, team) {
       if (user.id === team.supervisor_id) {
-        return "primary";
+        return "error";
       } else {
         return null;
       }

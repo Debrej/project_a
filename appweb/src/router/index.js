@@ -44,6 +44,14 @@ const routes = [
       import(/* webpackChunkName: "show_user" */ "../components/show/User.vue")
   },
   {
+    path: "/show/location",
+    name: "show_location",
+    component: () =>
+      import(
+        /* webpackChunkName: "show_location" */ "../components/show/Location.vue"
+      )
+  },
+  {
     path: "*",
     name: "404",
     component: () =>
