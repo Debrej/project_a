@@ -88,7 +88,7 @@
               </v-list-item>
             </v-list>
           </v-col>
-          <v-col cols="12" md="5">
+          <v-col cols="12" md="4">
             <!-- birthday and shirt size -->
             <v-list>
               <v-list-item>
@@ -109,14 +109,15 @@
               </v-list-item>
             </v-list>
           </v-col>
-          <v-col cols="12" md="2">
+          <v-col cols="12" md="3">
             <!-- profile picture -->
-            <v-avatar>
-              <img
+            <v-card>
+              <v-img
                 :src="$host + profilePicBaseURL + user.profile_pic_url"
                 alt="Profile picture"
-              />
-            </v-avatar>
+              >
+              </v-img>
+            </v-card>
           </v-col>
         </v-row>
         <v-divider></v-divider>
