@@ -274,7 +274,7 @@ export default {
         .fromNow();
     },
     routerPush: function(url) {
-      this.$router.push(this.$host + url);
+      this.$router.push(url);
     },
     addTeamToSelection: function(team) {
       eventBus.$emit("add-team-to-selection", team);

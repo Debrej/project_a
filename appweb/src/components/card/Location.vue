@@ -67,6 +67,11 @@ export default {
       this.$refs.location_map.mapObject.center = this.center;
     });
   },
+  methods: {
+    routerPush: function(url) {
+      this.$router.push(url);
+    }
+  },
   computed: {
     center: function() {
       return {
