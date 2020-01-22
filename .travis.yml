@@ -1,0 +1,7 @@
+language: node_js
+
+node:
+  - "8.11.4"
+
+script:
+  - ./appweb/vue-cli-service build
