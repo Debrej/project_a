@@ -11,10 +11,7 @@
         <v-card-title>
           {{ location.name }}
         </v-card-title>
-        <l-map class="map" ref="location_map_card" :center="center" :zoom="16">
-          <l-tile-layer :url="url"></l-tile-layer>
-          <l-marker :lat-lng="center"></l-marker>
-        </l-map>
+        <Map :center="center"></Map>
       </v-card>
     </template>
 
@@ -26,15 +23,14 @@
       <v-divider></v-divider>
 
       <v-container fluid>
-        <v-col cols="12" md="3">
-          {{ location.description }}
-        </v-col>
-        <v-col cols="12" md="9">
-          <l-map class="map" ref="location_map" :center="center" :zoom="15">
-            <l-tile-layer :url="url"></l-tile-layer>
-            <l-marker :lat-lng="center"></l-marker>
-          </l-map>
-        </v-col>
+        <v-row>
+          <v-col cols="12" md="3">
+            {{ location.description }}
+          </v-col>
+          <v-col cols="12" md="9">
+            <Map :center="center"></Map>
+          </v-col>
+        </v-row>
       </v-container>
 
       <v-divider></v-divider>
@@ -57,17 +53,18 @@
 </template>
 
 <script>
+import Map from "./Map";
 export default {
   name: "Location",
+  components: { Map },
   props: ["location"],
   data: () => ({
     dialog: false,
     url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
   }),
   mounted() {
-    this.$nextTick(() => {
+    this.$nextTick(function() {
       this.$refs.location_map.mapObject.center = this.center;
-      this.$refs.location_map_card.mapObject.center = this.center;
     });
   },
   computed: {
@@ -84,6 +81,7 @@ export default {
 <style scoped lang="scss">
 .map {
   min-height: 300px;
+  width: 100%;
   z-index: 0;
 }
 </style>
