@@ -4,8 +4,8 @@ node:
   - "8.11.4"
 
 before_script:
-  - cd appweb && npm install
-  - cd api && npm install
+  - cd $TRAVIS_BUILD_DIR/appweb && npm install
+  - cd $TRAVIS_BUILD_DIR/api && npm install
 
 script:
   - cd appweb && npm run build
