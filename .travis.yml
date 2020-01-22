@@ -4,4 +4,4 @@ node:
   - "8.11.4"
 
 script:
-  - ./appweb/vue-cli-service build
+  - cd appweb && npm run build
