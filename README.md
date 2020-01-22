@@ -1,5 +1,7 @@
 # Project A
 
+[![Build Status](https://travis-ci.com/Debrej/project_a.svg?branch=master)](https://travis-ci.org/Debrej/project_a)
+
 La refonte d'Assomaker est un projet qui depuis quelques années est dans les discussions. 
 Le logiciel devient vieux et les technologies utilisées associé au manque de documentation
 rends la maintenance et l'exploitation assez difficile. L'objectif de ce projet est, en 
