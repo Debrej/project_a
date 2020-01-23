@@ -32,7 +32,6 @@
               :center="mapCenter"
               :zoom="zoom"
               @update:center="mapCenterUpdated"
-              @update:bounds="boundsUpdated"
             >
               <l-tile-layer :url="url"></l-tile-layer>
               <l-marker
@@ -97,7 +96,10 @@ export default {
   }),
   mounted() {
     this.$nextTick(() => {
-      this.$refs.location_map.mapObject.center = this.center;
+      this.$refs.location_map.mapObject.center = this.mapCenter;
+      this.$refs.location_map.mapObject.on("click", e => {
+        this.centerUpdated(e.latlng);
+      });
     });
   },
   methods: {
@@ -106,16 +108,6 @@ export default {
     },
     mapCenterUpdated: function(center) {
       this.mapCenter = center;
-    },
-    boundsUpdated: function(e) {
-      if (
-        this.location.center.lat > e._northEast.lat ||
-        this.location.center.lat < e._southWest.lat ||
-        this.location.center.lng > e._northEast.lng ||
-        this.location.center.lng < e._southWest.lng
-      ) {
-        this.location.center = this.mapCenter;
-      }
     },
     validate: function() {
       this.location.gps_long = this.location.center.lng;

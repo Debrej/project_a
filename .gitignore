@@ -10,6 +10,8 @@ node_modules/
 launch_project_a
 doc/
 
+dist/
+
 api/assets/json/config.json
 api/assets/json/pwd.json
 !/appweb/src/assets/logo.png
