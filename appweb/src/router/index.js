@@ -68,6 +68,12 @@ const routes = [
       )
   },
   {
+    path: "/show/team",
+    name: "show_team",
+    component: () =>
+      import(/* webpackChunkName: "show_team" */ "../components/show/Team.vue")
+  },
+  {
     path: "*",
     name: "404",
     component: () =>
