@@ -25,7 +25,16 @@
       <v-container fluid>
         <v-row>
           <v-col cols="12" md="3">
-            {{ location.description }}
+            <v-row>
+              <v-col>
+                <strong>Description</strong>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                {{ location.description }}
+              </v-col>
+            </v-row>
           </v-col>
           <v-col cols="12" md="9">
             <Map :center="center"></Map>

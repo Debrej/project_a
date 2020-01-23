@@ -14,7 +14,7 @@
         <v-list>
           <v-list-item>
             <v-list-item-icon>
-              <v-icon>mdi-van-utility</v-icon>
+              <v-icon>mdi-hammer-wrench</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               {{ equipment.equipment_type.name }}
@@ -45,7 +45,7 @@
             <v-list>
               <v-list-item>
                 <v-list-item-icon>
-                  <v-icon>mdi-van-utility</v-icon>
+                  <v-icon>mdi-hammer-wrench</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
                   {{ equipment.equipment_type.name }}
