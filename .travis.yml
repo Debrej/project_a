@@ -3,7 +3,7 @@ language: node_js
 node:
   - "8.11.4"
 
-before_script:
+install:
   - cd $TRAVIS_BUILD_DIR/appweb && npm install
   - cd $TRAVIS_BUILD_DIR/api && npm install
 
