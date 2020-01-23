@@ -125,7 +125,6 @@ export default {
       this.$router.push(url);
     },
     centerFromLocation: function(location) {
-      console.log({ lat: location.gps_lat, lng: location.gps_long });
       return { lat: location.gps_lat, lng: location.gps_long };
     }
   }
