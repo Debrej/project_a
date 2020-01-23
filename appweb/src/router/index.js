@@ -38,6 +38,14 @@ const routes = [
       )
   },
   {
+    path: "/create/team",
+    name: "create_team",
+    component: () =>
+      import(
+        /* webpackChunkName: "create_team" */ "../components/create/Team.vue"
+      )
+  },
+  {
     path: "/show/user",
     name: "show_user",
     component: () =>
@@ -50,6 +58,20 @@ const routes = [
       import(
         /* webpackChunkName: "show_location" */ "../components/show/Location.vue"
       )
+  },
+  {
+    path: "/show/equipment",
+    name: "show_equipment",
+    component: () =>
+      import(
+        /* webpackChunkName: "show_equipment" */ "../components/show/Equipment.vue"
+      )
+  },
+  {
+    path: "/show/team",
+    name: "show_team",
+    component: () =>
+      import(/* webpackChunkName: "show_team" */ "../components/show/Team.vue")
   },
   {
     path: "*",

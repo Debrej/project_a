@@ -247,7 +247,9 @@ import { eventBus } from "../../main";
 export default {
   name: "User",
   components: { Calendar },
-  props: ["user"],
+  props: {
+    user: Object
+  },
   data: () => ({
     dialog: false,
     profilePicBaseURL: "files/user/profile_picture/",

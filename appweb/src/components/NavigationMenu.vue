@@ -87,7 +87,8 @@ export default {
           { title: "Task", url: "/task" },
           { title: "Activity", url: "/activity" },
           { title: "Location", url: "/location" },
-          { title: "User", url: "/user" }
+          { title: "User", url: "/user" },
+          { title: "Team", url: "/team" }
         ]
       },
       {
@@ -99,7 +100,8 @@ export default {
           { title: "Activity", url: "/activity" },
           { title: "Location", url: "/location" },
           { title: "User", url: "/user" },
-          { title: "Equipment", url: "/equipment" }
+          { title: "Equipment", url: "/equipment" },
+          { title: "Team", url: "/team" }
         ]
       },
       {
