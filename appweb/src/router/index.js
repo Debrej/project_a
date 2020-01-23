@@ -52,6 +52,14 @@ const routes = [
       )
   },
   {
+    path: "/show/equipment",
+    name: "show_equipment",
+    component: () =>
+      import(
+        /* webpackChunkName: "show_equipment" */ "../components/show/Equipment.vue"
+      )
+  },
+  {
     path: "*",
     name: "404",
     component: () =>
