@@ -49,13 +49,23 @@
             </v-chip>
           </v-chip-group>
         </v-card-actions>
-        <v-overlay absolute :value="overlay" v-if="!is_in_team" :opacity="opacity">
+        <v-overlay
+          absolute
+          :value="overlay"
+          v-if="!is_in_team"
+          :opacity="opacity"
+        >
           <v-btn text icon @click.stop="addUserToTeam">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-overlay>
         <v-fade-transition>
-          <v-overlay v-if="hover && is_in_team" absolute :value="hover" :opacity="opacity">
+          <v-overlay
+            v-if="hover && is_in_team"
+            absolute
+            :value="hover"
+            :opacity="opacity"
+          >
             <v-btn text icon @click.stop="removeUserFromTeam">
               <v-icon>mdi-minus</v-icon>
             </v-btn>
@@ -100,9 +110,11 @@ export default {
     },
     addUserToTeam: function() {
       eventBus.$emit("add-user-to-team", this.user);
+      this.hover = false;
     },
     removeUserFromTeam: function() {
       eventBus.$emit("remove-user-from-team", this.user);
+      this.hover = false;
     }
   },
   computed: {
@@ -113,5 +125,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

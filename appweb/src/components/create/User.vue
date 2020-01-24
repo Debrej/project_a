@@ -3,7 +3,7 @@
     <v-row>
       <v-col align="start" justify="center">
         <v-row justify="center">
-          <h1>Create a user</h1>
+          <h1>{{ $t("Create a user") }}</h1>
         </v-row>
         <v-form v-model="valid" ref="create_user">
           <v-carousel light hide-delimiter-background v-model="pagination">
@@ -15,7 +15,7 @@
                     v-model="user.first_name"
                     :rules="nameRules"
                     :counter="255"
-                    label="First name"
+                    :label="$t('First name')"
                     required
                   ></v-text-field>
                 </v-col>
@@ -23,7 +23,7 @@
                   <v-text-field
                     v-model="user.surname"
                     :counter="255"
-                    label="Surname"
+                    :label="$t('Surname')"
                     required
                   ></v-text-field>
                 </v-col>
@@ -32,7 +32,7 @@
                     v-model="user.last_name"
                     :rules="nameRules"
                     :counter="255"
-                    label="Last name"
+                    :label="$t('Last name')"
                     required
                   ></v-text-field>
                 </v-col>
@@ -51,7 +51,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="user.birthday"
-                        label="Birthday"
+                        :label="$t('Birthday')"
                         :rules="birthdayRules"
                         readonly
                         required
@@ -81,6 +81,7 @@
                     v-model="user.phone_number"
                     :preferred-countries="preferredCountries"
                     @update="phoneNumberUpdated"
+                    :translations="translations"
                   ></vue-phone-number-input>
                 </v-col>
               </v-row>
@@ -91,7 +92,7 @@
                 <v-col cols="12" md="3">
                   <v-checkbox
                     v-model="user.licence"
-                    label="Licence ?"
+                    :label="$t('Licence ?')"
                   ></v-checkbox>
                 </v-col>
                 <v-col cols="12" md="3">
@@ -107,7 +108,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="user.licence_date"
-                        label="Licence Date"
+                        :label="$t('Licence Date')"
                         :disabled="!user.licence"
                         readonly
                         v-on="on"
@@ -124,7 +125,7 @@
                   <v-file-input
                     :disabled="!user.licence"
                     accept=".pdf"
-                    label="Licence pdf scan file"
+                    :label="$t('Licence pdf scan file')"
                     v-model="user.licence_scan"
                   ></v-file-input>
                 </v-col>
@@ -139,20 +140,20 @@
                     v-model="user.specialty_id"
                     item-text="specialtyName"
                     item-value="id"
-                    label="Specialty"
+                    :label="$t('Specialty')"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" md="3">
                   <v-select
                     :items="tshirt_sizes"
                     v-model="user.tshirt_size"
-                    label="T-Shirt Size"
+                    :label="$t('T-Shirt Size')"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" md="3">
                   <v-file-input
                     accept=".png, .jpg"
-                    label="Profile picture (png, jpg)"
+                    :label="$t('Profile picture') + ' (png, jpg)'"
                     v-model="user.profile_pic"
                   ></v-file-input>
                 </v-col>
@@ -163,32 +164,32 @@
               <v-row justify="center">
                 <v-col cols="12" md="3">
                   <v-textarea
-                    label="Comment"
+                    :label="$t('Comment')"
                     v-model="user.comment"
                     auto-grow
                     :counter="255"
                     :rules="textRules"
-                    hint="Got something to say ?"
+                    :hint="$t('Got something to say ?')"
                   ></v-textarea>
                 </v-col>
                 <v-col cols="12" md="3">
                   <v-textarea
-                    label="Experience"
+                    :label="$t('Experience')"
                     v-model="user.experience"
                     auto-grow
                     :counter="255"
                     :rules="textRules"
-                    hint="Ever did anything interesting ?"
+                    :hint="$t('Ever did anything interesting ?')"
                   ></v-textarea>
                 </v-col>
                 <v-col cols="12" md="3">
                   <v-textarea
-                    label="Incapacity"
+                    :label="$t('Incapacity')"
                     v-model="user.incapacity"
                     auto-grow
                     :counter="255"
                     :rules="textRules"
-                    hint="Is there something you cannot do ?"
+                    :hint="$t('Is there something you cannot do ?')"
                   ></v-textarea>
                 </v-col>
               </v-row>
@@ -204,12 +205,12 @@
                 class="mr-4"
                 @click="validate"
               >
-                Validate
+                {{ $t("Validate") }}
               </v-btn>
             </v-col>
             <v-col cols="12" md="4" align="center">
               <v-btn color="error" class="mr-4" @click="reset">
-                Reset Form
+                {{ $t("Reset form") }}
               </v-btn>
             </v-col>
           </v-row>
@@ -247,24 +248,7 @@ export default {
     specialties: null,
     tshirt_sizes: ["XS", "S", "M", "L", "XL"],
     preferredCountries: ["FR", "BE", "US", "BR"],
-    phoneValid: false,
-    nameRules: [
-      v => !!v || "Name is required",
-      v => v.length <= 255 || "Name must be less than 255 characters"
-    ],
-    textRules: [
-      v => v.length <= 255 || "This is way too long nobody will ever read that"
-    ],
-    emailRules: [
-      v => !!v || "E-mail is required",
-      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-    ],
-    birthdayRules: [v => !!v || "Birthday is required"],
-    phoneRules: [
-      v => !!v || "Phone number is required",
-      v => /^\d+$/.test(v) || "Phone number must only contain numbers",
-      v => v.length === 10 || "Phone number must be 10 digits"
-    ]
+    phoneValid: false
   }),
   created() {
     this.$axios.get(this.$host + "specialty").then(res => {
@@ -308,6 +292,39 @@ export default {
     },
     phoneNumberUpdated: function(e) {
       this.phoneValid = e.isValid;
+    }
+  },
+  computed: {
+    nameRules() {
+      return [
+        v => !!v || this.$t("Name is required"),
+        v =>
+          v.length <= 255 || this.$t("That name is way too long my friend...")
+      ];
+    },
+    textRules() {
+      return [
+        v =>
+          v.length <= 255 ||
+          this.$t("This is way too long nobody will ever read that")
+      ];
+    },
+    emailRules() {
+      return [
+        v => !!v || this.$t("Email is required"),
+        v => /.+@.+\..+/.test(v) || this.$t("Email must be valid")
+      ];
+    },
+    birthdayRules() {
+      return [v => !!v || this.$t("Birthday is required")];
+    },
+    translations() {
+      return {
+        countrySelectorLabel: this.$t("Country code"),
+        countrySelectorError: this.$t("Choose a country"),
+        phoneNumberLabel: this.$t("Phone number"),
+        example: this.$t("Example") + " :"
+      };
     }
   }
 };

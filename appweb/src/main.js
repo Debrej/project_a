@@ -36,8 +36,11 @@ import "vue-phone-number-input/dist/vue-phone-number-input.css";
 
 Vue.component("vue-phone-number-input", VuePhoneNumberInput);
 
+import { i18n } from "./utils/i18n";
+
 new Vue({
   router,
   vuetify,
-  render: h => h(App)
+  render: h => h(App),
+  i18n
 }).$mount("#app");

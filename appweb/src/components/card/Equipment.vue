@@ -64,7 +64,7 @@
           <v-col cols="12" md="6">
             <v-row>
               <v-col>
-                <strong>Description</strong>
+                <strong>{{ $t("Description") }}</strong>
               </v-col>
             </v-row>
             <v-row>
@@ -78,14 +78,14 @@
           <v-col cols="12" md="6">
             <v-card outlined>
               <v-card-title>{{ pickup_location.name }}</v-card-title>
-              <v-card-subtitle>Pickup location</v-card-subtitle>
+              <v-card-subtitle>{{ $t("Pickup location") }}</v-card-subtitle>
               <Map :center="centerFromLocation(pickup_location)"></Map>
             </v-card>
           </v-col>
           <v-col cols="12" md="6">
             <v-card outlined>
               <v-card-title>{{ drop_location.name }}</v-card-title>
-              <v-card-subtitle>Drop location</v-card-subtitle>
+              <v-card-subtitle>{{ $t("Drop location") }}</v-card-subtitle>
               <Map :center="centerFromLocation(drop_location)"></Map>
             </v-card>
           </v-col>
@@ -100,11 +100,11 @@
           text
           @click="routerPush('/edit/equipment/' + user.id)"
         >
-          Edit
+          {{ $t("Edit") }}
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="primary" text @click="dialog = false">
-          Done
+          {{ $t("Done") }}
         </v-btn>
       </v-card-actions>
     </v-card>

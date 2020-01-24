@@ -150,7 +150,7 @@
                           $host + licenceScanBaseURL + user.licence_scan_url
                         "
                       >
-                        Licence scan
+                        {{ $t("Licence scan") }}
                       </a>
                     </v-list-item-content>
                   </v-list-item>
@@ -189,17 +189,17 @@
                 <!-- comments -->
                 <v-select
                   :items="selectComments"
-                  v-model="selectedComment"
-                  label="Comment"
+                  v-model="selectedCommentModel"
+                  :label="$t('Comment')"
                 >
                 </v-select>
-                <div v-if="selectedComment === 'Comment'">
+                <div v-if="selectedCommentModel === $t('Comment')">
                   {{ user.comment }}
                 </div>
-                <div v-if="selectedComment === 'Experience'">
+                <div v-if="selectedCommentModel === $t('Experience')">
                   {{ user.experience }}
                 </div>
-                <div v-if="selectedComment === 'Incapacity'">
+                <div v-if="selectedCommentModel === $t('Incapacity')">
                   {{ user.incapacity }}
                 </div>
               </v-col>
@@ -220,18 +220,18 @@
           text
           @click="routerPush('/edit/user/' + user.id)"
         >
-          Edit
+          {{ $t("Edit") }}
         </v-btn>
         <v-btn
           color="primary"
           text
           @click="routerPush('/affect/by_user/' + user.id)"
         >
-          Affect
+          {{ $t("Assign") }}
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="primary" text @click="dialog = false">
-          Done
+          {{ $t("Done") }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -254,8 +254,7 @@ export default {
     dialog: false,
     profilePicBaseURL: "files/user/profile_picture/",
     licenceScanBaseURL: "files/user/licence/",
-    selectComments: ["Comment", "Experience", "Incapacity"],
-    selectedComment: "Comment"
+    selectedCommentModel: ""
   }),
   methods: {
     colorIfSupervisor: function(user, team) {
@@ -286,6 +285,12 @@ export default {
     surname: function() {
       if (!this.user.surname) return "";
       else return " " + '"' + this.user.surname + '"';
+    },
+    selectComments: function() {
+      return [this.$t("Comment"), this.$t("Experience"), this.$t("Incapacity")];
+    },
+    selectedComment: function() {
+      return this.$t(this.selectedCommentModel);
     }
   }
 };

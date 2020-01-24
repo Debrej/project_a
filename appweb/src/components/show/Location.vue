@@ -7,7 +7,7 @@
           <v-row align="center">
             <v-text-field
               v-model="search"
-              label="Enter name"
+              :label="$t('Enter name')"
               single-line
               hide-details
             ></v-text-field>

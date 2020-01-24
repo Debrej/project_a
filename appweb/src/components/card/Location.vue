@@ -27,7 +27,7 @@
           <v-col cols="12" md="3">
             <v-row>
               <v-col>
-                <strong>Description</strong>
+                <strong>{{ $t("Description") }}</strong>
               </v-col>
             </v-row>
             <v-row>

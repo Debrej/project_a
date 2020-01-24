@@ -1,7 +1,11 @@
 <template>
   <v-container fluid>
     <v-row align="center" justify="center">
-      Calendar of {{ user.first_name + " " + user.last_name }} not yet available
+      {{
+        $t("Calendar message", {
+          name: user.first_name + " " + user.last_name.toUpperCase()
+        })
+      }}
     </v-row>
   </v-container>
 </template>

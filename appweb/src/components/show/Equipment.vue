@@ -7,12 +7,12 @@
             <v-select
               :items="equipment_types"
               v-model="selectedEquipmentTypes"
-              label="Type"
+              :label="$t('Type')"
               item-text="name"
               item-value="id"
               multiple
               chips
-              hint="Selected types"
+              :hint="$t('Selected types')"
               persistent-hint
             ></v-select>
             <v-btn text icon @click="resetEquipmentTypes">
@@ -25,7 +25,7 @@
           <v-row align="center">
             <v-text-field
               v-model="search"
-              label="Enter name"
+              :label="$t('Enter name')"
               single-line
               hide-details
             ></v-text-field>

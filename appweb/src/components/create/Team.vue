@@ -1,14 +1,14 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-col align="center" justify="center">
-      <h1>Create a team</h1>
+      <h1>{{ $t("Create a team") }}</h1>
       <v-divider></v-divider>
       <v-form ref="team" v-model="valid">
         <v-row justify="center">
           <v-col cols="12" md="5">
             <v-text-field
               v-model="team.name"
-              label="Team name"
+              :label="$t('Team name')"
               :counter="255"
               :rules="nameRules"
               required
@@ -20,7 +20,7 @@
               v-model="team.supervisor_id"
               :item-text="name"
               item-value="id"
-              label="Supervisor"
+              :label="$t('Supervisor')"
             ></v-select>
           </v-col>
         </v-row>
@@ -30,14 +30,14 @@
             <v-select
               :items="confidence_levels"
               v-model="team.confidence_level"
-              label="Confidence level"
+              :label="$t('Confidence level')"
             ></v-select>
           </v-col>
           <v-col cols="12" md="5">
             <v-select
               :items="priorities"
               v-model="team.priority"
-              label="Priority"
+              :label="$t('Priority')"
             ></v-select>
           </v-col>
         </v-row>
@@ -56,12 +56,12 @@
             class="mr-4"
             @click="validate"
           >
-            Validate
+            {{ $t("Validate") }}
           </v-btn>
         </v-col>
         <v-col cols="12" md="4" align="center">
           <v-btn color="error" class="mr-4" @click="reset">
-            Reset Form
+            {{ $t("Reset form") }}
           </v-btn>
         </v-col>
       </v-row>
@@ -83,11 +83,7 @@ export default {
     },
     users: [],
     confidence_levels: [0, 100, 200, 500, 1000],
-    priorities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    nameRules: [
-      v => !!v || "Name is required",
-      v => v.length <= 255 || "Name must be less than 255 characters"
-    ]
+    priorities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   }),
   created() {
     this.$axios.get(this.$host + "user").then(res => {
@@ -106,8 +102,15 @@ export default {
     name: function(item) {
       return item.first_name + " " + item.last_name.toUpperCase();
     }
+  },
+  computed: {
+    nameRules() {
+      return [
+        v => !!v || this.$t("Name is required"),
+        v =>
+          v.length <= 255 || this.$t("That name is way too long my friend...")
+      ];
+    }
   }
 };
 </script>
-
-<style scoped></style>

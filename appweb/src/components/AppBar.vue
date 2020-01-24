@@ -6,7 +6,7 @@
       v-model="searchContent"
       v-if="searchInput"
       :autofocus="searchInput"
-      label="Search..."
+      :label="$t('Search') + '...'"
       single-line
       hide-details
     ></v-text-field>

@@ -17,7 +17,7 @@
             </v-row>
           </template>
         </v-img>
-        <h1>Oops, seems that what you're looking for doesn't exist (yet)...</h1>
+        <h1>{{ $t("404_message") }}</h1>
       </v-col>
     </v-row>
   </v-container>

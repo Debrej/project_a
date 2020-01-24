@@ -7,12 +7,12 @@
             <v-select
               :items="teams"
               v-model="selectedTeams"
-              label="Teams"
+              :label="$t('Teams')"
               item-text="name"
               item-value="id"
               multiple
               chips
-              hint="Selected teams"
+              :hint="$t('Selected teams')"
               persistent-hint
             ></v-select>
             <v-btn text icon @click="resetTeams">
@@ -25,7 +25,7 @@
           <v-row align="center">
             <v-text-field
               v-model="search"
-              label="Enter name, surname, email or phone number"
+              :label="$t('Enter name, surname, email or phone number')"
               single-line
               hide-details
             ></v-text-field>

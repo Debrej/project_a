@@ -7,10 +7,10 @@
             <v-select
               :items="teams"
               v-model="selectedTeams"
-              label="Teams"
+              :label="$t('Team')"
               item-text="name"
               return-object
-              hint="Selected team"
+              :hint="$t('Selected team')"
               persistent-hint
             ></v-select>
             <v-btn text icon @click="resetTeams">
@@ -23,7 +23,7 @@
           <v-row align="center">
             <v-text-field
               v-model="search"
-              label="Enter name, surname, email or phone number"
+              :label="$t('Enter name, surname, email or phone number')"
               single-line
               hide-details
             ></v-text-field>

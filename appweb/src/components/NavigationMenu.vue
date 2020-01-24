@@ -35,7 +35,7 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ dashboard.title }}</v-list-item-title>
+          <v-list-item-title>{{ $t(dashboard.title) }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -46,7 +46,7 @@
             :expand-icon="item.icon"
             disable-icon-rotate
           >
-            {{ item.title }}
+            {{ $t(item.title) }}
           </v-expansion-panel-header>
           <v-expansion-panel-content color="primary">
             <v-list nav flat>
@@ -57,7 +57,7 @@
                 v-on:click="onPanelClick"
                 link
               >
-                <v-list-item-title>{{ dropdown.title }}</v-list-item-title>
+                <v-list-item-title>{{ $t(dropdown.title) }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-expansion-panel-content>
@@ -105,7 +105,7 @@ export default {
         ]
       },
       {
-        title: "Affect",
+        title: "Assign",
         icon: "mdi-account-multiple",
         url: "/affect",
         items: [
