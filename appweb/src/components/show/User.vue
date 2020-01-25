@@ -71,9 +71,6 @@ export default {
   created() {
     this.$axios.get(this.$host + "team").then(res => {
       this.teams = res.data.team;
-      for (let i in this.users) {
-        this.dialog[this.users[i]] = false;
-      }
     });
     this.$axios.get(this.$host + "user").then(res => {
       this.users = res.data.users;
