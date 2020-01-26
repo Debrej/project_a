@@ -4,6 +4,7 @@ node:
   - "8.11.4"
 
 install:
+  - npm install mocha
   - cd $TRAVIS_BUILD_DIR/appweb && npm install
   - cd $TRAVIS_BUILD_DIR/api && npm install
 

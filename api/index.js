@@ -90,6 +90,16 @@ console.log("Loading requests...\n");
 require("./api_requests/import")(app, sequelize, models, Sequelize); // we add all the requests for every model to the app
 console.log("\nLoading requests complete\n");
 
+let server;
+
+server = app.listen(2424, function() {
+  //require("./populate")(sequelize, models);
+  console.log("\n\tPROJECT_A LOADING COMPLETE");
+  console.log("\nServer running on port 2424");
+});
+
+module.exports = server;
+
 /*
  *   Syncing the database mean that if there was a table missing from the database that we could have added, it will add this table.
  *   Once its done, we launch the server as we are ready to fulfill requests.
@@ -98,14 +108,9 @@ sequelize
   .sync({ force: false })
   .then(() => {
     console.log("\nDatabase synced");
-    app.listen(2424, function() {
-      //require("./populate")(sequelize, models);
-      console.log("\n\tPROJECT_A LOADING COMPLETE");
-      console.log("\nServer running on port 2424");
-    });
   })
   .catch(err => {
     console.log("Error during syncing :\n" + err);
+    server.close();
   });
-
 //endregion
