@@ -1,83 +1,86 @@
 module.exports = function(sequelize, Sequelize, Specialty) {
+  console.log("\tuser model loaded");
 
-    console.log('\tuser model loaded');
+  const User = sequelize.define(
+    "user",
+    {
+      // attributes
+      first_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      last_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      surname: {
+        type: Sequelize.STRING
+      },
+      birthday: {
+        type: Sequelize.DATEONLY
+      },
 
-    const User = sequelize.define('user', {
-        // attributes
-        first_name: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        last_name: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        surname: {
-            type: Sequelize.STRING
-        },
-        birthday: {
-            type: Sequelize.DATEONLY
-        },
+      phone_number: {
+        type: Sequelize.STRING(15)
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
 
-        phone_number: {
-            type: Sequelize.STRING(15)
-        },
-        email: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
+      licence_date: {
+        type: Sequelize.DATE
+      },
+      licence_scan_url: {
+        type: Sequelize.STRING
+      },
 
-        licence_date: {
-            type: Sequelize.DATE
-        },
-        licence_scan_url: {
-            type: Sequelize.STRING
-        },
+      profile_pic_url: {
+        type: Sequelize.STRING,
+        defaultValue: "images/default_pic_url.jpg"
+      },
+      tshirt_size: {
+        type: Sequelize.ENUM("XS", "S", "M", "L", "XL")
+      },
 
-        profile_pic_url: {
-            type: Sequelize.STRING,
-            defaultValue: 'images/default_pic_url.jpg'
-        },
-        tshirt_size: {
-            type: Sequelize.ENUM('XS','S','M','L','XL')
-        },
+      alcoholic_beverage_consumption: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false
+      },
+      food_and_beverage_consumption: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false
+      },
+      balance: {
+        type: Sequelize.DECIMAL(6, 2),
+        defaultValue: 0.0,
+        allowNull: false
+      },
 
-        alcoholic_beverage_consumption: {
-            type: Sequelize.INTEGER,
-            defaultValue: 0,
-            allowNull: false
-        },
-        food_and_beverage_consumption: {
-            type: Sequelize.INTEGER,
-            defaultValue: 0,
-            allowNull: false
-        },
-        balance: {
-            type: Sequelize.DECIMAL(6,2),
-            defaultValue: 0.0,
-            allowNull: false
-        },
+      comment: {
+        type: Sequelize.TEXT("medium")
+      },
+      experience: {
+        type: Sequelize.TEXT("medium")
+      },
+      incapacity: {
+        type: Sequelize.TEXT("medium")
+      },
 
-        comment: {
-            type: Sequelize.TEXT('medium')
-        },
-        experience: {
-            type: Sequelize.TEXT('medium')
-        },
-        incapacity: {
-            type: Sequelize.TEXT('medium')
-        },
+      validity_status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      }
+    },
+    {
+      underscored: true
+    }
+  );
 
-        validity_status: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        }
-    }, {
-        underscored: true
-    });
+  User.belongsTo(Specialty, { foreignKey: "specialty_id" });
 
-    User.belongsTo(Specialty, { foreignKey: 'specialty_id'});
-
-    return User;
+  return User;
 };

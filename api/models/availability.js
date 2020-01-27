@@ -1,16 +1,18 @@
 module.exports = function(sequelize, Sequelize, Shift, User) {
+  console.log("\tavailability model loaded");
 
-    console.log('\tavailability model loaded');
+  const Availability = sequelize.define(
+    "availability",
+    {
+      // attributes
+    },
+    {
+      underscored: true
+    }
+  );
 
-    const Availability = sequelize.define('availability', {
-        // attributes
+  User.hasMany(Availability, { foreignKey: "user_id" });
+  Shift.hasMany(Availability, { foreignKey: "shift_id" });
 
-    }, {
-        underscored: true
-    });
-
-    User.hasMany(Availability, { foreignKey: 'user_id' });
-    Shift.hasMany(Availability, { foreignKey: 'shift_id' });
-
-    return Availability;
+  return Availability;
 };
