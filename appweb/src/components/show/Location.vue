@@ -39,6 +39,9 @@
 <script>
 import Fuse from "fuse.js";
 import LocationCard from "../card/Location";
+import LocationRequest from "../../services/http/locationService";
+
+const locationRequest = new LocationRequest();
 
 export default {
   name: "Location",
@@ -48,7 +51,7 @@ export default {
     search: ""
   }),
   created() {
-    this.$axios.get(this.$host + "location").then(res => {
+    locationRequest.fetch().then(res => {
       this.locations = res.data.location;
     });
   },
