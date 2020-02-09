@@ -61,6 +61,13 @@
 <script>
 import EquipmentCard from "../card/Equipment";
 import Fuse from "fuse.js";
+import LocationRequest from "../../services/http/locationService";
+import EquipmentRequest from "../../services/http/equipmentService";
+import EquipmentTypeRequest from "../../services/http/equipmentTypeService";
+
+const locationRequest = new LocationRequest();
+const equipmentRequest = new EquipmentRequest();
+const equipmentTypeRequest = new EquipmentTypeRequest();
 
 export default {
   name: "Equipment",
@@ -73,13 +80,13 @@ export default {
     equipment_types: []
   }),
   created() {
-    this.$axios.get(this.$host + "equipment_type").then(res => {
+    equipmentTypeRequest.fetch().then(res => {
       this.equipment_types = res.data.equipment_type;
     });
-    this.$axios.get(this.$host + "equipment").then(res => {
+    equipmentRequest.fetch().then(res => {
       this.equipments = res.data.equipments;
     });
-    this.$axios.get(this.$host + "location").then(res => {
+    locationRequest.fetch().then(res => {
       this.locations = res.data.location;
     });
   },
