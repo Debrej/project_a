@@ -70,6 +70,12 @@ import UserCard from "../card/UserTeam";
 import Fuse from "fuse.js";
 import { eventBus } from "../../main";
 
+import TeamRequest from "../../services/http/teamService";
+import UserRequest from "../../services/http/userService";
+
+const teamRequest = new TeamRequest();
+const userRequest = new UserRequest();
+
 export default {
   name: "Team",
   components: { UserCard },
@@ -80,42 +86,32 @@ export default {
     teams: []
   }),
   created() {
-    this.$axios.get(this.$host + "team").then(res => {
+    teamRequest.fetch().then(res => {
       this.teams = res.data.team;
     });
-    this.$axios.get(this.$host + "user").then(res => {
+    userRequest.fetch().then(res => {
       this.users = res.data.users;
     });
   },
   mounted() {
     eventBus.$on("add-user-to-team", user => {
       if (this.selectedTeams !== []) {
-        this.$axios
-          .post(
-            this.$host + "user/" + user.id + "/team/" + this.selectedTeams.id
-          )
-          .then(res => {
-            if (res.data.user_teams) {
-              this.users[this.users.indexOf(user)].teams.push(
-                this.selectedTeams
-              );
-            }
-          });
+        teamRequest.addUserToTeam(user, this.selectedTeams).then(res => {
+          if (res.data.user_teams) {
+            this.users[this.users.indexOf(user)].teams.push(this.selectedTeams);
+          }
+        });
       }
     });
     eventBus.$on("remove-user-from-team", user => {
       if (this.selectedTeams !== []) {
-        this.$axios
-          .delete(
-            this.$host + "user/" + user.id + "/team/" + this.selectedTeams.id
-          )
-          .then(res => {
-            if (res.data.result) {
-              this.users[this.users.indexOf(user)].teams = this.users[
-                this.users.indexOf(user)
-              ].teams.filter(t => t.id !== this.selectedTeams.id);
-            }
-          });
+        teamRequest.removeUserFromTeam(user, this.selectedTeams).then(res => {
+          if (res.data.result) {
+            this.users[this.users.indexOf(user)].teams = this.users[
+              this.users.indexOf(user)
+            ].teams.filter(t => t.id !== this.selectedTeams.id);
+          }
+        });
       }
     });
   },

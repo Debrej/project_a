@@ -71,6 +71,9 @@
 </template>
 
 <script>
+import LocationRequest from "../../services/http/locationService";
+
+const locationRequest = new LocationRequest();
 export default {
   name: "Location",
   data: () => ({
@@ -102,7 +105,7 @@ export default {
     validate: function() {
       this.location.gps_long = this.location.center.lng;
       this.location.gps_lat = this.location.center.lat;
-      this.$axios.post(this.$host + "location", this.location).then(() => {
+      locationRequest.post(this.location).then(() => {
         this.$router.push("/show/location");
       });
     },

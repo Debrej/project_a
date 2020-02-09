@@ -70,6 +70,12 @@
 </template>
 
 <script>
+import TeamRequest from "../../services/http/teamService";
+import UserRequest from "../../services/http/userService";
+
+const teamRequest = new TeamRequest();
+const userRequest = new UserRequest();
+
 export default {
   name: "Team",
   data: () => ({
@@ -86,13 +92,13 @@ export default {
     priorities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   }),
   created() {
-    this.$axios.get(this.$host + "user").then(res => {
+    userRequest.fetch().then(res => {
       this.users = res.data.users;
     });
   },
   methods: {
     validate: function() {
-      this.$axios.post(this.$host + "team", this.team).then(() => {
+      teamRequest.post(this.team).then(() => {
         this.$router.push("/show/user");
       });
     },

@@ -221,6 +221,13 @@
 </template>
 
 <script>
+import UserRequest from "../../services/http/userService";
+import SpecialityRequest from "../../services/http/specialityService";
+import axios from "axios";
+
+const userRequest = new UserRequest();
+const specialityRequest = new SpecialityRequest();
+
 export default {
   name: "User",
   data: () => ({
@@ -251,7 +258,7 @@ export default {
     phoneValid: false
   }),
   created() {
-    this.$axios.get(this.$host + "specialty").then(res => {
+    specialityRequest.fetch().then(res => {
       this.specialties = res.data.specialty;
       for (let i in this.specialties) {
         this.specialties[i].specialtyName =
@@ -265,24 +272,20 @@ export default {
         this.user.licence_date = null;
         this.user.licence_scan = null;
       }
-      this.$axios.post(this.$host + "user", this.user).then(res => {
+      userRequest.post(this.user).then(res => {
         let user = res.data.user;
         let promises = [];
         if (this.user.profile_pic !== null) {
           let formData = new FormData();
           formData.append("file", this.user.profile_pic);
-          promises.push(
-            this.$axios.put(this.$host + "user/photo/" + user.id, formData)
-          );
+          promises.push(userRequest.uploadFile(user, "photo", formData));
         }
         if (this.user.licence_scan !== null) {
           let formData = new FormData();
           formData.append("file", this.user.licence_scan);
-          promises.push(
-            this.$axios.put(this.$host + "user/licence/" + user.id, formData)
-          );
+          promises.push(userRequest.uploadFile(user, "licence", formData));
         }
-        this.$axios.all(promises).then(() => {
+        axios.all(promises).then(() => {
           this.$router.push("/show/user");
         });
       });

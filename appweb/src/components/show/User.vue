@@ -58,6 +58,11 @@
 import UserCard from "../card/User";
 import Fuse from "fuse.js";
 import { eventBus } from "../../main";
+import TeamRequest from "../../services/http/teamService";
+import UserRequest from "../../services/http/userService";
+
+const teamRequest = new TeamRequest();
+const userRequest = new UserRequest();
 
 export default {
   name: "User",
@@ -69,13 +74,13 @@ export default {
     teams: []
   }),
   created() {
-    this.$axios.get(this.$host + "team").then(res => {
+    teamRequest.fetch().then(res => {
       this.teams = res.data.team;
       for (let i in this.users) {
         this.dialog[this.users[i]] = false;
       }
     });
-    this.$axios.get(this.$host + "user").then(res => {
+    userRequest.fetch().then(res => {
       this.users = res.data.users;
     });
   },
