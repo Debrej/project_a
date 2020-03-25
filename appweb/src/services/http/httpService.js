@@ -52,9 +52,7 @@ HTTP_tmp.interceptors.response.use(null, error => {
         ogRequest.headers.Authorization = `Bearer ${accessToken}`;
         return HTTP_tmp(ogRequest);
       })
-      .catch(err => {
-        console.log(err.response);
-        console.log("now we redirect");
+      .catch(() => {
         window.location = "/login";
       });
   }
