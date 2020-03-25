@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   console.log("\tspecialty requests loaded");
 
   let Specialty = models.Specialty;
@@ -10,8 +10,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of specialties
    */
-  app.get("/specialty", function(req, res) {
-    Specialty.findAll()
+  app.get("/specialty", keycloak.protect("realm:user"), function(req, res) {
+    Specialty.findAll({
+      where: req.query
+    })
       .then(specialties => {
         res.send({ specialty: specialties });
       })
@@ -27,7 +29,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the specialty
    */
-  app.get("/specialty/id/:id", function(req, res) {
+  app.get("/specialty/id/:id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Specialty.findByPk(req.params.id)
       .then(specialty => {
         res.send({ specialty: specialty });
@@ -46,7 +51,7 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created specialty
    */
-  app.post("/specialty", function(req, res) {
+  app.post("/specialty", keycloak.protect("realm:admin"), function(req, res) {
     Specialty.create({
       name: req.body.name,
       year: req.body.year
@@ -69,7 +74,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/specialty/:id", function(req, res) {
+  app.put("/specialty/:id", keycloak.protect("realm:admin"), function(
+    req,
+    res
+  ) {
     Specialty.update(
       {
         name: req.body.name,
@@ -102,7 +110,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/specialty/:id", function(req, res) {
+  app.delete("/specialty/:id", keycloak.protect("realm:admin"), function(
+    req,
+    res
+  ) {
     Specialty.destroy({
       where: {
         id: req.params.id

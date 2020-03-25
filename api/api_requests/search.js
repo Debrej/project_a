@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models, Sequelize) {
+module.exports = function(app, sequelize, models, Sequelize, keycloak) {
   const Op = Sequelize.Op;
 
   console.log("\tsearch requests loaded");
@@ -10,7 +10,10 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of activities
    */
-  app.get("/search/activity", function(req, res) {
+  app.get("/search/activity", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     models.Activity.findAll({
       where: {
         [Op.or]: [
@@ -52,7 +55,10 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of comments
    */
-  app.get("/search/comment", function(req, res) {
+  app.get("/search/comment", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     models.CommentObject.findAll({
       where: {
         [Op.or]: [
@@ -79,7 +85,10 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of equipments
    */
-  app.get("/search/equipment", function(req, res) {
+  app.get("/search/equipment", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     models.Equipment.findAll({
       where: {
         [Op.or]: [
@@ -111,7 +120,10 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of equipment types
    */
-  app.get("/search/equipment_type", function(req, res) {
+  app.get("/search/equipment_type", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     models.Equipment_Type.findAll({
       where: {
         [Op.or]: [
@@ -138,7 +150,7 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of events
    */
-  app.get("/search/event", function(req, res) {
+  app.get("/search/event", keycloak.protect("realm:user"), function(req, res) {
     models.Event.findAll({
       where: {
         [Op.or]: [
@@ -170,7 +182,10 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of locations
    */
-  app.get("/search/location", function(req, res) {
+  app.get("/search/location", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     models.Location.findAll({
       where: {
         [Op.or]: [
@@ -202,7 +217,7 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of tasks
    */
-  app.get("/search/task", function(req, res) {
+  app.get("/search/task", keycloak.protect("realm:user"), function(req, res) {
     models.Task.findAll({
       where: {
         [Op.or]: [
@@ -234,7 +249,7 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of teams
    */
-  app.get("/search/team", function(req, res) {
+  app.get("/search/team", keycloak.protect("realm:user"), function(req, res) {
     models.Team.findAll({
       where: {
         [Op.or]: [
@@ -261,7 +276,7 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  returns:
    *              a json array of users
    */
-  app.get("/search/user", function(req, res) {
+  app.get("/search/user", keycloak.protect("realm:user"), function(req, res) {
     models.User.findAll({
       where: {
         [Op.or]: [

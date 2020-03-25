@@ -73,6 +73,11 @@ module.exports = function(sequelize, Sequelize, Specialty) {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
+      },
+
+      keycloak_user_id: {
+        type: Sequelize.STRING,
+        allowNull: false
       }
     },
     {

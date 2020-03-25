@@ -64,10 +64,12 @@ import Fuse from "fuse.js";
 import LocationRequest from "../../services/http/locationService";
 import EquipmentRequest from "../../services/http/equipmentService";
 import EquipmentTypeRequest from "../../services/http/equipmentTypeService";
+import AuthenticationRequest from "../../services/http/authenticationService";
 
 const locationRequest = new LocationRequest();
 const equipmentRequest = new EquipmentRequest();
 const equipmentTypeRequest = new EquipmentTypeRequest();
+const authenticationRequest = new AuthenticationRequest();
 
 export default {
   name: "Equipment",
@@ -79,6 +81,9 @@ export default {
     selectedEquipmentTypes: [],
     equipment_types: []
   }),
+  beforeCreate() {
+    authenticationRequest.refresh();
+  },
   created() {
     equipmentTypeRequest.fetch().then(res => {
       this.equipment_types = res.data.equipment_type;

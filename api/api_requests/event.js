@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const upload = multer({ dest: global.appRoot + "/tmp/" });
 
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   let Event = models.Event;
 
   console.log("\tevent requests loaded");
@@ -15,8 +15,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of events
    */
-  app.get("/event", function(req, res) {
-    Event.findAll().then(events => {
+  app.get("/event", keycloak.protect("realm:user"), function(req, res) {
+    Event.findAll({
+      where: req.query
+    }).then(events => {
       res.send({ events: events });
     });
   });
@@ -28,7 +30,7 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the event
    */
-  app.get("/event/id/:id", function(req, res) {
+  app.get("/event/id/:id", keycloak.protect("realm:user"), function(req, res) {
     Event.findByPk(req.params.id)
       .then(event => {
         res.send({ event: event });
@@ -49,7 +51,7 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the created event
    */
-  app.post("/event", function(req, res) {
+  app.post("/event", keycloak.protect("realm:admin"), function(req, res) {
     Event.create({
       name: req.body.name,
       description: req.body.description,
@@ -71,38 +73,43 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               the updated object
    */
-  app.put("/event/photo/:id", upload.single("file"), function(req, res) {
-    const file = global.appRoot + "/uploads/event/" + req.file.filename;
-    fs.rename(req.file.path, file, err => {
-      if (err) {
-        console.log(err);
-        res.sendStatus(500);
-      } else {
-        Event.update(
-          {
-            logo_url: req.file.filename
-          },
-          {
-            where: {
-              id: req.params.id
+  app.put(
+    "/event/photo/:id",
+    keycloak.protect("realm:admin"),
+    upload.single("file"),
+    function(req, res) {
+      const file = global.appRoot + "/uploads/event/" + req.file.filename;
+      fs.rename(req.file.path, file, err => {
+        if (err) {
+          console.log(err);
+          res.sendStatus(500);
+        } else {
+          Event.update(
+            {
+              logo_url: req.file.filename
+            },
+            {
+              where: {
+                id: req.params.id
+              }
             }
-          }
-        )
-          .then(() => {
-            Event.findByPk(req.params.id)
-              .then(event => {
-                res.send({ event: event });
-              })
-              .catch(err => {
-                res.status(500).send({ error: err });
-              });
-          })
-          .catch(err => {
-            res.status(500).send({ error: err });
-          });
-      }
-    });
-  });
+          )
+            .then(() => {
+              Event.findByPk(req.params.id)
+                .then(event => {
+                  res.send({ event: event });
+                })
+                .catch(err => {
+                  res.status(500).send({ error: err });
+                });
+            })
+            .catch(err => {
+              res.status(500).send({ error: err });
+            });
+        }
+      });
+    }
+  );
 
   /**
    *   This request updates the event according to its id.
@@ -116,7 +123,7 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               the updated object
    */
-  app.put("/event/:id", function(req, res) {
+  app.put("/event/:id", keycloak.protect("realm:admin"), function(req, res) {
     Event.update(
       {
         name: req.body.name,
@@ -152,7 +159,7 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a result being 1 if succeeded, 0 else
    */
-  app.delete("/event/:id", function(req, res) {
+  app.delete("/event/:id", keycloak.protect("realm:admin"), function(req, res) {
     Event.destroy({
       where: {
         id: req.params.id

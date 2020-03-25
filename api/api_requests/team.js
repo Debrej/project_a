@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   console.log("\tteam requests loaded");
 
   let Team = models.Team;
@@ -12,8 +12,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of teams
    */
-  app.get("/team", function(req, res) {
-    Team.findAll().then(teams => {
+  app.get("/team", keycloak.protect("realm:user"), function(req, res) {
+    Team.findAll({
+      where: req.query
+    }).then(teams => {
       res.send({ team: teams });
     });
   });
@@ -25,7 +27,7 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the team
    */
-  app.get("/team/id/:id", function(req, res) {
+  app.get("/team/id/:id", keycloak.protect("realm:user"), function(req, res) {
     Team.findByPk(req.params.id).then(team => {
       res.send({ team: team });
     });
@@ -40,7 +42,10 @@ module.exports = function(app, sequelize, models) {
    *              an json array of users members of the team
    *
    */
-  app.get("/team/members/:id_team", function(req, res) {
+  app.get("/team/members/:id_team", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Team.findByPk(req.params.id_team)
       .then(team => {
         team
@@ -70,7 +75,7 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created team
    */
-  app.post("/team", function(req, res) {
+  app.post("/team", keycloak.protect("realm:user_affect"), function(req, res) {
     Team.create(req.body)
       .then(team => {
         res.send({ team: team });
@@ -94,7 +99,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/team/:id", function(req, res) {
+  app.put("/team/:id", keycloak.protect("realm:user_affect"), function(
+    req,
+    res
+  ) {
     Team.update(req.body, {
       where: {
         id: req.params.id
@@ -125,7 +133,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/team/:id", function(req, res) {
+  app.delete("/team/:id", keycloak.protect("realm:user_affect"), function(
+    req,
+    res
+  ) {
     Team.destroy({
       where: {
         id: req.params.id

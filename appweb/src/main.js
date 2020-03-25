@@ -1,7 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import vuetify from "./plugins/vuetify";
 
 import config from "./config";
 
@@ -14,6 +13,13 @@ Vue.prototype.$host = config.host;
 Vue.prototype.$momentLocale = config.locale || "en";
 
 export const eventBus = new Vue();
+
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
+
+Vue.use(Buefy);
+
+import vuetify from "./plugins/vuetify";
 
 import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import { Icon } from "leaflet";

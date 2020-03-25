@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   console.log("\tactivity requests loaded");
 
   let Activity = models.Activity;
@@ -10,8 +10,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of activities
    */
-  app.get("/activity", function(req, res) {
-    Activity.findAll()
+  app.get("/activity", keycloak.protect("realm:user"), function(req, res) {
+    Activity.findAll({
+      where: req.query
+    })
       .then(activities => {
         res.send({ activity: activities });
       })
@@ -27,7 +29,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the activity
    */
-  app.get("/activity/id/:id", function(req, res) {
+  app.get("/activity/id/:id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Activity.findByPk(req.params.id)
       .then(activity => {
         res.send({ activity: activity });
@@ -44,19 +49,23 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json array of activities
    */
-  app.get("/activity/supervisor/:supervisor_id", function(req, res) {
-    Activity.findAll({
-      where: {
-        supervisor_id: req.params.supervisor_id
-      }
-    })
-      .then(activities => {
-        res.send({ activities: activities });
+  app.get(
+    "/activity/supervisor/:supervisor_id",
+    keycloak.protect("realm:user"),
+    function(req, res) {
+      Activity.findAll({
+        where: {
+          supervisor_id: req.params.supervisor_id
+        }
       })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
+        .then(activities => {
+          res.send({ activities: activities });
+        })
+        .catch(err => {
+          res.status(500).send({ error: err });
+        });
+    }
+  );
 
   /**
    *  This requests creates a new activity with the name, description, starting and ending date, supervisor id and event id
@@ -75,7 +84,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created activity
    */
-  app.post("/activity", function(req, res) {
+  app.post("/activity", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Activity.create(req.body)
       .then(activity => {
         res.send({ activity: activity });
@@ -103,7 +115,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/activity/:id", function(req, res) {
+  app.put("/activity/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Activity.update(req.body, { where: { id: req.params.id } })
       .then(() => {
         Activity.findByPk(req.params.id)
@@ -126,7 +141,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/activity/:id", function(req, res) {
+  app.delete("/activity/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Activity.destroy({
       where: {
         id: req.params.id

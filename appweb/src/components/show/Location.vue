@@ -40,8 +40,10 @@
 import Fuse from "fuse.js";
 import LocationCard from "../card/Location";
 import LocationRequest from "../../services/http/locationService";
+import AuthenticationRequest from "../../services/http/authenticationService";
 
 const locationRequest = new LocationRequest();
+const authenticationRequest = new AuthenticationRequest();
 
 export default {
   name: "Location",
@@ -50,6 +52,9 @@ export default {
     locations: [],
     search: ""
   }),
+  beforeCreate() {
+    authenticationRequest.refresh();
+  },
   created() {
     locationRequest.fetch().then(res => {
       this.locations = res.data.location;

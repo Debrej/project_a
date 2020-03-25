@@ -67,5 +67,15 @@
   "Edit": "Editer",
   "Done": "Terminé",
   "Pickup location": "Lieu de ramassage",
-  "Drop location": "Lieu de dépôt"
+  "Drop location": "Lieu de dépôt",
+  "Username": "Nom d'utilisateur",
+  "Password": "Mot de passe",
+  "Reset": "Réinitialiser",
+  "Base info": "Informations basiques",
+  "Licence": "Permis de conduire",
+  "Other info": "Autres informations",
+  "Comments": "Commentaires",
+  "Logout": "Se déconnecter",
+  "Sign in": "Se connecter",
+  "Welcome home, use the navigation menu on the left to create, show and affect": "Bienvenue sur le tableau de bord, utilisez le menu de navigation à gauche pour créer, afficher et affecter"
 }

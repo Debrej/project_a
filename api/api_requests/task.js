@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   console.log("\ttask requests loaded");
 
   let Task = models.Task;
@@ -11,8 +11,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of tasks
    */
-  app.get("/task", function(req, res) {
-    Task.findAll()
+  app.get("/task", keycloak.protect("realm:user"), function(req, res) {
+    Task.findAll({
+      where: req.query
+    })
       .then(tasks => {
         res.send({ task: tasks });
       })
@@ -28,7 +30,7 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the task
    */
-  app.get("/task/id/:id", function(req, res) {
+  app.get("/task/id/:id", keycloak.protect("realm:user"), function(req, res) {
     Task.findByPk(req.params.id)
       .then(task => {
         res.send({ task: task });
@@ -45,7 +47,10 @@ module.exports = function(app, sequelize, models) {
    *  returns:
    *              a json array of tasks
    */
-  app.get("/task/require_user", function(req, res) {
+  app.get("/task/require_user", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     User_Requirement.findAll({ where: { user_id: req.body.user } })
       .then(requirements => {
         let task_ids = [];
@@ -72,7 +77,10 @@ module.exports = function(app, sequelize, models) {
    *  returns:
    *              a json array of tasks
    */
-  app.get("/task/require_team", function(req, res) {
+  app.get("/task/require_team", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     User_Requirement.findAll({ where: { team_id: req.body.teams } })
       .then(requirements => {
         let task_ids = [];
@@ -107,7 +115,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created task
    */
-  app.post("/task", function(req, res) {
+  app.post("/task", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Task.create({
       name: req.body.name,
       description: req.body.description,
@@ -142,7 +153,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/task/:id", function(req, res) {
+  app.put("/task/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Task.update(
       {
         name: req.body.name,
@@ -181,7 +195,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/task/:id", function(req, res) {
+  app.delete("/task/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Task.destroy({
       where: {
         id: req.params.id

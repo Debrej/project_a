@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   console.log("\tequipment and equipment type requests loaded");
 
   //region EQUIPMENT
@@ -13,8 +13,9 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of equipments
    */
-  app.get("/equipment", function(req, res) {
+  app.get("/equipment", keycloak.protect("realm:user"), function(req, res) {
     Equipment.findAll({
+      where: req.query,
       include: [
         {
           model: Equipment_Type,
@@ -37,7 +38,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the equipment
    */
-  app.get("/equipment/id/:id", function(req, res) {
+  app.get("/equipment/id/:id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Equipment.findByPk(req.params.id)
       .then(equipment => {
         res.send({ equipment: equipment });
@@ -61,7 +65,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created equipment
    */
-  app.post("/equipment", function(req, res) {
+  app.post("/equipment", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Equipment.create({
       name: req.body.name,
       description: req.body.description,
@@ -93,7 +100,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/equipment/:id", function(req, res) {
+  app.put("/equipment/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Equipment.update(
       {
         name: req.body.name,
@@ -130,7 +140,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/equipment/:id", function(req, res) {
+  app.delete("/equipment/:id", keycloak.protect("realm:user_log"), function(
+    req,
+    res
+  ) {
     Equipment.destroy({
       where: {
         id: req.params.id
@@ -155,7 +168,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of equipment types
    */
-  app.get("/equipment_type", function(req, res) {
+  app.get("/equipment_type", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Equipment_Type.findAll()
       .then(equipment_types => {
         res.send({ equipment_type: equipment_types });
@@ -172,7 +188,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the equipment type
    */
-  app.get("/equipment_type/id/:id", function(req, res) {
+  app.get("/equipment_type/id/:id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Equipment_Type.findByPk(req.params.id)
       .then(equipment_type => {
         res.send({ equipment_type: equipment_type });
@@ -190,7 +209,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created equipment type
    */
-  app.post("/equipment_type", function(req, res) {
+  app.post("/equipment_type", keycloak.protect("realm:user_log"), function(
+    req,
+    res
+  ) {
     Equipment_Type.create({
       name: req.body.name
     })
@@ -211,7 +233,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/equipment_type/:id", function(req, res) {
+  app.put("/equipment_type/:id", keycloak.protect("realm:user_log"), function(
+    req,
+    res
+  ) {
     Equipment_Type.update(
       {
         name: req.body.name
@@ -243,19 +268,23 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/equipment_type/:id", function(req, res) {
-    Equipment_Type.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-      .then(result => {
-        res.send({ result: result });
+  app.delete(
+    "/equipment_type/:id",
+    keycloak.protect("realm:user_log"),
+    function(req, res) {
+      Equipment_Type.destroy({
+        where: {
+          id: req.params.id
+        }
       })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
+        .then(result => {
+          res.send({ result: result });
+        })
+        .catch(err => {
+          res.status(500).send({ error: err });
+        });
+    }
+  );
 
   //endregion
 };

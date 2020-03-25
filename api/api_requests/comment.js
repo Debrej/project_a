@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   console.log("\tcomment requests loaded");
 
   let Comment = models.CommentObject;
@@ -10,8 +10,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of comments
    */
-  app.get("/comment", function(req, res) {
-    Comment.findAll().then(comments => {
+  app.get("/comment", keycloak.protect("realm:user"), function(req, res) {
+    Comment.findAll({
+      where: req.query
+    }).then(comments => {
       res.send({ comments: comments });
     });
   });
@@ -23,7 +25,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the comment
    */
-  app.get("/comment/id/:id", function(req, res) {
+  app.get("/comment/id/:id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Comment.findByPk(req.params.id).then(comment => {
       res.send({ comment: comment });
     });
@@ -36,7 +41,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              an array of comments
    */
-  app.get("/comment/user/:user_id", function(req, res) {
+  app.get("/comment/user/:user_id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Comment.findAll({
       where: {
         user_id: req.params.user_id
@@ -57,7 +65,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              an array of comments
    */
-  app.get("/comment/task/:task_id", function(req, res) {
+  app.get("/comment/task/:task_id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Comment.findAll({
       where: {
         task_id: req.params.task_id
@@ -78,19 +89,23 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              an array of comments
    */
-  app.get("/comment/activity/:activity_id", function(req, res) {
-    Comment.findAll({
-      where: {
-        activity_id: req.params.activity_id
-      }
-    })
-      .then(comments => {
-        res.send({ comments: comments });
+  app.get(
+    "/comment/activity/:activity_id",
+    keycloak.protect("realm:user"),
+    function(req, res) {
+      Comment.findAll({
+        where: {
+          activity_id: req.params.activity_id
+        }
       })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
+        .then(comments => {
+          res.send({ comments: comments });
+        })
+        .catch(err => {
+          res.status(500).send({ error: err });
+        });
+    }
+  );
 
   /**
    *  This requests creates a new comment with the content, date, user, activity and task.
@@ -104,7 +119,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created comment
    */
-  app.post("/comment", function(req, res) {
+  app.post("/comment", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Comment.create({
       content: req.body.content,
       date: req.body.date,
@@ -133,7 +151,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/comment/:id", function(req, res) {
+  app.put("/comment/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Comment.update(
       {
         content: req.body.content,
@@ -169,7 +190,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/comment/:id", function(req, res) {
+  app.delete("/comment/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Comment.destroy({
       where: {
         id: req.params.id

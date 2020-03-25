@@ -2,7 +2,7 @@ import { HTTP } from "./httpService";
 
 export default class TeamRequest {
   fetch(filters = {}) {
-    return HTTP.get("team", filters);
+    return HTTP.get("team", { params: filters });
   }
   get(team) {
     return HTTP.get(`team/${team.id}`);

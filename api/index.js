@@ -1,6 +1,7 @@
 //region SET UP
 
 const express = require("express");
+const bodyParser = require("body-parser");
 const Sequelize = require("sequelize");
 const dateFormat = require("date-format");
 
@@ -13,6 +14,31 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(bodyParser.json());
+
+const session = require("express-session");
+const Keycloak = require("keycloak-connect");
+
+const memoryStore = new session.MemoryStore();
+app.use(
+  session({
+    secret: "abcdefageguhdok654sd65_djzuéOdnjzKIJDjneé0I",
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore
+  })
+);
+
+const keycloak = new Keycloak({
+  store: memoryStore
+});
+
+app.use(
+  keycloak.middleware({
+    logout: "/logout",
+    admin: "/"
+  })
+);
 
 global.appRoot = __dirname;
 
@@ -70,7 +96,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", config.CORS_origin); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
@@ -87,8 +113,12 @@ let models = require("./models/import")(sequelize, Sequelize); // we retrieve th
 console.log("\nLoading models complete\n");
 
 console.log("Loading requests...\n");
-require("./api_requests/import")(app, sequelize, models, Sequelize); // we add all the requests for every model to the app
+require("./api_requests/import")(app, sequelize, models, Sequelize, keycloak); // we add all the requests for every model to the app
 console.log("\nLoading requests complete\n");
+
+app.get("/test", keycloak.protect("realm:user"), function(req, res) {
+  res.send({ testResponse: "hello this is a test" });
+});
 
 /*
  *   Syncing the database mean that if there was a table missing from the database that we could have added, it will add this table.

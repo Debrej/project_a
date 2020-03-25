@@ -6,8 +6,8 @@
           <h1>{{ $t("Create a user") }}</h1>
         </v-row>
         <v-form v-model="valid" ref="create_user">
-          <v-carousel light hide-delimiter-background v-model="pagination">
-            <v-carousel-item>
+          <b-steps v-model="pagination" :has-navigation="false">
+            <b-step-item :label="$t('Base info')" clickable class="step-item">
               <!-- Name and surname -->
               <v-row justify="center">
                 <v-col cols="12" md="3">
@@ -85,8 +85,8 @@
                   ></vue-phone-number-input>
                 </v-col>
               </v-row>
-            </v-carousel-item>
-            <v-carousel-item>
+            </b-step-item>
+            <b-step-item :label="$t('Licence')" clickable class="step-item">
               <!-- Licence date and file -->
               <v-row justify="center">
                 <v-col cols="12" md="3">
@@ -130,8 +130,8 @@
                   ></v-file-input>
                 </v-col>
               </v-row>
-            </v-carousel-item>
-            <v-carousel-item>
+            </b-step-item>
+            <b-step-item :label="$t('Other info')" clickable class="step-item">
               <!-- Specialty, t-shirt size and profile pic url -->
               <v-row justify="center">
                 <v-col cols="12" md="3">
@@ -158,8 +158,8 @@
                   ></v-file-input>
                 </v-col>
               </v-row>
-            </v-carousel-item>
-            <v-carousel-item>
+            </b-step-item>
+            <b-step-item :label="$t('Comments')" clickable class="step-item">
               <!-- Comment, experience and incapacity -->
               <v-row justify="center">
                 <v-col cols="12" md="3">
@@ -193,8 +193,8 @@
                   ></v-textarea>
                 </v-col>
               </v-row>
-            </v-carousel-item>
-          </v-carousel>
+            </b-step-item>
+          </b-steps>
           <v-divider></v-divider>
           <!-- Validate and reset form -->
           <v-row justify="center">
@@ -228,8 +228,11 @@ import axios from "axios";
 const userRequest = new UserRequest();
 const specialityRequest = new SpecialityRequest();
 
+import BSteps from "buefy/src/components/steps/Steps";
+import BStepItem from "buefy/src/components/steps/StepItem";
 export default {
   name: "User",
+  components: { BStepItem, BSteps },
   data: () => ({
     pagination: 0,
     valid: false,
@@ -238,7 +241,7 @@ export default {
     user: {
       first_name: "",
       last_name: "",
-      surname: null,
+      surname: "",
       birthday: "",
       phone_number: "",
       email: "",
@@ -248,9 +251,9 @@ export default {
       profile_pic: null,
       tshirt_size: null,
       specialty_id: null,
-      comment: null,
-      experience: null,
-      incapacity: null
+      comment: "",
+      experience: "",
+      incapacity: ""
     },
     specialties: null,
     tshirt_sizes: ["XS", "S", "M", "L", "XL"],
@@ -292,6 +295,7 @@ export default {
     },
     reset: function() {
       this.$refs.create_user.reset();
+      this.pagination = 0;
     },
     phoneNumberUpdated: function(e) {
       this.phoneValid = e.isValid;
@@ -332,3 +336,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.step-item {
+  min-height: 400px;
+}
+</style>

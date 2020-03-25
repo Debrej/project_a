@@ -13,11 +13,17 @@
     <v-btn icon @click="searchInput = !searchInput">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
+    <v-btn text @click="logout">
+      {{ $t("Logout") }}
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script>
 import { eventBus } from "../main";
+
+import AuthenticationRequest from "../services/http/authenticationService";
+const authenticationRequest = new AuthenticationRequest();
 
 export default {
   name: "AppBar",
@@ -48,6 +54,13 @@ export default {
     changeDrawerStatus() {
       this.drawer = !this.drawer;
       eventBus.$emit("drawer-status-change-appbar", this.drawer);
+    },
+    logout: function() {
+      authenticationRequest.logout(localStorage.refreshToken).then(() => {
+        localStorage.clear();
+        this.$router.push("/login");
+      });
+      //TODO catch the error
     }
   }
 };

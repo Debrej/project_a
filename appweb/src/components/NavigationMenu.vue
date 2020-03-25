@@ -16,14 +16,14 @@
 
       <v-list-item two-line>
         <v-list-item-avatar>
-          <img :src="user.picture.large" alt="user profile pic" />
+          <img :src="$host + profilePicBaseURL + user.profile_pic_url" alt="" />
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title>{{
-            user.name.first + " " + user.name.last.toUpperCase()
+            user.first_name + " " + user.last_name.toUpperCase()
           }}</v-list-item-title>
-          <v-list-item-subtitle>{{ user.cell }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -69,11 +69,19 @@
 
 <script>
 import { eventBus } from "../main";
+import UserRequest from "../services/http/userService";
+const userRequest = new UserRequest();
 
 export default {
   name: "NavigationMenu",
   data: () => ({
-    user: null,
+    user: {
+      last_name: "",
+      first_name: "",
+      email: "",
+      profile_pic_url: ""
+    },
+    profilePicBaseURL: "files/user/profile_picture/",
     selected: null,
     panel: [],
     drawer: false,
@@ -116,11 +124,12 @@ export default {
     ]
   }),
   created() {
-    this.$axios.get("https://randomuser.me/api").then(res => {
-      this.user = res.data.results[0];
-    });
     eventBus.$on("drawer-status-change-appbar", drawer => {
       this.drawer = drawer;
+    });
+
+    userRequest.fetch({ keycloak_user_id: localStorage.userId }).then(res => {
+      this.user = res.data.users[0];
     });
   },
   mounted() {

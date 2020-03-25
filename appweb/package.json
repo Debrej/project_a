@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "axios": "^0.19.1",
+    "buefy": "^0.8.10",
     "core-js": "^3.4.4",
     "fuse.js": "^3.4.6",
+    "jwt-decode": "^2.2.0",
     "leaflet": "^1.6.0",
     "moment": "^2.24.0",
+    "qs": "^6.9.1",
     "vue": "^2.6.10",
     "vue-i18n": "^8.15.3",
     "vue-phone-number-input": "^1.1.3",

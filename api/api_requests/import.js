@@ -1,15 +1,15 @@
-module.exports = function(app, sequelize, models, Sequelize) {
-  require("./activity")(app, sequelize, models);
-  require("./comment")(app, sequelize, models);
-  require("./event")(app, sequelize, models);
+module.exports = function(app, sequelize, models, Sequelize, keycloak) {
+  require("./activity")(app, sequelize, models, keycloak);
+  require("./comment")(app, sequelize, models, keycloak);
+  require("./event")(app, sequelize, models, keycloak);
   require("./shift")(app, sequelize, models);
-  require("./location")(app, sequelize, models);
-  require("./equipment")(app, sequelize, models);
+  require("./location")(app, sequelize, models, keycloak);
+  require("./equipment")(app, sequelize, models, keycloak);
   require("./notification")(app, sequelize, models);
-  require("./specialty")(app, sequelize, models);
-  require("./task")(app, sequelize, models);
-  require("./team")(app, sequelize, models);
-  require("./user")(app, sequelize, models);
+  require("./specialty")(app, sequelize, models, keycloak);
+  require("./task")(app, sequelize, models, keycloak);
+  require("./team")(app, sequelize, models, keycloak);
+  require("./user")(app, sequelize, models, keycloak);
   require("./activity_location")(app, sequelize, models);
   require("./user_requirement")(app, sequelize, models, Sequelize);
   require("./availability")(app, sequelize, models);
@@ -17,5 +17,5 @@ module.exports = function(app, sequelize, models, Sequelize) {
   require("./friend")(app, sequelize, models, Sequelize);
   require("./equipment_requirement")(app, sequelize, models);
   require("./equipment_assignment")(app, sequelize, models);
-  require("./search")(app, sequelize, models, Sequelize);
+  require("./search")(app, sequelize, models, Sequelize, keycloak);
 };

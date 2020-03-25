@@ -1,4 +1,4 @@
-module.exports = function(app, sequelize, models) {
+module.exports = function(app, sequelize, models, keycloak) {
   let Location = models.Location;
 
   console.log("\tlocation requests loaded");
@@ -10,8 +10,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               an json array of locations
    */
-  app.get("/location", function(req, res) {
-    Location.findAll()
+  app.get("/location", keycloak.protect("realm:user"), function(req, res) {
+    Location.findAll({
+      where: req.query
+    })
       .then(locations => {
         res.send({ location: locations });
       })
@@ -27,7 +29,10 @@ module.exports = function(app, sequelize, models) {
    *   returns :
    *               a json object containing the location
    */
-  app.get("/location/id/:id", function(req, res) {
+  app.get("/location/id/:id", keycloak.protect("realm:user"), function(
+    req,
+    res
+  ) {
     Location.findByPk(req.params.id)
       .then(location => {
         res.send({ location: location });
@@ -48,7 +53,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a json object containing the created location
    */
-  app.post("/location", function(req, res) {
+  app.post("/location", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Location.create({
       name: req.body.name,
       description: req.body.description,
@@ -75,7 +83,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              the updated object
    */
-  app.put("/location/:id", function(req, res) {
+  app.put("/location/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Location.update(
       {
         name: req.body.name,
@@ -110,7 +121,10 @@ module.exports = function(app, sequelize, models) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/location/:id", function(req, res) {
+  app.delete("/location/:id", keycloak.protect("realm:user_modifier"), function(
+    req,
+    res
+  ) {
     Location.destroy({
       where: {
         id: req.params.id

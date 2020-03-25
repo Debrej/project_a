@@ -1,0 +1,89 @@
+<template>
+  <v-container class="fill-height" fluid>
+    <v-col align="center" justify="center">
+      <v-img
+        src="@/assets/logo.png"
+        lazy-src="@/assets/lazy/logo.png"
+        max-height="350px"
+        contain
+      >
+        <template v-slot:placeholder>
+          <v-row class="fill-height ma-0" align="center" justify="center">
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+      </v-img>
+      <v-form ref="login" v-model="valid">
+        <v-col cols="12" md="6">
+          <v-col cols="12" md="10">
+            <v-text-field
+              v-model="login.username"
+              :label="$t('Username')"
+              required
+            >
+            </v-text-field>
+            <v-text-field
+              v-model="login.password"
+              :label="$t('Password')"
+              type="password"
+              required
+            >
+            </v-text-field>
+          </v-col>
+          <v-row justify="space-between">
+            <v-col cols="12" md="4" align="center">
+              <v-btn
+                :disabled="!valid"
+                color="success"
+                class="mr-4"
+                @click="validate"
+              >
+                {{ $t("Sign in") }}
+              </v-btn>
+            </v-col>
+            <v-col cols="12" md="4" align="center">
+              <v-btn color="error" class="mr-4" @click="reset">
+                {{ $t("Reset") }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-form>
+    </v-col>
+  </v-container>
+</template>
+
+<script>
+import jwt_decode from "jwt-decode";
+
+import AuthenticationRequest from "../services/http/authenticationService";
+const authenticationRequest = new AuthenticationRequest();
+
+export default {
+  name: "LoginForm",
+  data: () => ({
+    login: {
+      username: "",
+      password: ""
+    },
+    valid: false
+  }),
+  methods: {
+    validate: function() {
+      authenticationRequest.auth(this.login).then(res => {
+        localStorage.accessToken = res.data.access_token;
+        localStorage.refreshToken = res.data.refresh_token;
+        localStorage.userId = jwt_decode(res.data.access_token).sub;
+        this.$router.push("/");
+      });
+      //TODO catch the error
+    },
+    reset: function() {
+      this.$refs.login.reset();
+    }
+  }
+};
+</script>
