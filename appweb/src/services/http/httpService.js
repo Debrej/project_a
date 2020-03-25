@@ -42,7 +42,8 @@ HTTP_tmp.interceptors.request.use(
 
 HTTP_tmp.interceptors.response.use(null, error => {
   let ogRequest = error.config;
-  if (error.response.status === 403) {
+  if (error.response.status === 403 && !ogRequest._retry) {
+    ogRequest._retry = true;
     return refreshToken()
       .then(res => {
         const accessToken = res.data.access_token;

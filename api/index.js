@@ -116,10 +116,6 @@ console.log("Loading requests...\n");
 require("./api_requests/import")(app, sequelize, models, Sequelize, keycloak); // we add all the requests for every model to the app
 console.log("\nLoading requests complete\n");
 
-app.get("/test", keycloak.protect("realm:user"), function(req, res) {
-  res.send({ testResponse: "hello this is a test" });
-});
-
 /*
  *   Syncing the database mean that if there was a table missing from the database that we could have added, it will add this table.
  *   Once its done, we launch the server as we are ready to fulfill requests.
