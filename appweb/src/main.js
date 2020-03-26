@@ -44,6 +44,25 @@ Vue.component("vue-phone-number-input", VuePhoneNumberInput);
 
 import { i18n } from "./utils/i18n";
 
+import jwt_decode from "jwt-decode";
+
+Vue.mixin({
+  beforeCreate() {
+    const refreshToken = localStorage.refreshToken;
+    if (refreshToken) {
+      const exp = jwt_decode(refreshToken).exp;
+      const ts = Math.round(new Date().getTime() / 1000);
+      if (ts > exp) {
+        localStorage.clear();
+        this.$router.push("/login");
+      }
+    } else {
+      localStorage.clear();
+      this.$router.push("/login");
+    }
+  }
+});
+
 new Vue({
   router,
   vuetify,

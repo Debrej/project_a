@@ -11,7 +11,7 @@ export default class AuthenticationRequest {
       client_id: "project_a_web"
     });
     return HTTPAUTH.post(
-      `/auth/realms/project_a/protocol/openid-connect/token`,
+      `auth/realms/project_a/protocol/openid-connect/token`,
       body
     );
   }
@@ -27,7 +27,7 @@ export default class AuthenticationRequest {
         grant_type: "refresh_token"
       });
       HTTPAUTH.post(
-        `/auth/realms/project_a/protocol/openid-connect/token`,
+        `auth/realms/project_a/protocol/openid-connect/token`,
         body
       ).then(res => {
         localStorage.accessToken = res.data.access_token;
@@ -41,7 +41,7 @@ export default class AuthenticationRequest {
       refresh_token: refresh_token
     });
     return HTTPAUTH.post(
-      `/auth/realms/project_a/protocol/openid-connect/logout`,
+      `auth/realms/project_a/protocol/openid-connect/logout`,
       body
     );
   }
