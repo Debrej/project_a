@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <v-container class="fill-height" fluid @keydown.enter="validate">
     <v-col align="center" justify="center">
       <v-img
         src="@/assets/logo.png"
@@ -33,6 +33,7 @@
             >
             </v-text-field>
           </v-col>
+          <v-row justify="center" class="red--text font-italic">{{ $t(error) }}</v-row>
           <v-row justify="space-between">
             <v-col cols="12" md="4" align="center">
               <v-btn
@@ -69,17 +70,28 @@ export default {
       username: "",
       password: ""
     },
+    error: "",
     valid: false
   }),
   methods: {
     validate: function() {
-      authenticationRequest.auth(this.login).then(res => {
-        localStorage.accessToken = res.data.access_token;
-        localStorage.refreshToken = res.data.refresh_token;
-        localStorage.userId = jwt_decode(res.data.access_token).sub;
-        this.$router.push("/");
-      });
-      //TODO catch the error
+      authenticationRequest
+        .auth(this.login)
+        .then(res => {
+          localStorage.accessToken = res.data.access_token;
+          localStorage.refreshToken = res.data.refresh_token;
+          localStorage.userId = jwt_decode(res.data.access_token).sub;
+          this.$router.push("/");
+        })
+        .catch(err => {
+          if (
+            err.response.status === 401 &&
+            err.response.data.error_description === "Invalid user credentials"
+          ) {
+            console.log("password error");
+            this.error = "Wrong password or username";
+          }
+        });
     },
     reset: function() {
       this.$refs.login.reset();

@@ -77,5 +77,6 @@
   "Comments": "Commentaires",
   "Logout": "Se déconnecter",
   "Sign in": "Se connecter",
-  "Welcome home, use the navigation menu on the left to create, show and affect": "Bienvenue sur le tableau de bord, utilisez le menu de navigation à gauche pour créer, afficher et affecter"
+  "Welcome home, use the navigation menu on the left to create, show and affect": "Bienvenue sur le tableau de bord, utilisez le menu de navigation à gauche pour créer, afficher et affecter",
+  "Wrong password or username": "Mot de passe ou nom d'utilisateur erroné"
 }
