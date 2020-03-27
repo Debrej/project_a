@@ -18,8 +18,11 @@
           </template>
         </v-img>
         <h1>
-          Welcome home, use the navigation menu on the left to create, show and
-          affect
+          {{
+            $t(
+              "Welcome home, use the navigation menu on the left to create, show and affect"
+            )
+          }}
         </h1>
       </v-col>
     </v-row>

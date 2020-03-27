@@ -2,7 +2,7 @@ import { HTTP } from "./httpService";
 
 export default class LocationRequest {
   fetch(filters = {}) {
-    return HTTP.get("location", filters);
+    return HTTP.get("location", { params: filters });
   }
   get(location) {
     return HTTP.get(`location/${location.id}`);

@@ -79,7 +79,7 @@ models.User.create({
     email: 'momo@insa-lyon.fr',
     licence_date: null,
     licence_scan_url: null,
-    profile_pic_url: null,
+    profile_pic_url: "bdc13848718c09d47476457c7344dd35",
     tshirt_size: 'L',
     alcoholic_beverage_consumption: 0,
     food_and_beverage_consumption: 1,
@@ -87,7 +87,8 @@ models.User.create({
     comment: 'Je retourne vers l\'industrie',
     experience: 'Dirlo d\'l\'INSA',
     incapacity: null,
-    specialty_id: 10
+    specialty_id: 10,
+    keycloak_user_id: "d93c53de-f257-4089-b186-eb3a742fe470"
 }).then(() => {
 models.User.create({
     first_name: 'Thibaut',
@@ -98,7 +99,7 @@ models.User.create({
     email: 't.bellanger34@gmail.com',
     licence_date: new Date('2019/04/10'),
     licence_scan_url: null,
-    profile_pic_url: 'profile_pic_1.jpg',
+    profile_pic_url: 'ea4d4234fa62fd8624036cd7c2b6cbd7',
     tshirt_size: 'XL',
     alcoholic_beverage_consumption: 15,
     food_and_beverage_consumption: 35,
@@ -106,7 +107,8 @@ models.User.create({
     comment: 'asso m\'écoeure',
     experience: 'Négociant en fromage, redoublant',
     incapacity: null,
-    specialty_id: 1
+    specialty_id: 1,
+    keycloak_user_id: "87a87b8d-c664-445b-a073-eb779a1d26f4"
 }).then(() => {
 models.User.create({
     first_name: 'Ludovic',
@@ -117,7 +119,7 @@ models.User.create({
     email: 'lc.giry@gmail.com',
     licence_date: new Date('2014/06/26'),
     licence_scan_url: null,
-    profile_pic_url: null,
+    profile_pic_url: "df638a166fbf39c8e91474902c56f2d7",
     tshirt_size: 'XS',
     alcoholic_beverage_consumption: 12,
     food_and_beverage_consumption: 22,
@@ -125,7 +127,8 @@ models.User.create({
     comment: 'j\'aimerai dire que... c\'est pas parque j\'ai un crâne moche que je suis moche',
     experience: 'président',
     incapacity: null,
-    specialty_id: 3
+    specialty_id: 3,
+    keycloak_user_id: "9ff99bc8-1c54-40f1-9e55-63c5efe6c351"
 }).then(() => {
 models.User.create({
     first_name: 'Alexis',
@@ -136,7 +139,7 @@ models.User.create({
     email: 'alexisluzy@gmail.com',
     licence_date: null,
     licence_scan_url: null,
-    profile_pic_url: null,
+    profile_pic_url: "dd316dc2d88f30b1d771dce533b239a8",
     tshirt_size: 'L',
     alcoholic_beverage_consumption: 125,
     food_and_beverage_consumption: 3,
@@ -144,7 +147,28 @@ models.User.create({
     comment: 'jaaaaaaaaaaaune',
     experience: '1  année de Qlture',
     incapacity: 'enorme sexe',
-    specialty_id: 7
+    specialty_id: 7,
+    keycloak_user_id: "f007ba5f-169e-4efe-85ed-d2111e78e322"
+}).then(() => {
+models.User.create({
+    first_name: 'Paul',
+    last_name: 'Nicolino',
+    surname: 'Nicolidiot',
+    birthday: new Date('1998/10/15'),
+    phone_number: '06 67 39 29 75',
+    email: 'nico.paul69@gmail.com',
+    licence_date: null,
+    licence_scan_url: null,
+    profile_pic_url: "fd0f1f5bbe7ba67fba0b91f2c130f18e",
+    tshirt_size: 'M',
+    alcoholic_beverage_consumption: 0,
+    food_and_beverage_consumption: 0,
+    balance: 0,
+    comment: 'on est là hein',
+    experience: 'ah tu connais hein',
+    incapacity: 'en vrai, pas trop hein',
+    specialty_id: 1,
+    keycloak_user_id: "585ef149-2167-4218-8be4-cadb952602fd"
 }).then(() => {
 models.Team.create({
     name: 'INSA',
@@ -354,5 +378,5 @@ models.Notification.create({
 });
 });
 });
-
+});
 };

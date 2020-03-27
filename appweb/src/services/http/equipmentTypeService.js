@@ -2,7 +2,7 @@ import { HTTP } from "./httpService";
 
 export default class EquipmentTypeRequest {
   fetch(filters = {}) {
-    return HTTP.get("equipment_type", filters);
+    return HTTP.get("equipment_type", { params: filters });
   }
   get(equipment_type) {
     return HTTP.get(`equipment_type/${equipment_type.id}`);

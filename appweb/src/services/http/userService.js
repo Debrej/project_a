@@ -2,7 +2,7 @@ import { HTTP } from "./httpService";
 
 export default class UserRequest {
   fetch(filters = {}) {
-    return HTTP.get("user", filters);
+    return HTTP.get("user", { params: filters });
   }
   get(user) {
     return HTTP.get(`user/${user.id}`);

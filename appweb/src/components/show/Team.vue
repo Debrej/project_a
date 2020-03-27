@@ -72,9 +72,11 @@ import { eventBus } from "../../main";
 
 import TeamRequest from "../../services/http/teamService";
 import UserRequest from "../../services/http/userService";
+import AuthenticationRequest from "../../services/http/authenticationService";
 
 const teamRequest = new TeamRequest();
 const userRequest = new UserRequest();
+const authenticationRequest = new AuthenticationRequest();
 
 export default {
   name: "Team",
@@ -85,6 +87,9 @@ export default {
     selectedTeams: [],
     teams: []
   }),
+  beforeCreate() {
+    authenticationRequest.refresh();
+  },
   created() {
     teamRequest.fetch().then(res => {
       this.teams = res.data.team;

@@ -16,3 +16,5 @@ api/assets/json/config.json
 api/assets/json/pwd.json
 !/appweb/src/assets/logo.png
 !/appweb/src/assets/lazy/logo.png
+/auth/
+/appweb/src/config/index.js
