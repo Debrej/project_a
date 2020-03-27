@@ -10,7 +10,7 @@ export default {
   name: "Map",
   props: ["center"],
   data: () => ({
-    url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+    url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png"
   }),
   mounted() {
     this.$nextTick(function() {

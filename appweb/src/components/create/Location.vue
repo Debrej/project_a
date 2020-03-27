@@ -84,7 +84,7 @@ export default {
       description: "",
       center: { lat: 45.78025361202239, lng: 4.87398136395485 }
     },
-    url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+    url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png",
     zoom: 15
   }),
   mounted() {
