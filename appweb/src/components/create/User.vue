@@ -152,7 +152,7 @@
                 </v-col>
                 <v-col cols="12" md="3">
                   <v-file-input
-                    accept=".png, .jpg"
+                    accept=".png, .jpg, .gif"
                     :label="$t('Profile picture') + ' (png, jpg)'"
                     v-model="user.profile_pic"
                   ></v-file-input>

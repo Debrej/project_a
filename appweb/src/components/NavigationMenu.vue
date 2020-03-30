@@ -16,7 +16,21 @@
 
       <v-list-item two-line>
         <v-list-item-avatar>
-          <img :src="$host + profilePicBaseURL + user.profile_pic_url" alt="" />
+          <v-img
+            :src="$host + profilePicBaseURL + user.profile_pic_url"
+            lazy-src="@/assets/lazy/loading.gif"
+            max-height="350px"
+            contain
+          >
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -68,6 +82,7 @@
 </template>
 
 <script>
+import jwt_decode from "jwt-decode";
 import { eventBus } from "../main";
 import UserRequest from "../services/http/userService";
 const userRequest = new UserRequest();
@@ -86,44 +101,64 @@ export default {
     panel: [],
     drawer: false,
     dashboard: { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
-    items: [
+    itemsBeforeRoleFiltering: [
       {
         title: "Create",
         icon: "mdi-pencil",
         url: "/create",
+        roles: ["user_modifier"],
         items: [
-          { title: "Task", url: "/task" },
-          { title: "Activity", url: "/activity" },
-          { title: "Location", url: "/location" },
-          { title: "User", url: "/user" },
-          { title: "Team", url: "/team" }
+          { title: "Task", url: "/task", roles: ["user_modifier"] },
+          { title: "Activity", url: "/activity", roles: ["user_modifier"] },
+          { title: "Location", url: "/location", roles: ["user_modifier"] },
+          { title: "User", url: "/user", roles: ["user_admin"] },
+          { title: "Team", url: "/team", roles: ["user_affect"] }
         ]
       },
       {
         title: "Show",
         icon: "mdi-eye",
         url: "/show",
+        roles: ["user"],
         items: [
-          { title: "Task", url: "/task" },
-          { title: "Activity", url: "/activity" },
-          { title: "Location", url: "/location" },
-          { title: "User", url: "/user" },
-          { title: "Equipment", url: "/equipment" },
-          { title: "Team", url: "/team" }
+          { title: "Task", url: "/task", roles: ["user"] },
+          { title: "Activity", url: "/activity", roles: ["user"] },
+          { title: "Location", url: "/location", roles: ["user"] },
+          { title: "User", url: "/user", roles: ["user"] },
+          { title: "Equipment", url: "/equipment", roles: ["user"] },
+          { title: "Team", url: "/team", roles: ["user_affect"] }
         ]
       },
       {
         title: "Assign",
         icon: "mdi-account-multiple",
         url: "/affect",
+        roles: ["user_affect"],
         items: [
-          { title: "By user", url: "/user" },
-          { title: "By task", url: "/task" }
+          { title: "By user", url: "/user", roles: ["user_affect"] },
+          { title: "By task", url: "/task", roles: ["user_affect"] }
         ]
       }
-    ]
+    ],
+    roles: [],
+    items: []
   }),
   created() {
+    this.roles = jwt_decode(localStorage.refreshToken).realm_access.roles;
+    this.items = this.itemsBeforeRoleFiltering
+      .map(item => {
+        let itemTmp = null;
+        if (item.roles.some(r => this.roles.indexOf(r) >= 0)) {
+          console.log(item);
+          item.items = item.items.filter(i =>
+            i.roles.some(r => this.roles.indexOf(r) >= 0)
+          );
+          itemTmp = item;
+        }
+        return itemTmp;
+      })
+      .filter(i => i !== null);
+
     eventBus.$on("drawer-status-change-appbar", drawer => {
       this.drawer = drawer;
     });

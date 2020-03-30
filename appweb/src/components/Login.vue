@@ -23,6 +23,7 @@
               v-model="login.username"
               :label="$t('Username')"
               required
+              autofocus
             >
             </v-text-field>
             <v-text-field
@@ -33,7 +34,9 @@
             >
             </v-text-field>
           </v-col>
-          <v-row justify="center" class="red--text font-italic">{{ $t(error) }}</v-row>
+          <v-row justify="center" class="red--text font-italic">{{
+            $t(error)
+          }}</v-row>
           <v-row justify="space-between">
             <v-col cols="12" md="4" align="center">
               <v-btn
