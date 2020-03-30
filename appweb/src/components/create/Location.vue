@@ -1,73 +1,71 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-col align="center" justify="center">
-      <h1>{{ $t("Create a location") }}</h1>
-      <v-divider></v-divider>
-      <v-form ref="location" v-model="valid">
-        <v-row justify="center">
-          <v-col cols="12" md="5">
-            <v-text-field
-              v-model="location.name"
-              :label="$t('Location name')"
-              :counter="255"
-              :rules="nameRules"
-              required
-            ></v-text-field>
-            <v-textarea
-              v-model="location.description"
-              :counter="1000"
-              :rules="descriptionRules"
-              :label="$t('Description')"
-              auto-grow
-              required
-            ></v-textarea>
-          </v-col>
-        </v-row>
-        <v-divider></v-divider>
-        <v-row justify="center">
-          <v-col cols="12" md="5">
-            <l-map
-              class="map"
-              ref="location_map"
-              :center="mapCenter"
-              :zoom="zoom"
-              @update:center="mapCenterUpdated"
-            >
-              <l-tile-layer :url="url"></l-tile-layer>
-              <l-marker
-                :lat-lng="location.center"
-                :draggable="true"
-                @update:latLng="centerUpdated"
-              ></l-marker>
-            </l-map>
-          </v-col>
-        </v-row>
-      </v-form>
-      <v-divider></v-divider>
+  <v-col align="center" justify="center" class="fill-height">
+    <h1>{{ $t("Create a location") }}</h1>
+    <v-divider></v-divider>
+    <v-form ref="location" v-model="valid">
       <v-row justify="center">
-        <v-col cols="12" md="4" align="center">
-          <v-btn color="error" class="mr-4" @click="resetCenter">
-            {{ $t("Reset map location") }}
-          </v-btn>
-        </v-col>
-        <v-col cols="12" md="4" align="center">
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="validate"
-          >
-            {{ $t("Validate") }}
-          </v-btn>
-        </v-col>
-        <v-col cols="12" md="4" align="center">
-          <v-btn color="error" class="mr-4" @click="reset">
-            {{ $t("Reset form") }}
-          </v-btn>
+        <v-col cols="12" md="5">
+          <v-text-field
+            v-model="location.name"
+            :label="$t('Location name')"
+            :counter="255"
+            :rules="nameRules"
+            required
+          ></v-text-field>
+          <v-textarea
+            v-model="location.description"
+            :counter="1000"
+            :rules="descriptionRules"
+            :label="$t('Description')"
+            auto-grow
+            required
+          ></v-textarea>
         </v-col>
       </v-row>
-    </v-col>
-  </v-container>
+      <v-divider></v-divider>
+      <v-row justify="center">
+        <v-col cols="12" md="5">
+          <l-map
+            class="map"
+            ref="location_map"
+            :center="mapCenter"
+            :zoom="zoom"
+            @update:center="mapCenterUpdated"
+          >
+            <l-tile-layer :url="url"></l-tile-layer>
+            <l-marker
+              :lat-lng="location.center"
+              :draggable="true"
+              @update:latLng="centerUpdated"
+            ></l-marker>
+          </l-map>
+        </v-col>
+      </v-row>
+    </v-form>
+    <v-divider></v-divider>
+    <v-row justify="center">
+      <v-col cols="12" md="4" align="center">
+        <v-btn color="error" class="mr-4" @click="resetCenter">
+          {{ $t("Reset map location") }}
+        </v-btn>
+      </v-col>
+      <v-col cols="12" md="4" align="center">
+        <v-btn
+          :disabled="!valid"
+          color="success"
+          class="mr-4"
+          @click="validate"
+        >
+          {{ $t("Validate") }}
+        </v-btn>
+      </v-col>
+      <v-col cols="12" md="4" align="center">
+        <v-btn color="error" class="mr-4" @click="reset">
+          {{ $t("Reset form") }}
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-col>
 </template>
 
 <script>

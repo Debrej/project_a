@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <v-content class="fill-height" fluid>
     <AppBar></AppBar>
     <NavigationMenu></NavigationMenu>
-    <v-content>
+    <v-container fluid class="fill-height">
       <router-view></router-view>
-    </v-content>
+    </v-container>
     <Footer></Footer>
-  </div>
+  </v-content>
 </template>
 
 <script>

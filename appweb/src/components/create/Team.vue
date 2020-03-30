@@ -1,72 +1,70 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-col align="center" justify="center">
-      <h1>{{ $t("Create a team") }}</h1>
-      <v-divider></v-divider>
-      <v-form ref="team" v-model="valid">
-        <v-row justify="center">
-          <v-col cols="12" md="5">
-            <v-text-field
-              v-model="team.name"
-              :label="$t('Team name')"
-              :counter="255"
-              :rules="nameRules"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="5">
-            <v-select
-              :items="users"
-              v-model="team.supervisor_id"
-              :item-text="name"
-              item-value="id"
-              :label="$t('Supervisor')"
-            ></v-select>
-          </v-col>
-        </v-row>
-        <v-divider></v-divider>
-        <v-row justify="center">
-          <v-col cols="12" md="5">
-            <v-select
-              :items="confidence_levels"
-              v-model="team.confidence_level"
-              :label="$t('Confidence level')"
-            ></v-select>
-          </v-col>
-          <v-col cols="12" md="5">
-            <v-select
-              :items="priorities"
-              v-model="team.priority"
-              :label="$t('Priority')"
-            ></v-select>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="5">
-            <v-color-picker v-model="team.color" hide-inputs></v-color-picker>
-          </v-col>
-        </v-row>
-      </v-form>
-      <v-divider></v-divider>
+  <v-col align="center" justify="center" class="fill-height">
+    <h1>{{ $t("Create a team") }}</h1>
+    <v-divider></v-divider>
+    <v-form ref="team" v-model="valid">
       <v-row justify="center">
-        <v-col cols="12" md="4" align="center">
-          <v-btn
-            :disabled="!valid || !(team.supervisor_id !== null)"
-            color="success"
-            class="mr-4"
-            @click="validate"
-          >
-            {{ $t("Validate") }}
-          </v-btn>
+        <v-col cols="12" md="5">
+          <v-text-field
+            v-model="team.name"
+            :label="$t('Team name')"
+            :counter="255"
+            :rules="nameRules"
+            required
+          ></v-text-field>
         </v-col>
-        <v-col cols="12" md="4" align="center">
-          <v-btn color="error" class="mr-4" @click="reset">
-            {{ $t("Reset form") }}
-          </v-btn>
+        <v-col cols="12" md="5">
+          <v-select
+            :items="users"
+            v-model="team.supervisor_id"
+            :item-text="name"
+            item-value="id"
+            :label="$t('Supervisor')"
+          ></v-select>
         </v-col>
       </v-row>
-    </v-col>
-  </v-container>
+      <v-divider></v-divider>
+      <v-row justify="center">
+        <v-col cols="12" md="5">
+          <v-select
+            :items="confidence_levels"
+            v-model="team.confidence_level"
+            :label="$t('Confidence level')"
+          ></v-select>
+        </v-col>
+        <v-col cols="12" md="5">
+          <v-select
+            :items="priorities"
+            v-model="team.priority"
+            :label="$t('Priority')"
+          ></v-select>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12" md="5">
+          <v-color-picker v-model="team.color" hide-inputs></v-color-picker>
+        </v-col>
+      </v-row>
+    </v-form>
+    <v-divider></v-divider>
+    <v-row justify="center">
+      <v-col cols="12" md="4" align="center">
+        <v-btn
+          :disabled="!valid || !(team.supervisor_id !== null)"
+          color="success"
+          class="mr-4"
+          @click="validate"
+        >
+          {{ $t("Validate") }}
+        </v-btn>
+      </v-col>
+      <v-col cols="12" md="4" align="center">
+        <v-btn color="error" class="mr-4" @click="reset">
+          {{ $t("Reset form") }}
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-col>
 </template>
 
 <script>
