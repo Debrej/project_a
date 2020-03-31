@@ -149,7 +149,6 @@ export default {
       .map(item => {
         let itemTmp = null;
         if (item.roles.some(r => this.roles.indexOf(r) >= 0)) {
-          console.log(item);
           item.items = item.items.filter(i =>
             i.roles.some(r => this.roles.indexOf(r) >= 0)
           );

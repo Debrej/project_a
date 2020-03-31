@@ -60,7 +60,6 @@ export default {
         localStorage.clear();
         this.$router.push("/login");
       });
-      //TODO catch the error
     }
   }
 };

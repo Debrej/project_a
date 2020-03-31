@@ -24,23 +24,6 @@ module.exports = function(app, sequelize, models, keycloak) {
   });
 
   /**
-   *   This request gets an task according to its id.
-   *   arguments :
-   *               id : the id of the task
-   *   returns :
-   *               a json object containing the task
-   */
-  app.get("/task/id/:id", keycloak.protect("realm:user"), function(req, res) {
-    Task.findByPk(req.params.id)
-      .then(task => {
-        res.send({ task: task });
-      })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
    *  This request gets all the tasks that require one specific user
    *  arguments:
    *              user_id: the id of the user
@@ -119,16 +102,7 @@ module.exports = function(app, sequelize, models, keycloak) {
     req,
     res
   ) {
-    Task.create({
-      name: req.body.name,
-      description: req.body.description,
-      start_date: req.body.start_date,
-      end_date: req.body.end_date,
-      supervisor_id: req.body.supervisor_id,
-      team_id: req.body.team_id,
-      location_id: req.body.location_id,
-      activity_id: req.body.activity_id
-    })
+    Task.create(req.body)
       .then(task => {
         res.send({ task: task });
       })
@@ -153,29 +127,17 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              the updated object
    */
-  app.put("/task/:id", keycloak.protect("realm:user_modifier"), function(
+  app.put("/task", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
-    Task.update(
-      {
-        name: req.body.name,
-        description: req.body.description,
-        start_date: req.body.start_date,
-        end_date: req.body.end_date,
-        supervisor_id: req.body.supervisor_id,
-        team_id: req.body.team_id,
-        location_id: req.body.location_id,
-        activity_id: req.body.activity_id
-      },
-      {
-        where: {
-          id: req.params.id
-        }
+    Task.update(req.body, {
+      where: {
+        id: req.body.id
       }
-    )
+    })
       .then(() => {
-        Task.findByPk(req.params.id)
+        Task.findByPk(req.body.id)
           .then(task => {
             res.send({ task: task });
           })
@@ -195,13 +157,13 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/task/:id", keycloak.protect("realm:user_modifier"), function(
+  app.delete("/task", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
     Task.destroy({
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     })
       .then(result => {

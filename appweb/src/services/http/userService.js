@@ -4,14 +4,11 @@ export default class UserRequest {
   fetch(filters = {}) {
     return HTTP.get("user", { params: filters });
   }
-  get(user) {
-    return HTTP.get(`user/${user.id}`);
-  }
   post(user) {
     return HTTP.post("user", user);
   }
   put(user) {
-    return HTTP.put(`user/${user.id}`, user);
+    return HTTP.put("user", user);
   }
 
   uploadFile(user, fileName, data) {

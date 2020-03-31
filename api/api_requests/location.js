@@ -23,26 +23,6 @@ module.exports = function(app, sequelize, models, keycloak) {
   });
 
   /**
-   *   This request gets a location according to its id.
-   *   arguments :
-   *               id : the id of the location
-   *   returns :
-   *               a json object containing the location
-   */
-  app.get("/location/id/:id", keycloak.protect("realm:user"), function(
-    req,
-    res
-  ) {
-    Location.findByPk(req.params.id)
-      .then(location => {
-        res.send({ location: location });
-      })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
    *  This requests creates a new location with the name, description and gps coordinates.
    *  arguments :
    *              name: the name of the location
@@ -57,12 +37,7 @@ module.exports = function(app, sequelize, models, keycloak) {
     req,
     res
   ) {
-    Location.create({
-      name: req.body.name,
-      description: req.body.description,
-      gps_long: req.body.gps_long,
-      gps_lat: req.body.gps_lat
-    })
+    Location.create(req.body)
       .then(location => {
         res.send({ location: location });
       })
@@ -83,25 +58,17 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              the updated object
    */
-  app.put("/location/:id", keycloak.protect("realm:user_modifier"), function(
+  app.put("/location", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
-    Location.update(
-      {
-        name: req.body.name,
-        description: req.body.description,
-        gps_long: req.body.gps_long,
-        gps_lat: req.body.gps_lat
-      },
-      {
-        where: {
-          id: req.params.id
-        }
+    Location.update(req.body, {
+      where: {
+        id: req.body.id
       }
-    )
+    })
       .then(() => {
-        Location.findByPk(req.params.id)
+        Location.findByPk(req.body.id)
           .then(location => {
             res.send({ location: location });
           })
@@ -121,13 +88,13 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/location/:id", keycloak.protect("realm:user_modifier"), function(
+  app.delete("/location", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
     Location.destroy({
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     })
       .then(result => {

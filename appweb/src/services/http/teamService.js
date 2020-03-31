@@ -4,22 +4,28 @@ export default class TeamRequest {
   fetch(filters = {}) {
     return HTTP.get("team", { params: filters });
   }
-  get(team) {
-    return HTTP.get(`team/${team.id}`);
-  }
   post(team) {
     return HTTP.post("team", team);
   }
   put(team) {
-    return HTTP.put(`team/${team.id}`, team);
+    return HTTP.put("team", team);
   }
 
-  // FIXME: I should be a post without data to send
   addUserToTeam(user, team) {
-    return HTTP.post(`user/${user.id}/team/${team.id}`);
+    const body = {
+      user_id: user.id,
+      team_id: team.id
+    };
+    return HTTP.post("user/team", body);
   }
-  // FIXME: I should be in user service
+
   removeUserFromTeam(user, team) {
-    return HTTP.delete(`user/${user.id}/team/${team.id}`);
+    const body = {
+      data: {
+        user_id: user.id,
+        team_id: team.id
+      }
+    };
+    return HTTP.delete("user/team", body);
   }
 }

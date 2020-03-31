@@ -33,19 +33,6 @@ module.exports = function(app, sequelize, models, keycloak) {
   });
 
   /**
-   *   This request gets a user according to its id.
-   *   arguments :
-   *               id : the id of the user
-   *   returns :
-   *               a json object containing the user
-   */
-  app.get("/user/id/:id", keycloak.protect("realm:user"), function(req, res) {
-    User.findByPk(req.params.id).then(user => {
-      res.send({ user: user });
-    });
-  });
-
-  /**
    *  This requests creates a new user with the attributes of the user (too long for description)
    *  arguments :
    *              first_name: the first name of the user
@@ -70,25 +57,7 @@ module.exports = function(app, sequelize, models, keycloak) {
    *              a json object containing the created user
    */
   app.post("/user", keycloak.protect("realm:user_admin"), function(req, res) {
-    User.create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      surname: req.body.surname,
-      birthday: req.body.birthday,
-      phone_number: req.body.phone_number,
-      email: req.body.email,
-      licence_date: req.body.licence_date,
-      licence_scan_url: req.body.licence_scan_url,
-      profile_pic_url: req.body.profile_pic_url,
-      tshirt_size: req.body.tshirt_size,
-      alcoholic_beverage_consumption: req.body.alcoholic_beverage_consumption,
-      food_and_beverage_consumption: req.body.food_and_beverage_consumption,
-      balance: req.body.balance,
-      comment: req.body.comment,
-      experience: req.body.experience,
-      incapacity: req.body.incapacity,
-      specialty_id: req.body.specialty_id
-    })
+    User.create(req.body)
       .then(user => {
         res.send({ user: user });
       })
@@ -122,38 +91,14 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              the updated object
    */
-  app.put("/user/:id", keycloak.protect("realm:user_admin"), function(
-    req,
-    res
-  ) {
-    User.update(
-      {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        surname: req.body.surname,
-        birthday: req.body.birthday,
-        phone_number: req.body.phone_number,
-        email: req.body.email,
-        licence_date: req.body.licence_date,
-        licence_scan_url: req.body.licence_scan_url,
-        profile_pic_url: req.body.profile_pic_url,
-        tshirt_size: req.body.tshirt_size,
-        alcoholic_beverage_consumption: req.body.alcoholic_beverage_consumption,
-        food_and_beverage_consumption: req.body.food_and_beverage_consumption,
-        balance: req.body.balance,
-        comment: req.body.comment,
-        experience: req.body.experience,
-        incapacity: req.body.incapacity,
-        specialty_id: req.body.specialty_id
-      },
-      {
-        where: {
-          id: req.params.id
-        }
+  app.put("/user", keycloak.protect("realm:user_admin"), function(req, res) {
+    User.update(req.body, {
+      where: {
+        id: req.body.id
       }
-    )
+    })
       .then(() => {
-        User.findByPk(req.params.id)
+        User.findByPk(req.body.id)
           .then(user => {
             res.send({ user: user });
           })
@@ -173,13 +118,10 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/user/:id", keycloak.protect("realm:user_admin"), function(
-    req,
-    res
-  ) {
+  app.delete("/user", keycloak.protect("realm:user_admin"), function(req, res) {
     User.destroy({
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     })
       .then(result => {
@@ -202,7 +144,7 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns:
    *              a json object containing the updated user
    */
-  app.put("/user/:id/validate", keycloak.protect("realm:user_affect"), function(
+  app.put("/user/validate", keycloak.protect("realm:user_affect"), function(
     req,
     res
   ) {
@@ -212,12 +154,12 @@ module.exports = function(app, sequelize, models, keycloak) {
       },
       {
         where: {
-          id: req.params.id
+          id: req.body.id
         }
       }
     )
       .then(() => {
-        User.findByPk(req.params.id)
+        User.findByPk(req.body.id)
           .then(user => {
             res.send({ user: user });
           })
@@ -238,34 +180,33 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns:
    *              a json object containing the updated user
    */
-  app.put(
-    "/user/:id/invalidate",
-    keycloak.protect("realm:user_affect"),
-    function(req, res) {
-      User.update(
-        {
-          validity_status: false
-        },
-        {
-          where: {
-            id: req.params.id
-          }
+  app.put("/user/invalidate", keycloak.protect("realm:user_affect"), function(
+    req,
+    res
+  ) {
+    User.update(
+      {
+        validity_status: false
+      },
+      {
+        where: {
+          id: req.body.id
         }
-      )
-        .then(() => {
-          User.findByPk(req.params.id)
-            .then(user => {
-              res.send({ user: user });
-            })
-            .catch(err => {
-              res.status(500).send({ error: err });
-            });
-        })
-        .catch(err => {
-          res.status(500).send({ error: err });
-        });
-    }
-  );
+      }
+    )
+      .then(() => {
+        User.findByPk(req.body.id)
+          .then(user => {
+            res.send({ user: user });
+          })
+          .catch(err => {
+            res.status(500).send({ error: err });
+          });
+      })
+      .catch(err => {
+        res.status(500).send({ error: err });
+      });
+  });
 
   //endregion
 
@@ -278,11 +219,8 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns:
    *              a json object containing the relations
    */
-  app.get("/user/:user_id/team", keycloak.protect("realm:user"), function(
-    req,
-    res
-  ) {
-    User.findByPk(req.params.user_id)
+  app.get("/user/team", keycloak.protect("realm:user"), function(req, res) {
+    User.findByPk(req.query.user_id)
       .then(user => {
         user
           .getTeams()
@@ -307,34 +245,33 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns:
    *              a json object containing the created relation
    */
-  app.post(
-    "/user/:user_id/team/:team_id",
-    keycloak.protect("realm:user_affect"),
-    function(req, res) {
-      let Team = models.Team;
-      User.findByPk(req.params.user_id)
-        .then(user => {
-          Team.findByPk(req.params.team_id)
-            .then(team => {
-              user
-                .addTeams(team)
-                .then(result => {
-                  res.send({ user_teams: result });
-                })
-                .catch(err => {
-                  console.log(err);
-                  res.status(500).send({ error: err });
-                });
-            })
-            .catch(err => {
-              res.status(500).send({ error: err });
-            });
-        })
-        .catch(err => {
-          res.status(500).send({ error: err });
-        });
-    }
-  );
+  app.post("/user/team", keycloak.protect("realm:user_affect"), function(
+    req,
+    res
+  ) {
+    let Team = models.Team;
+    User.findByPk(req.body.user_id)
+      .then(user => {
+        Team.findByPk(req.body.team_id)
+          .then(team => {
+            user
+              .addTeams(team)
+              .then(result => {
+                res.send({ user_teams: result });
+              })
+              .catch(err => {
+                console.log(err);
+                res.status(500).send({ error: err });
+              });
+          })
+          .catch(err => {
+            res.status(500).send({ error: err });
+          });
+      })
+      .catch(err => {
+        res.status(500).send({ error: err });
+      });
+  });
 
   /**
    *  This request deletes a team from a user
@@ -344,34 +281,33 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns:
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete(
-    "/user/:user_id/team/:team_id",
-    keycloak.protect("realm:user_affect"),
-    function(req, res) {
-      let Team = models.Team;
-      User.findByPk(req.params.user_id)
-        .then(user => {
-          Team.findByPk(req.params.team_id)
-            .then(team => {
-              user
-                .removeTeams(team)
-                .then(result => {
-                  res.send({ result: result });
-                })
-                .catch(err => {
-                  console.log(err);
-                  res.status(500).send({ error: err });
-                });
-            })
-            .catch(err => {
-              res.status(500).send({ error: err });
-            });
-        })
-        .catch(err => {
-          res.status(500).send({ error: err });
-        });
-    }
-  );
+  app.delete("/user/team", keycloak.protect("realm:user_affect"), function(
+    req,
+    res
+  ) {
+    let Team = models.Team;
+    User.findByPk(req.body.user_id)
+      .then(user => {
+        Team.findByPk(req.body.team_id)
+          .then(team => {
+            user
+              .removeTeams(team)
+              .then(result => {
+                res.send({ result: result });
+              })
+              .catch(err => {
+                console.log(err);
+                res.status(500).send({ error: err });
+              });
+          })
+          .catch(err => {
+            res.status(500).send({ error: err });
+          });
+      })
+      .catch(err => {
+        res.status(500).send({ error: err });
+      });
+  });
 
   //endregion
 

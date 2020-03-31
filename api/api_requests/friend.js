@@ -12,28 +12,10 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  return:
    *              a json array of friendships
    */
-  app.get("/friendship/", function(req, res) {
-    Friendship.findAll()
+  app.get("/friendship", function(req, res) {
+    Friendship.findAll({ where: req.query })
       .then(friends => {
         res.send({ friendships: friends });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
-   *  This request gets a specific friendship according to its id
-   *  arguments:
-   *              id: the id of the friendship
-   *  return:
-   *              a json object containing the friendship
-   */
-  app.get("/friendship/id/:id", function(req, res) {
-    Friendship.findByPk(req.params.id)
-      .then(friend => {
-        res.send({ friendship: friend });
       })
       .catch(err => {
         console.log(err);
@@ -48,12 +30,12 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  return:
    *              a json array of users
    */
-  app.get("/friendship/user/:user_id", function(req, res) {
+  app.get("/friendship/user", function(req, res) {
     Friendship.findAll({
       where: {
         [Op.or]: {
-          user_id: req.params.user_id,
-          friend_id: req.params.user_id
+          user_id: req.query.user_id,
+          friend_id: req.query.user_id
         }
       }
     })
@@ -69,7 +51,7 @@ module.exports = function(app, sequelize, models, Sequelize) {
             [Op.and]: {
               id: user_ids,
               [Op.not]: {
-                id: req.params.user_id
+                id: req.query.user_id
               }
             }
           }
@@ -116,10 +98,10 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  return:
    *              a json array of the created friendships
    */
-  app.put("/friendship/:id", function(req, res) {
-    Friendship.update(req.body, { where: { id: req.params.id } })
+  app.put("/friendship", function(req, res) {
+    Friendship.update(req.body, { where: { id: req.body.id } })
       .then(() => {
-        Friendship.findByPk(req.params.id)
+        Friendship.findByPk(req.body.id)
           .then(friend => {
             res.send({ friendship: friend });
           })
@@ -141,8 +123,8 @@ module.exports = function(app, sequelize, models, Sequelize) {
    *  return:
    *              a result being 1 if the request succeeded, 0 else
    */
-  app.delete("/friendship/:id", function(req, res) {
-    Friendship.destroy({ where: { id: req.params.id } })
+  app.delete("/friendship", function(req, res) {
+    Friendship.destroy({ where: { id: req.body.id } })
       .then(result => {
         res.send({ result: result });
       })

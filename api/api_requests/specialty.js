@@ -23,26 +23,6 @@ module.exports = function(app, sequelize, models, keycloak) {
   });
 
   /**
-   *   This request gets a specialty according to its id.
-   *   arguments :
-   *               id : the id of the specialty
-   *   returns :
-   *               a json object containing the specialty
-   */
-  app.get("/specialty/id/:id", keycloak.protect("realm:user"), function(
-    req,
-    res
-  ) {
-    Specialty.findByPk(req.params.id)
-      .then(specialty => {
-        res.send({ specialty: specialty });
-      })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
    *  This requests creates a new specialty with the name and year
    *  arguments :
    *              name: the name of the specialty
@@ -51,11 +31,11 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              a json object containing the created specialty
    */
-  app.post("/specialty", keycloak.protect("realm:admin"), function(req, res) {
-    Specialty.create({
-      name: req.body.name,
-      year: req.body.year
-    })
+  app.post("/specialty", keycloak.protect("realm:user_admin"), function(
+    req,
+    res
+  ) {
+    Specialty.create(req.body)
       .then(specialty => {
         res.send({ specialty: specialty });
       })
@@ -74,23 +54,17 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              the updated object
    */
-  app.put("/specialty/:id", keycloak.protect("realm:admin"), function(
+  app.put("/specialty", keycloak.protect("realm:user_admin"), function(
     req,
     res
   ) {
-    Specialty.update(
-      {
-        name: req.body.name,
-        year: req.body.year
-      },
-      {
-        where: {
-          id: req.params.id
-        }
+    Specialty.update(req.body, {
+      where: {
+        id: req.body.id
       }
-    )
+    })
       .then(() => {
-        Specialty.findByPk(req.params.id)
+        Specialty.findByPk(req.body.id)
           .then(specialty => {
             res.send({ specialty: specialty });
           })
@@ -110,13 +84,13 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/specialty/:id", keycloak.protect("realm:admin"), function(
+  app.delete("/specialty", keycloak.protect("realm:user_admin"), function(
     req,
     res
   ) {
     Specialty.destroy({
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     })
       .then(result => {

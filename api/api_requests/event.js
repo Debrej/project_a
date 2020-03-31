@@ -24,23 +24,6 @@ module.exports = function(app, sequelize, models, keycloak) {
   });
 
   /**
-   *   This request gets an event according to its id.
-   *   arguments :
-   *               id : the id of the event
-   *   returns :
-   *               a json object containing the event
-   */
-  app.get("/event/id/:id", keycloak.protect("realm:user"), function(req, res) {
-    Event.findByPk(req.params.id)
-      .then(event => {
-        res.send({ event: event });
-      })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
    *   This request create a new event with the name, description and start and end dates.
    *   arguments :
    *               name : a 255 characters maximum name for the event
@@ -51,13 +34,8 @@ module.exports = function(app, sequelize, models, keycloak) {
    *   returns :
    *               a json object containing the created event
    */
-  app.post("/event", keycloak.protect("realm:admin"), function(req, res) {
-    Event.create({
-      name: req.body.name,
-      description: req.body.description,
-      start_date: new Date(req.body.start_date),
-      end_date: new Date(req.body.end_date)
-    })
+  app.post("/event", keycloak.protect("realm:user_admin"), function(req, res) {
+    Event.create(req.body)
       .then(event => {
         res.send({ event: event });
       })
@@ -75,7 +53,7 @@ module.exports = function(app, sequelize, models, keycloak) {
    */
   app.put(
     "/event/photo/:id",
-    keycloak.protect("realm:admin"),
+    keycloak.protect("realm:user_admin"),
     upload.single("file"),
     function(req, res) {
       const file = global.appRoot + "/uploads/event/" + req.file.filename;
@@ -95,7 +73,7 @@ module.exports = function(app, sequelize, models, keycloak) {
             }
           )
             .then(() => {
-              Event.findByPk(req.params.id)
+              Event.findByPk(req.body.id)
                 .then(event => {
                   res.send({ event: event });
                 })
@@ -123,23 +101,14 @@ module.exports = function(app, sequelize, models, keycloak) {
    *   returns :
    *               the updated object
    */
-  app.put("/event/:id", keycloak.protect("realm:admin"), function(req, res) {
-    Event.update(
-      {
-        name: req.body.name,
-        description: req.body.description,
-        start_date: new Date(req.body.start_date),
-        end_date: new Date(req.body.end_date),
-        logo_url: req.body.logo_url
-      },
-      {
-        where: {
-          id: req.params.id
-        }
+  app.put("/event", keycloak.protect("realm:user_admin"), function(req, res) {
+    Event.update(req.body, {
+      where: {
+        id: req.body.id
       }
-    )
+    })
       .then(() => {
-        Event.findByPk(req.params.id)
+        Event.findByPk(req.body.id)
           .then(event => {
             res.send({ event: event });
           })
@@ -159,10 +128,13 @@ module.exports = function(app, sequelize, models, keycloak) {
    *   returns :
    *               a result being 1 if succeeded, 0 else
    */
-  app.delete("/event/:id", keycloak.protect("realm:admin"), function(req, res) {
+  app.delete("/event", keycloak.protect("realm:user_admin"), function(
+    req,
+    res
+  ) {
     Event.destroy({
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     })
       .then(event => {

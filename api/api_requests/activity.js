@@ -23,51 +23,6 @@ module.exports = function(app, sequelize, models, keycloak) {
   });
 
   /**
-   *   This request gets an activity according to its id.
-   *   arguments :
-   *               id : the id of the activity
-   *   returns :
-   *               a json object containing the activity
-   */
-  app.get("/activity/id/:id", keycloak.protect("realm:user"), function(
-    req,
-    res
-  ) {
-    Activity.findByPk(req.params.id)
-      .then(activity => {
-        res.send({ activity: activity });
-      })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
-   *  This request gets all the activities of a given supervisor
-   *  arguments :
-   *              supervisor_id : the id of the user
-   *  returns :
-   *              a json array of activities
-   */
-  app.get(
-    "/activity/supervisor/:supervisor_id",
-    keycloak.protect("realm:user"),
-    function(req, res) {
-      Activity.findAll({
-        where: {
-          supervisor_id: req.params.supervisor_id
-        }
-      })
-        .then(activities => {
-          res.send({ activities: activities });
-        })
-        .catch(err => {
-          res.status(500).send({ error: err });
-        });
-    }
-  );
-
-  /**
    *  This requests creates a new activity with the name, description, starting and ending date, supervisor id and event id
    *  arguments :
    *              name: the name of the activity
@@ -115,13 +70,13 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              the updated object
    */
-  app.put("/activity/:id", keycloak.protect("realm:user_modifier"), function(
+  app.put("/activity", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
-    Activity.update(req.body, { where: { id: req.params.id } })
+    Activity.update(req.body, { where: { id: req.body.id } })
       .then(() => {
-        Activity.findByPk(req.params.id)
+        Activity.findByPk(req.body.id)
           .then(activity => {
             res.send({ activity: activity });
           })
@@ -141,15 +96,11 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/activity/:id", keycloak.protect("realm:user_modifier"), function(
+  app.delete("/activity", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
-    Activity.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
+    Activity.destroy({ where: { id: req.body.id } })
       .then(result => {
         res.send({ result: result });
       })

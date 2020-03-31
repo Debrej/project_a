@@ -19,95 +19,6 @@ module.exports = function(app, sequelize, models, keycloak) {
   });
 
   /**
-   *   This request gets a comment according to its id.
-   *   arguments :
-   *               id : the id of the comment
-   *   returns :
-   *               a json object containing the comment
-   */
-  app.get("/comment/id/:id", keycloak.protect("realm:user"), function(
-    req,
-    res
-  ) {
-    Comment.findByPk(req.params.id).then(comment => {
-      res.send({ comment: comment });
-    });
-  });
-
-  /**
-   *  This request get all comment from one user
-   *  arguments :
-   *              user_id : the id of the user
-   *  returns :
-   *              an array of comments
-   */
-  app.get("/comment/user/:user_id", keycloak.protect("realm:user"), function(
-    req,
-    res
-  ) {
-    Comment.findAll({
-      where: {
-        user_id: req.params.user_id
-      }
-    })
-      .then(comments => {
-        res.send({ comments: comments });
-      })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
-   *  This request get all comment from one task
-   *  arguments :
-   *              task_id : the id of the task
-   *  returns :
-   *              an array of comments
-   */
-  app.get("/comment/task/:task_id", keycloak.protect("realm:user"), function(
-    req,
-    res
-  ) {
-    Comment.findAll({
-      where: {
-        task_id: req.params.task_id
-      }
-    })
-      .then(comments => {
-        res.send({ comments: comments });
-      })
-      .catch(err => {
-        res.status(500).send({ error: err });
-      });
-  });
-
-  /**
-   *  This request get all comment from one activity
-   *  arguments :
-   *              activity_id : the id of the activity
-   *  returns :
-   *              an array of comments
-   */
-  app.get(
-    "/comment/activity/:activity_id",
-    keycloak.protect("realm:user"),
-    function(req, res) {
-      Comment.findAll({
-        where: {
-          activity_id: req.params.activity_id
-        }
-      })
-        .then(comments => {
-          res.send({ comments: comments });
-        })
-        .catch(err => {
-          res.status(500).send({ error: err });
-        });
-    }
-  );
-
-  /**
    *  This requests creates a new comment with the content, date, user, activity and task.
    *  arguments :
    *              content: the content of the comment
@@ -123,13 +34,7 @@ module.exports = function(app, sequelize, models, keycloak) {
     req,
     res
   ) {
-    Comment.create({
-      content: req.body.content,
-      date: req.body.date,
-      user_id: req.body.user_id,
-      activity_id: req.body.activity_id,
-      task_id: req.body.task_id
-    })
+    Comment.create(req.body)
       .then(comment => {
         res.send({ comment: comment });
       })
@@ -151,26 +56,17 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              the updated object
    */
-  app.put("/comment/:id", keycloak.protect("realm:user_modifier"), function(
+  app.put("/comment", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
-    Comment.update(
-      {
-        content: req.body.content,
-        date: req.body.date,
-        user_id: req.body.user_id,
-        activity_id: req.body.activity_id,
-        task_id: req.body.task_id
-      },
-      {
-        where: {
-          id: req.params.id
-        }
+    Comment.update(req.body, {
+      where: {
+        id: req.body.id
       }
-    )
+    })
       .then(() => {
-        Comment.findByPk(req.params.id)
+        Comment.findByPk(req.body.id)
           .then(comment => {
             res.send({ comment: comment });
           })
@@ -190,13 +86,13 @@ module.exports = function(app, sequelize, models, keycloak) {
    *  returns :
    *              a result being 1 if succeeded, 0 else
    */
-  app.delete("/comment/:id", keycloak.protect("realm:user_modifier"), function(
+  app.delete("/comment", keycloak.protect("realm:user_modifier"), function(
     req,
     res
   ) {
     Comment.destroy({
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     })
       .then(result => {

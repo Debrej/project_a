@@ -91,7 +91,6 @@ export default {
             err.response.status === 401 &&
             err.response.data.error_description === "Invalid user credentials"
           ) {
-            console.log("password error");
             this.error = "Wrong password or username";
           }
         });
